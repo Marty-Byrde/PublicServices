@@ -82,7 +82,7 @@ function Lecture(lecture: Lecture) {
         <div className="flex justify-between mt-2">
           <div className="flex flex-col gap-0">
             <p className="font-semibold text-gray-700 dark:text-neutral-300">Curriculum</p>
-            <div className='text-gray-600 dark:text-gray-400 tracking-widest '>{lecture.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(")[1].split(")")[0]}</div>
+            <div className='text-gray-600 dark:text-gray-400 tracking-widest '>{lecture.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(").at(-1).split(")")[0]}</div>
           </div>
           <div className="flex flex-col gap-0">
             <p className="font-semibold text-gray-700 dark:text-neutral-300 ">Available</p>
