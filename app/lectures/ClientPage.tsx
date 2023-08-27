@@ -62,7 +62,7 @@ function Lecture(lecture: Lecture) {
     )
   }
 
-  const registrationPossible = () => lecture.maxRegistrations === 0 || lecture.maxRegistrations > lecture.registrations
+  const registrationPossible = () => lecture.maxRegistrations === -1 || lecture.maxRegistrations > lecture.registrations
 
   return (
     <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm w-full self-stretch">
