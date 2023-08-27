@@ -90,7 +90,7 @@ export default async function LectureDetails({ params }) {
     return (
       <div className='flex flex-col gap-4'>
         {description?.map(desc => (
-          <div className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200'>
+          <div key={desc.field} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200'>
             <div className='flex-2 md:w-[160px] md:break-words text-center font-semibold tracking-wider text-lg'>{desc.field}</div>
             <div className='flex-1 whitespace-pre-wrap'>{desc.content}</div>
           </div>

@@ -62,14 +62,14 @@ function Lecture(lecture: Lecture) {
     )
   }
 
-  const registrationPossible = () => lecture.maxRegistrations === 0 || lecture.maxRegistrations > lecture.registrations
+  const registrationPossible = () => lecture.maxRegistrations === -1 || lecture.maxRegistrations > lecture.registrations
 
   return (
     <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm w-full self-stretch">
       <Icon/>
       <div className="mt-6 h-[90%]">
         <div className='my-2 h-14 flex items-center'>
-          <Link href={`/lectures/${lecture.id}`} className="text-lg font-semibold text-black dark:text-white line-clamp-2 hover:text-primary">{lecture.name}</Link>
+          <Link href={`/lectures/${lecture.id}`} className="text-lg font-semibold text-black dark:text-white line-clamp-2 hover:text-primary dark:hover:text-primary">{lecture.name}</Link>
         </div>
         <div className='flex flex-wrap w-full justify-between gap-x-8 gap-y-3 items-center my-3' aria-description='lecture-short-stats'>
           <BulletPoint value={`${lecture.ects} ECTS`} img={Star}/>
@@ -82,7 +82,7 @@ function Lecture(lecture: Lecture) {
         <div className="flex justify-between mt-2">
           <div className="flex flex-col gap-0">
             <p className="font-semibold text-gray-700 dark:text-neutral-300">Curriculum</p>
-            <div className='text-gray-600 dark:text-gray-400 tracking-widest '>{lecture.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(")[1].split(")")[0]}</div>
+            <div className='text-gray-600 dark:text-gray-400 tracking-widest '>{lecture.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(").at(-1).split(")")[0]}</div>
           </div>
           <div className="flex flex-col gap-0">
             <p className="font-semibold text-gray-700 dark:text-neutral-300 ">Available</p>
