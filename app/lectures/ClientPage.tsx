@@ -69,7 +69,7 @@ function Lecture(lecture: Lecture) {
       <Icon/>
       <div className="mt-6 h-[90%]">
         <div className='my-2 h-14 flex items-center'>
-          <Link href={`/lectures/${lecture.id}`} className="text-lg font-semibold text-black dark:text-white line-clamp-2 hover:text-primary">{lecture.name}</Link>
+          <Link href={`/lectures/${lecture.id}`} className="text-lg font-semibold text-black dark:text-white line-clamp-2 hover:text-primary dark:hover:text-primary">{lecture.name}</Link>
         </div>
         <div className='flex flex-wrap w-full justify-between gap-x-8 gap-y-3 items-center my-3' aria-description='lecture-short-stats'>
           <BulletPoint value={`${lecture.ects} ECTS`} img={Star}/>
