@@ -28,6 +28,12 @@ export default async function RootLayout({ children, }: { children: React.ReactN
   return (
     <html lang="en" data-theme={useColorModeValue("cmyk", "halloween")} className={`h-full ${background} ${useColorModeValue("", "dark")}`}>
 
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/PWA_Icon.png"></link>
+        <title>Services</title>
+      </head>
+
       <body className='h-full bg-gradient-to-r from-base-100 to-base-100'>
 
         <NavigationBar {...navigationBarProps} />
