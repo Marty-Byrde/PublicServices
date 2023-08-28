@@ -25,6 +25,7 @@
     "framer-motion": "^10.12.5",
     "mongodb_handler": "^1.0.9",
     "next": "13.3.2",
+    "next-pwa": "^5.6.0",
     "nookies": "^2.5.2",
     "postcss": "8.4.23",
     "re-resizable": "^6.9.9",
