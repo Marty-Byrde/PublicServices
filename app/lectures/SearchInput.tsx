@@ -102,7 +102,7 @@ export default function SearchInput(props: SearchInputProps){
 
     <form onSubmit={handleSearch} className='mx-[10%]'>
       <div className="flex relative ">
-        <button onBlur={() => setIsOptionOpen(false)} onClick={(e) => setIsOptionOpen(prev => !prev)}
+        <button onClick={(e) => setIsOptionOpen(prev => !prev)}
                 className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center
                 text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none
                 focus:ring-gray-100 dark:bg-stone-600 dark:hover:bg-stone-700 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">{options[filter].label}<svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
