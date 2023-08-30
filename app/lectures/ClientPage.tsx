@@ -12,6 +12,7 @@ import Checkmark from "@/public/lectureIcons/checkmark.png"
 import Cross from "@/public/lectureIcons/cross.svg"
 import SearchInput from "@/app/lectures/SearchInput"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
+import ServerImage from "@/app/(components)/ResponsiveTags/ServerImage"
 
 
 export default function ClientPage({ initialLectures }: { initialLectures: Lecture[] }) {
@@ -100,13 +101,19 @@ function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean })
           </div>
           <div className="flex flex-col gap-0">
             <p className="font-semibold text-gray-700 dark:text-neutral-300 ">Available</p>
-            <div className="text-gray-600 dark:text-gray-400 font-semibold flex gap-2 justify-center items-center">
-              <div className={isPending ? "hidden" : ""}>
-                {registrationPossible() ?
-                  <Image src={Checkmark} alt={'check'} width={20} height={20}/> :
-                  <Image src={Cross} alt={'cross'} width={14} className='w-3.5 h-3.5'/>
-                }
-              </div>
+            <div className={`text-gray-600 dark:text-gray-400 font-semibold flex gap-2 justify-center items-center ${isPending ? "mt-1.5" : ""}`}>
+              <ServerImage src={registrationPossible() ? Checkmark : Cross}
+                           alt='check'
+                           width={20}
+                           isPending={isPending}
+
+                           className={!registrationPossible() ? "w-3.5 h-3.5" : ""}
+
+                           skBackground='bg-inherit'
+                           skDarkBackground='bg-inherit'
+                           skeletonClassName='text-gray-500 dark:text-gray-400'
+                           skWidth='w-3'
+                           skHeight='h-3'/>
 
               <Text content={registrationPossible() ? "Yes" : "No"}
                     color='text-gray-600'
@@ -114,7 +121,6 @@ function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean })
                     textSize='md'
                     className='font-semibold'
 
-                    skeletonClassName='mt-3'
                     skBackground='bg-gray-400'
                     skWidth='w-16'
                     isPending={isPending}
