@@ -12,23 +12,25 @@ interface TextProps {
   skHeight?: "h-2" | string,
   skBackground?: "bg-gray-200" | string,
   skDarkBackground?: "dark:bg-gray-700" | string,
+  skLines?: number,
   skeletonClassName?: string,
 }
 
 export function Text(props: TextProps) {
   const { content, isPending, color, darkColor, textSize, className } = props
-  const { skeletonClassName, skWidth, skHeight, skBackground, skDarkBackground } = props
+  const { skeletonClassName, skWidth, skHeight, skBackground, skDarkBackground, skLines } = props
 
   if (isPending) {
-    return (
-      <div className='animate-pulse '>
-        <div className={`
+    const Line = (<div className={`
         ${skWidth || "w-48"}
         ${skHeight || "h-2"}
         ${skBackground || "bg-gray-200"}
         ${skDarkBackground || "dark:bg-gray-500"}
         
-        rounded-full ${skeletonClassName}`}></div>
+        rounded-full ${skeletonClassName}`} />)
+    return (
+      <div className='animate-pulse '>
+        {skLines ? Array(skLines).fill(Line) : Line}
       </div>
     )
   }
