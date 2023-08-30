@@ -34,7 +34,7 @@ export function Text(props: TextProps) {
   }
 
   return (
-    <div className={`${textSize || "text-lg"} ${color || "text-black"} ${darkColor || "text-white"} ${className}`}>
+    <div className={`${textSize || "text-lg"} ${color || "text-black"} ${darkColor || "dark:text-white"} ${className}`}>
       {content}
     </div>
   )
