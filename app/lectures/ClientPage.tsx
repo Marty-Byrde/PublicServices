@@ -70,7 +70,10 @@ function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean })
       <Icon/>
       <div className="mt-6 h-[90%]">
         <div className='my-2 h-14 flex items-center'>
-          <Link href={`/lectures/${lecture.id}`} className="text-lg font-semibold text-black dark:text-white line-clamp-2 hover:text-primary dark:hover:text-primary">{lecture.name}</Link>
+          <Link href={`/lectures/${lecture.id}`}>
+            <Text content={lecture.name} isPending={isPending} skBackground='bg-gray-400' skHeight='h-2.5' skWidth='w-[20rem]' color='text-black' skLines={2} skeletonClassName={'mb-2'}
+                  className='text-lg font-semibold line-clamp-2 hover:text-primary dark:hover:text-primary' />
+          </Link>
         </div>
         <div className='flex flex-wrap w-full justify-between gap-x-8 gap-y-3 items-center my-3' aria-description='lecture-short-stats'>
           <BulletPoint value={`${lecture.ects} ECTS`} img={Star}/>
