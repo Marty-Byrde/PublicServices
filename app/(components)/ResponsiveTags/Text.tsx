@@ -1,10 +1,5 @@
-interface TextProps {
-  content: string,
+export interface ResponsiveElementProps {
   isPending?: boolean
-
-  textSize?: "text-sm" | string,
-  color?: "text-black" | string,
-  darkColor?: "text-white" | string,
   className?: string,
 
 
@@ -12,8 +7,17 @@ interface TextProps {
   skHeight?: "h-2" | string,
   skBackground?: "bg-gray-200" | string,
   skDarkBackground?: "dark:bg-gray-700" | string,
-  skLines?: number,
   skeletonClassName?: string,
+}
+
+interface TextProps extends  ResponsiveElementProps{
+  content: string,
+
+  textSize?: "text-sm" | string,
+  color?: "text-black" | string,
+  darkColor?: "text-white" | string,
+
+  skLines?: number,
 }
 
 export function Text(props: TextProps) {
