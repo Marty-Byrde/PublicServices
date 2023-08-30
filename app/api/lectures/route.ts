@@ -31,13 +31,15 @@ export async function GET(res: Request) {
 
     const type = cells[1]?.textContent.toString()
     const name = cells[2].getElementsByTagName("b")[0].textContent
+    const teacherField = Array.from(cells[4].getElementsByTagName("a")).map(anchor => anchor?.getAttribute("onclick").toString()?.split(",")?.at(-1)?.split("'")?.at(1))
     const sws = cells[cells.length - 1]?.textContent ? parseFloat(cells[cells.length - 1]?.textContent.toString()?.replace(",", ".")) : 0
     lectures.push({
       id,
       type,
       name,
       sws,
-      coursePage
+      coursePage,
+      teachers: teacherField
     })
   }
 
