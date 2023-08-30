@@ -89,6 +89,7 @@ function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean })
             <div className='text-gray-600 dark:text-gray-400 tracking-widest '>
               <Text content={lecture.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(").at(-1).split(")")[0]}
                     color='text-gray-600'
+                    textSize='md'
                     darkColor='dark:text-gray-400'
                     className='tracking-widest'
                     skeletonClassName='mt-3'
@@ -100,11 +101,24 @@ function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean })
           <div className="flex flex-col gap-0">
             <p className="font-semibold text-gray-700 dark:text-neutral-300 ">Available</p>
             <div className="text-gray-600 dark:text-gray-400 font-semibold flex gap-2 justify-center items-center">
-              {registrationPossible() ?
+              <div className={isPending ? "hidden" : ""}>
+                {registrationPossible() ?
                   <Image src={Checkmark} alt={'check'} width={20} height={20}/> :
                   <Image src={Cross} alt={'cross'} width={14} className='w-3.5 h-3.5'/>
-              }
-              <p>{registrationPossible() ? "Yes" : "No"}</p>
+                }
+              </div>
+
+              <Text content={registrationPossible() ? "Yes" : "No"}
+                    color='text-gray-600'
+                    darkColor='dark:text-gray-400'
+                    textSize='md'
+                    className='font-semibold'
+
+                    skeletonClassName='mt-3'
+                    skBackground='bg-gray-400'
+                    skWidth='w-16'
+                    isPending={isPending}
+              />
             </div>
           </div>
         </div>
