@@ -11,6 +11,7 @@ import BullHorn from "@/public/lectureIcons/bullhorn.svg"
 import Checkmark from "@/public/lectureIcons/checkmark.png"
 import Cross from "@/public/lectureIcons/cross.svg"
 import SearchInput from "@/app/lectures/SearchInput"
+import { Text } from "@/app/(components)/ResponsiveTags/Text"
 
 
 export default function ClientPage({ initialLectures }: { initialLectures: Lecture[] }) {
@@ -23,14 +24,14 @@ export default function ClientPage({ initialLectures }: { initialLectures: Lectu
       </div>
 
       <div className='flex flex-wrap gap-8 items-center justify-center mt-3'>
-        {lectures.map((lecture, index) => <Lecture key={index} {...lecture} />)}
+        {lectures.map((lecture, index) => <Lecture key={index} lecture={lecture} isPending={false} />)}
       </div>
     </div>
   )
 }
 
 
-function Lecture(lecture: Lecture) {
+function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean }) {
   const Icon = () => {
     if (!lecture?.type) return null
     const backgrounds = {
@@ -55,9 +56,9 @@ function Lecture(lecture: Lecture) {
     if (value.trim().length === 0) return null;
 
     return (
-      <div className="flex space-x-2 text-gray-600 dark:text-gray-400 text-sm">
+      <div className="flex space-x-2 text-gray-600 dark:text-gray-400 text-sm items-center">
         <Image src={img} alt='svg' width={16} height={16}/>
-        <p className={className}>{value}</p>
+        <Text content={value} isPending={isPending} className={className} textSize='text-sm' color='text-gray-600' darkColor='dark:text-gray-400' skWidth='w-24' skBackground='bg-gray-600'  />
       </div>
     )
   }
