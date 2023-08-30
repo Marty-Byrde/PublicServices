@@ -1,6 +1,6 @@
 'use client'
 
-import { Lecture } from "campus-scraper"
+import { BasicLecture, Lecture } from "campus-scraper"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -15,8 +15,8 @@ import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import ServerImage from "@/app/(components)/ResponsiveTags/ServerImage"
 
 
-export default function ClientPage({ initialLectures }: { initialLectures: Lecture[] }) {
-  const [lectures, setLectures] = useState<Lecture[]>(initialLectures)
+export default function ClientPage({ initialLectures }: { initialLectures: BasicLecture[] }) {
+  const [lectures, setLectures] = useState<BasicLecture[]>(initialLectures)
 
   return (
     <div>
@@ -25,14 +25,14 @@ export default function ClientPage({ initialLectures }: { initialLectures: Lectu
       </div>
 
       <div className='flex flex-wrap gap-8 items-center justify-center mt-3'>
-        {lectures.map((lecture, index) => <Lecture key={index} lecture={lecture} isPending={false} />)}
+        {lectures.map((lecture, index) => <DisplayLecture key={index} lecture={lecture} isPending={false} />)}
       </div>
     </div>
   )
 }
 
 
-export function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean }) {
+export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, isPending: boolean }) {
   const Icon = () => {
     if (!lecture?.type) return null
     const backgrounds = {
@@ -64,7 +64,7 @@ export function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boo
     )
   }
 
-  const registrationPossible = () => lecture?.maxRegistrations === -1 || lecture?.maxRegistrations > lecture?.registrations
+  const registrationPossible = () => true
 
   return (
     <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm w-full self-stretch">
@@ -76,27 +76,19 @@ export function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boo
                   className='text-lg font-semibold line-clamp-2 hover:text-primary dark:hover:text-primary' />
           </Link>
         </div>
-        <div className='flex flex-wrap w-full justify-between gap-x-8 gap-y-3 items-center my-3' aria-description='lecture-short-stats'>
-          <BulletPoint value={`${lecture?.ects} ECTS`} img={Star}/>
-          <BulletPoint value={`${lecture?.registrations} Registrations`} img={User}/>
-          <BulletPoint value={`${lecture?.schedules.length}x Sessions`} img={Calendar}/>
-          <BulletPoint className='' value={lecture?.teachers?.at(0).name?.toString() ?? ""} img={BullHorn}/>
+        <div className='hidden flex flex-wrap w-full justify-between gap-x-8 gap-y-3 items-center my-3' aria-description='lecture-short-stats'>
+          {/*<BulletPoint value={`${lecture?.ects} ECTS`} img={Star}/>*/}
+          {/*<BulletPoint value={`${lecture?.registrations} Registrations`} img={User}/>*/}
+          {/*<BulletPoint value={`${lecture?.schedules.length}x Sessions`} img={Calendar}/>*/}
+          {/*<BulletPoint className='' value={lecture?.teachers?.at(0).name?.toString() ?? ""} img={BullHorn}/>*/}
         </div>
         <div className="border-t-2"></div>
 
         <div className="flex justify-between mt-2">
-          <div className="flex flex-col gap-0">
+          <div className="flex flex-col gap-0 hidden ">
             <p className="font-semibold text-gray-700 dark:text-neutral-300">Curriculum</p>
-            <div className='text-gray-600 dark:text-gray-400 tracking-widest '>
-              <Text content={lecture?.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(").at(-1).split(")")[0]}
-                    color='text-gray-600'
-                    textSize='md'
-                    darkColor='dark:text-gray-400'
-                    className='tracking-widest'
-                    skeletonClassName='mt-3'
-                    skBackground='bg-gray-400'
-                    isPending={isPending}
-              />
+            <div className='text-gray-600 dark:text-gray-400 tracking-widest'>
+
             </div>
           </div>
           <div className="flex flex-col gap-0">
