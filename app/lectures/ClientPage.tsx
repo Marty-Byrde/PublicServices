@@ -58,7 +58,7 @@ function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean })
     return (
       <div className="flex space-x-2 text-gray-600 dark:text-gray-400 text-sm items-center">
         <Image src={img} alt='svg' width={16} height={16}/>
-        <Text content={value} isPending={isPending} className={className} textSize='text-sm' color='text-gray-600' darkColor='dark:text-gray-400' skWidth='w-24' skBackground='bg-gray-600'  />
+        <Text content={value} isPending={isPending} className={className} textSize='text-sm' color='text-gray-600' darkColor='dark:text-gray-400' skWidth='w-24' skBackground='bg-gray-400'  />
       </div>
     )
   }
