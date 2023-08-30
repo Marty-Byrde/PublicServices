@@ -1,10 +1,10 @@
 'use client'
 import { SyntheticEvent, useEffect, useState } from "react"
-import { Lecture } from "campus-scraper"
+import { BasicLecture, Lecture } from "campus-scraper"
 
 interface SearchInputProps {
-  lectures: Lecture[],
-  setLectures: (lectures: Lecture[]) => void
+  lectures: BasicLecture[],
+  setLectures: (lectures: BasicLecture[]) => void
 }
 
 
@@ -66,6 +66,8 @@ export default function SearchInput(props: SearchInputProps){
 
   const handleSearch = (e?: SyntheticEvent) => {
     e?.preventDefault()
+    if(!lectures || !setLectures) return;
+
     setIsOptionOpen(false)
 
     let preFiltered = lectures;
@@ -85,11 +87,11 @@ export default function SearchInput(props: SearchInputProps){
       if(compareStrings(lecture.id, input)) return true;
       if(compareStrings(lecture.id.replace(".", ""), input)) return true;
 
-      if(lecture.teachers){
-        for(let teacher of lecture.teachers){
-          if(compareStrings(teacher.fullName, input)) return true;
-        }
-      }
+      // if(lecture.teachers){
+      //   for(let teacher of lecture.teachers){
+      //     if(compareStrings(teacher.fullName, input)) return true;
+      //   }
+      // }
 
       return false;
     })
