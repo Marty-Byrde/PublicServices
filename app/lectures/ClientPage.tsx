@@ -32,7 +32,7 @@ export default function ClientPage({ initialLectures }: { initialLectures: Lectu
 }
 
 
-function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean }) {
+export function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean }) {
   const Icon = () => {
     if (!lecture?.type) return null
     const backgrounds = {
@@ -64,23 +64,23 @@ function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean })
     )
   }
 
-  const registrationPossible = () => lecture.maxRegistrations === -1 || lecture.maxRegistrations > lecture.registrations
+  const registrationPossible = () => lecture?.maxRegistrations === -1 || lecture?.maxRegistrations > lecture?.registrations
 
   return (
     <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm w-full self-stretch">
       <Icon/>
       <div className="mt-6 h-[90%]">
         <div className='my-2 h-14 flex items-center'>
-          <Link href={`/lectures/${lecture.id}`}>
-            <Text content={lecture.name} isPending={isPending} skBackground='bg-gray-400' skHeight='h-2.5' skWidth='w-[20rem]' color='text-black' skLines={2} skeletonClassName={'mb-2'}
+          <Link href={`/lectures/${lecture?.id}`}>
+            <Text content={lecture?.name} isPending={isPending} skBackground='bg-gray-400' skHeight='h-2.5' skWidth='w-[20rem]' color='text-black' skLines={2} skeletonClassName={'mb-2'}
                   className='text-lg font-semibold line-clamp-2 hover:text-primary dark:hover:text-primary' />
           </Link>
         </div>
         <div className='flex flex-wrap w-full justify-between gap-x-8 gap-y-3 items-center my-3' aria-description='lecture-short-stats'>
-          <BulletPoint value={`${lecture.ects} ECTS`} img={Star}/>
-          <BulletPoint value={`${lecture.registrations} Registrations`} img={User}/>
-          <BulletPoint value={`${lecture.schedules.length}x Sessions`} img={Calendar}/>
-          <BulletPoint className='' value={lecture.teachers?.at(0).name?.toString() ?? ""} img={BullHorn}/>
+          <BulletPoint value={`${lecture?.ects} ECTS`} img={Star}/>
+          <BulletPoint value={`${lecture?.registrations} Registrations`} img={User}/>
+          <BulletPoint value={`${lecture?.schedules.length}x Sessions`} img={Calendar}/>
+          <BulletPoint className='' value={lecture?.teachers?.at(0).name?.toString() ?? ""} img={BullHorn}/>
         </div>
         <div className="border-t-2"></div>
 
@@ -88,7 +88,7 @@ function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean })
           <div className="flex flex-col gap-0">
             <p className="font-semibold text-gray-700 dark:text-neutral-300">Curriculum</p>
             <div className='text-gray-600 dark:text-gray-400 tracking-widest '>
-              <Text content={lecture.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(").at(-1).split(")")[0]}
+              <Text content={lecture?.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(").at(-1).split(")")[0]}
                     color='text-gray-600'
                     textSize='md'
                     darkColor='dark:text-gray-400'
