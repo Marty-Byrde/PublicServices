@@ -84,40 +84,34 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
         </div>
         <div className="border-t-2"></div>
 
-        <div className="flex justify-between mt-2">
-          <div className="flex flex-col gap-0 hidden ">
-            <p className="font-semibold text-gray-700 dark:text-neutral-300">Curriculum</p>
-            <div className='text-gray-600 dark:text-gray-400 tracking-widest'>
+        <div className='mt-2 flex justify-between items-center gap-4'>
+          <div className="font-semibold text-gray-700 dark:text-neutral-300 text-center">Speaker{lecture?.teachers?.length > 0 ? "s" : ""}:</div>
+          <div className={`text-gray-600 dark:text-gray-400 font-semibold flex gap-x-4 gap-y-2 `}>
+            {lecture?.teachers?.map(teacher => (
+              <div key={teacher} className='flex flex-row flex-nowrap items-center gap-2'>
+                <ServerImage src={User}
+                             alt='user'
+                             width={14}
+                             isPending={isPending}
 
-            </div>
-          </div>
-          <div className="flex flex-col gap-0">
-            <p className="font-semibold text-gray-700 dark:text-neutral-300 ">Available</p>
-            <div className={`text-gray-600 dark:text-gray-400 font-semibold flex gap-2 justify-center items-center ${isPending ? "mt-1.5" : ""}`}>
-              <ServerImage src={registrationPossible() ? Checkmark : Cross}
-                           alt='check'
-                           width={20}
-                           isPending={isPending}
+                             skBackground='bg-inherit'
+                             skDarkBackground='bg-inherit'
+                             skeletonClassName='text-gray-500 dark:text-gray-400'
+                             skWidth='w-3'
+                             skHeight='h-3'/>
 
-                           className={!registrationPossible() ? "w-3.5 h-3.5" : ""}
+                <Text content={teacher}
+                      color='text-gray-600'
+                      darkColor='dark:text-gray-400'
+                      textSize='text-sm'
+                      className='font-semibold'
 
-                           skBackground='bg-inherit'
-                           skDarkBackground='bg-inherit'
-                           skeletonClassName='text-gray-500 dark:text-gray-400'
-                           skWidth='w-3'
-                           skHeight='h-3'/>
-
-              <Text content={registrationPossible() ? "Yes" : "No"}
-                    color='text-gray-600'
-                    darkColor='dark:text-gray-400'
-                    textSize='md'
-                    className='font-semibold'
-
-                    skBackground='bg-gray-400'
-                    skWidth='w-16'
-                    isPending={isPending}
-              />
-            </div>
+                      skBackground='bg-gray-400'
+                      skWidth='w-16'
+                      isPending={isPending}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
