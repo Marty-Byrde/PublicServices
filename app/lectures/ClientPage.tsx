@@ -53,19 +53,6 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
     )
   }
 
-  const BulletPoint = ({ img, value, className }: { img: any, value: string, className?: string }) => {
-    if (value.trim().length === 0) return null;
-
-    return (
-      <div className="flex space-x-2 text-gray-600 dark:text-gray-400 text-sm items-center">
-        <Image src={img} alt='svg' width={16} height={16}/>
-        <Text content={value} isPending={isPending} className={className} textSize='text-sm' color='text-gray-600' darkColor='dark:text-gray-400' skWidth='w-24' skBackground='bg-gray-400'  />
-      </div>
-    )
-  }
-
-  const registrationPossible = () => true
-
   return (
     <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm w-full self-stretch">
       <Icon/>
@@ -75,12 +62,6 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
             <Text content={lecture?.name} isPending={isPending} skBackground='bg-gray-400' skHeight='h-2.5' skWidth='w-[20rem]' color='text-black' skLines={2} skeletonClassName={'mb-2'}
                   className='text-lg font-semibold line-clamp-2 hover:text-primary dark:hover:text-primary' />
           </Link>
-        </div>
-        <div className='hidden flex flex-wrap w-full justify-between gap-x-8 gap-y-3 items-center my-3' aria-description='lecture-short-stats'>
-          {/*<BulletPoint value={`${lecture?.ects} ECTS`} img={Star}/>*/}
-          {/*<BulletPoint value={`${lecture?.registrations} Registrations`} img={User}/>*/}
-          {/*<BulletPoint value={`${lecture?.schedules.length}x Sessions`} img={Calendar}/>*/}
-          {/*<BulletPoint className='' value={lecture?.teachers?.at(0).name?.toString() ?? ""} img={BullHorn}/>*/}
         </div>
         <div className="border-t-2"></div>
 
