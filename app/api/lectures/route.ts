@@ -8,7 +8,7 @@ export interface GetLecturesResponse {
 }
 
 export async function GET(res: Request) {
-  const html = await fetch(process.env.LECTURE_ENDPOINT).then(res => res.text())
+  const html = await fetch(process.env.LECTURE_ENDPOINT, { cache: "no-cache" }).then(res => res.text())
   const { window: { document } } = new JSDOM(html)
   const lectures: BasicLecture[] = [];
 
