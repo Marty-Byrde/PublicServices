@@ -71,7 +71,7 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
       <Icon/>
       <div className="mt-6 h-[90%]">
         <div className='my-2 h-14 flex items-center'>
-          <Link href={`/lectures/${lecture?.id}`}>
+          <Link href={`/lectures/${lecture?.coursePage?.split("/")?.at(-1)?.split(';').at(0)}`}>
             <Text content={lecture?.name} isPending={isPending} skBackground='bg-gray-400' skHeight='h-2.5' skWidth='w-[20rem]' color='text-black' skLines={2} skeletonClassName={'mb-2'}
                   className='text-lg font-semibold line-clamp-2 hover:text-primary dark:hover:text-primary' />
           </Link>
