@@ -54,10 +54,10 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
   }
 
   return (
-    <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm w-full self-stretch">
+    <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm ">
       <Icon/>
-      <div className="mt-6 h-[90%]">
-        <div className='my-2 h-14 flex items-center'>
+      <div className="mt-6">
+        <div className='my-2 flex items-center'>
           <Link href={`/lectures/${lecture?.coursePage?.split("/")?.at(-1)?.split(';').at(0)}`}>
             <Text content={lecture?.name} isPending={isPending} skBackground='bg-gray-400' skHeight='h-2.5' skWidth='w-[20rem]' color='text-black' skLines={2} skeletonClassName={'mb-2'}
                   className='text-lg font-semibold line-clamp-2 hover:text-primary dark:hover:text-primary' />
@@ -65,9 +65,9 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
         </div>
         <div className="border-t-2"></div>
 
-        <div className='mt-2 flex justify-between items-center gap-4'>
+        <div className='mt-2 flex justify-between items-center gap-12 '>
           <div className="font-semibold text-gray-700 dark:text-neutral-300 text-center">Speaker{lecture?.teachers?.length > 0 ? "s" : ""}:</div>
-          <div className={`text-gray-600 dark:text-gray-400 font-semibold flex gap-x-4 gap-y-2 `}>
+          <div className={`text-gray-600 dark:text-gray-400 font-semibold flex flex-col gap-x-4 gap-y-2 `}>
             {lecture?.teachers?.map(teacher => (
               <div key={teacher} className='flex flex-row flex-nowrap items-center gap-2'>
                 <ServerImage src={User}
