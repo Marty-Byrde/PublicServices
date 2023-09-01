@@ -342,3 +342,8 @@ async function retrieveScheduleSection(bookingID: string): Promise<LectureSchedu
 
   return schedules
 }
+
+
+function PageLoadFailed(document: Document) : boolean {
+  return document.textContent.toLowerCase().includes("es ist ein fehler aufgetreten")
+}
