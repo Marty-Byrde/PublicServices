@@ -65,7 +65,7 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
         </div>
         <div className="border-t-2"></div>
 
-        <div className='mt-2 flex justify-between items-center gap-12 '>
+        <div className='mt-2 flex justify-between items-center gap-8'>
           <div className="font-semibold text-gray-700 dark:text-neutral-300 text-center">Speaker{lecture?.teachers?.length > 0 ? "s" : ""}:</div>
           <div className={`text-gray-600 dark:text-gray-400 font-semibold flex flex-col gap-x-4 gap-y-2 `}>
             {lecture?.teachers?.map(teacher => (
@@ -81,11 +81,11 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
                              skWidth='w-3'
                              skHeight='h-3'/>
 
-                <Text content={teacher}
+                <Text content={teacher.split(" ").reverse().join(" ")}
                       color='text-gray-600'
                       darkColor='dark:text-gray-400'
                       textSize='text-sm'
-                      className='font-semibold'
+                      className='font-semibold line-clamp-1'
 
                       skBackground='bg-gray-400'
                       skWidth='w-16'
