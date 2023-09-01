@@ -1,11 +1,8 @@
-import { DBHandler } from "mongodb_handler"
 import { Lecture, LectureDescription, LectureSchedule } from "campus-scraper"
 import Link from "next/link"
 import BackButton from "@/app/(components)/Navigation/BackButton"
 import { Metadata } from "next"
-import { GetLecturesResponse } from "@/app/api/lectures/route"
 
-const db = new DBHandler(process.env.HOST)
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 function Schedule({ schedule }: { schedule: LectureSchedule }) {
