@@ -1,15 +1,9 @@
 'use client'
 
-import { BasicLecture, Lecture } from "campus-scraper"
+import { BasicLecture } from "campus-scraper"
 import { useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
-import Star from "@/public/lectureIcons/star.svg"
 import User from "@/public/lectureIcons/user.svg"
-import Calendar from "@/public/lectureIcons/calendar.svg"
-import BullHorn from "@/public/lectureIcons/bullhorn.svg"
-import Checkmark from "@/public/lectureIcons/checkmark.png"
-import Cross from "@/public/lectureIcons/cross.svg"
 import SearchInput from "@/app/lectures/SearchInput"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import ServerImage from "@/app/(components)/ResponsiveTags/ServerImage"
