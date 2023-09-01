@@ -1,6 +1,6 @@
 'use client'
 
-import { Lecture } from "campus-scraper"
+import { BasicLecture, Lecture } from "campus-scraper"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -15,8 +15,8 @@ import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import ServerImage from "@/app/(components)/ResponsiveTags/ServerImage"
 
 
-export default function ClientPage({ initialLectures }: { initialLectures: Lecture[] }) {
-  const [lectures, setLectures] = useState<Lecture[]>(initialLectures)
+export default function ClientPage({ initialLectures }: { initialLectures: BasicLecture[] }) {
+  const [lectures, setLectures] = useState<BasicLecture[]>(initialLectures)
 
   return (
     <div>
@@ -24,15 +24,15 @@ export default function ClientPage({ initialLectures }: { initialLectures: Lectu
         <SearchInput lectures={initialLectures} setLectures={setLectures}/>
       </div>
 
-      <div className='flex flex-wrap gap-8 items-center justify-center mt-3'>
-        {lectures.map((lecture, index) => <Lecture key={index} lecture={lecture} isPending={false} />)}
+      <div className='columns-sm space-y-6'>
+        {lectures.map((lecture, index) => <DisplayLecture key={lecture.id} lecture={lecture} isPending={false} />)}
       </div>
     </div>
   )
 }
 
 
-export function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boolean }) {
+export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, isPending: boolean }) {
   const Icon = () => {
     if (!lecture?.type) return null
     const backgrounds = {
@@ -53,79 +53,46 @@ export function Lecture({lecture, isPending}: { lecture: Lecture, isPending: boo
     )
   }
 
-  const BulletPoint = ({ img, value, className }: { img: any, value: string, className?: string }) => {
-    if (value.trim().length === 0) return null;
-
-    return (
-      <div className="flex space-x-2 text-gray-600 dark:text-gray-400 text-sm items-center">
-        <Image src={img} alt='svg' width={16} height={16}/>
-        <Text content={value} isPending={isPending} className={className} textSize='text-sm' color='text-gray-600' darkColor='dark:text-gray-400' skWidth='w-24' skBackground='bg-gray-400'  />
-      </div>
-    )
-  }
-
-  const registrationPossible = () => lecture?.maxRegistrations === -1 || lecture?.maxRegistrations > lecture?.registrations
-
   return (
-    <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm w-full self-stretch">
+    <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm break-inside-avoid-column">
       <Icon/>
-      <div className="mt-6 h-[90%]">
-        <div className='my-2 h-14 flex items-center'>
-          <Link href={`/lectures/${lecture?.id}`}>
+      <div className="mt-6">
+        <div className='my-2 flex items-center'>
+          <Link href={`/lectures/${lecture?.coursePage?.split("/")?.at(-1)?.split(';').at(0)}`}>
             <Text content={lecture?.name} isPending={isPending} skBackground='bg-gray-400' skHeight='h-2.5' skWidth='w-[20rem]' color='text-black' skLines={2} skeletonClassName={'mb-2'}
                   className='text-lg font-semibold line-clamp-2 hover:text-primary dark:hover:text-primary' />
           </Link>
         </div>
-        <div className='flex flex-wrap w-full justify-between gap-x-8 gap-y-3 items-center my-3' aria-description='lecture-short-stats'>
-          <BulletPoint value={`${lecture?.ects} ECTS`} img={Star}/>
-          <BulletPoint value={`${lecture?.registrations} Registrations`} img={User}/>
-          <BulletPoint value={`${lecture?.schedules.length}x Sessions`} img={Calendar}/>
-          <BulletPoint className='' value={lecture?.teachers?.at(0).name?.toString() ?? ""} img={BullHorn}/>
-        </div>
         <div className="border-t-2"></div>
 
-        <div className="flex justify-between mt-2">
-          <div className="flex flex-col gap-0">
-            <p className="font-semibold text-gray-700 dark:text-neutral-300">Curriculum</p>
-            <div className='text-gray-600 dark:text-gray-400 tracking-widest '>
-              <Text content={lecture?.curriculars.find(c => c.study.toLowerCase().includes("wirtschaftsinformatik")).section?.split("(").at(-1).split(")")[0]}
-                    color='text-gray-600'
-                    textSize='md'
-                    darkColor='dark:text-gray-400'
-                    className='tracking-widest'
-                    skeletonClassName='mt-3'
-                    skBackground='bg-gray-400'
-                    isPending={isPending}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col gap-0">
-            <p className="font-semibold text-gray-700 dark:text-neutral-300 ">Available</p>
-            <div className={`text-gray-600 dark:text-gray-400 font-semibold flex gap-2 justify-center items-center ${isPending ? "mt-1.5" : ""}`}>
-              <ServerImage src={registrationPossible() ? Checkmark : Cross}
-                           alt='check'
-                           width={20}
-                           isPending={isPending}
+        <div className='mt-2 flex justify-between items-center gap-8'>
+          <div className="font-semibold text-gray-700 dark:text-neutral-300 text-center">Speaker{lecture?.teachers?.length > 0 ? "s" : ""}:</div>
+          <div className={`text-gray-600 dark:text-gray-400 font-semibold flex flex-col gap-x-4 gap-y-2 `}>
+            {lecture?.teachers?.map(teacher => (
+              <div key={teacher} className='flex flex-row flex-nowrap items-center gap-2'>
+                <ServerImage src={User}
+                             alt='user'
+                             width={14}
+                             isPending={isPending}
 
-                           className={!registrationPossible() ? "w-3.5 h-3.5" : ""}
+                             skBackground='bg-inherit'
+                             skDarkBackground='bg-inherit'
+                             skeletonClassName='text-gray-500 dark:text-gray-400'
+                             skWidth='w-3'
+                             skHeight='h-3'/>
 
-                           skBackground='bg-inherit'
-                           skDarkBackground='bg-inherit'
-                           skeletonClassName='text-gray-500 dark:text-gray-400'
-                           skWidth='w-3'
-                           skHeight='h-3'/>
+                <Text content={teacher.split(" ").reverse().join(" ")}
+                      color='text-gray-600'
+                      darkColor='dark:text-gray-400'
+                      textSize='text-sm'
+                      className='font-semibold line-clamp-1'
 
-              <Text content={registrationPossible() ? "Yes" : "No"}
-                    color='text-gray-600'
-                    darkColor='dark:text-gray-400'
-                    textSize='md'
-                    className='font-semibold'
-
-                    skBackground='bg-gray-400'
-                    skWidth='w-16'
-                    isPending={isPending}
-              />
-            </div>
+                      skBackground='bg-gray-400'
+                      skWidth='w-16'
+                      isPending={isPending}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>

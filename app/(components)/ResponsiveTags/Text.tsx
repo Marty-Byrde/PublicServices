@@ -1,3 +1,5 @@
+import { v4 as uuidV4 } from "uuid"
+
 export interface ResponsiveElementProps {
   isPending?: boolean
   className?: string,
@@ -25,7 +27,7 @@ export function Text(props: TextProps) {
   const { skeletonClassName, skWidth, skHeight, skBackground, skDarkBackground, skLines } = props
 
   if (isPending) {
-    const Line = (<div className={`
+    const Line = (<div key={uuidV4()} className={`
         ${skWidth || "w-48"}
         ${skHeight || "h-2"}
         ${skBackground || "bg-gray-200"}

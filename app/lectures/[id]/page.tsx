@@ -3,6 +3,7 @@ import { Lecture, LectureDescription, LectureSchedule } from "campus-scraper"
 import Link from "next/link"
 import BackButton from "@/app/(components)/Navigation/BackButton"
 import { Metadata } from "next"
+import { GetLecturesResponse } from "@/app/api/lectures/route"
 
 const db = new DBHandler(process.env.HOST)
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -63,11 +64,12 @@ function Schedule({ schedule }: { schedule: LectureSchedule }) {
 export const metadata: Metadata = {};
 
 export default async function LectureDetails({ params }) {
-  const { id } = params
-  await db.connect()
-  const collection = await db.getCollection(process.env.DATABASE, process.env.COLLECTION);
-  const lectures = await collection.findType<Lecture>({ id: id })
-  const lecture = lectures[0]
+  const { id }: { id: string } = params
+  const lecture = await fetch("http://localhost/api/lectureDetails", {
+    method: "POST",
+    body: JSON.stringify({ id: id }),
+    cache: "no-store"
+  }).then(res => res.json() as Promise<Lecture>)
 
   if (!lecture) return null
   metadata.title = `${lecture?.id} - ${lecture?.name}`
