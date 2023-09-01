@@ -25,7 +25,7 @@ export default function ClientPage({ initialLectures }: { initialLectures: Basic
       </div>
 
       <div className='columns-sm space-y-6'>
-        {lectures.map((lecture, index) => <DisplayLecture key={index} lecture={lecture} isPending={false} />)}
+        {lectures.map((lecture, index) => <DisplayLecture key={lecture.id} lecture={lecture} isPending={false} />)}
       </div>
     </div>
   )
