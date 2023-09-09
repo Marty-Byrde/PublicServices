@@ -73,20 +73,6 @@ export default async function LectureDetails({ params }) {
   if (!lecture) return null
   metadata.title = `${lecture?.id} - ${lecture?.name}`
 
-
-  function DisplayLectureDescriptions({ description }: { description: LectureDescription[] }) {
-    return (
-      <div className='flex flex-col gap-4'>
-        {description?.map(desc => (
-          <div key={desc.field} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200'>
-            <div className='md:flex-2 md:w-[160px] md:break-words text-center font-semibold tracking-wider text-lg'>{desc.field}</div>
-            <div className='md:flex-1 whitespace-pre-wrap break-all'>{desc.content}</div>
-          </div>
-        ))}
-      </div>
-    )
-  }
-
   return (
     <div>
       <BackButton className='w-full mb-4'/>
@@ -122,13 +108,13 @@ export default async function LectureDetails({ params }) {
         <Card hidden={lecture.description?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Description</h1>
 
-          <DisplayLectureDescriptions description={lecture.description}/>
+          <LectureDescription description={lecture.description}/>
         </Card>
 
         <Card hidden={lecture.examDescriptions?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Exam-Description</h1>
 
-          <DisplayLectureDescriptions description={lecture.examDescriptions}/>
+          <LectureDescription description={lecture.examDescriptions}/>
         </Card>
 
         <Card preventBreakup>
@@ -140,6 +126,24 @@ export default async function LectureDetails({ params }) {
 
 
       </div>
+    </div>
+  )
+}
+
+/**
+ * Displays a given Array of LectureDescription fields and their content.
+ * @param description The description elements to display
+ * @constructor
+ */
+function LectureDescription({ description }: { description: LectureDescription[] }) {
+  return (
+    <div className='flex flex-col gap-4'>
+      {description?.map(desc => (
+        <div key={desc.field} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200'>
+          <div className='md:flex-2 md:w-[160px] md:break-words text-center font-semibold tracking-wider text-lg'>{desc.field}</div>
+          <div className='md:flex-1 whitespace-pre-wrap break-all'>{desc.content}</div>
+        </div>
+      ))}
     </div>
   )
 }
