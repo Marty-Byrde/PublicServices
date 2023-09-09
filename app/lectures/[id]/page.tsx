@@ -101,7 +101,7 @@ export default async function LectureDetails({ params }) {
   return (
     <div>
       <BackButton className='w-full mb-4'/>
-      <div className='columns-1 lg:columns-2 space-y-4 pb-12' aria-description='page-container'>
+      <div className='columns-3xl space-y-4 pb-12' aria-description='page-container'>
         <SectionCard>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Basic Informations</h1>
           <div className='flex gap-6 px-2 text-gray-700 dark:text-gray-200'>
