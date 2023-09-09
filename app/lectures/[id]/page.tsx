@@ -2,6 +2,7 @@ import { Lecture, LectureDescription, LectureSchedule } from "campus-scraper"
 import Link from "next/link"
 import BackButton from "@/app/(components)/Navigation/BackButton"
 import { Metadata } from "next"
+import Card from "@/app/(components)/Cards/Card"
 
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -72,16 +73,6 @@ export default async function LectureDetails({ params }) {
   if (!lecture) return null
   metadata.title = `${lecture?.id} - ${lecture?.name}`
 
-  function SectionCard({ children, hidden, className, keepTogether }: { children: any, hidden?: boolean, className?: string, keepTogether?: boolean }) {
-    if (hidden) return null;
-
-    return (
-      <div className={`bg-stone-200 dark:bg-base-100 border-[1px] border-black p-4 shadow-2xl ${keepTogether ? "break-inside-avoid" : ""} ${className}`}>
-        {children}
-      </div>
-    )
-  }
-
 
   function DisplayLectureDescriptions({ description }: { description: LectureDescription[] }) {
     return (
@@ -100,7 +91,7 @@ export default async function LectureDetails({ params }) {
     <div>
       <BackButton className='w-full mb-4'/>
       <div className='columns-3xl space-y-4 pb-12' aria-description='page-container'>
-        <SectionCard>
+        <Card>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Basic Informations</h1>
           <div className='flex gap-6 px-2 text-gray-700 dark:text-gray-200'>
             <div className='flex flex-col gap-2' aria-description='labels'>
@@ -126,26 +117,26 @@ export default async function LectureDetails({ params }) {
               })}
             </div>
           </div>
-        </SectionCard>
+        </Card>
 
-        <SectionCard hidden={lecture.description?.length === 0}>
+        <Card hidden={lecture.description?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Description</h1>
 
           <DisplayLectureDescriptions description={lecture.description}/>
-        </SectionCard>
+        </Card>
 
-        <SectionCard hidden={lecture.examDescriptions?.length === 0}>
+        <Card hidden={lecture.examDescriptions?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Exam-Description</h1>
 
           <DisplayLectureDescriptions description={lecture.examDescriptions}/>
-        </SectionCard>
+        </Card>
 
-        <SectionCard keepTogether>
+        <Card preventBreakup>
           <h1 className='text-xl tracking-wide mb-6 text-black dark:text-white font-bold'>Time & Date</h1>
           <div className='flex flex-wrap gap-10 px-4 mt-4 justify-center items-center'>
             {lecture.schedules.map(schedule => <Schedule key={schedule.start.toString()} schedule={schedule}/>)}
           </div>
-        </SectionCard>
+        </Card>
 
 
       </div>
