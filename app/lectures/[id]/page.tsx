@@ -68,10 +68,18 @@ export default async function LectureDetails({ params }) {
     body: JSON.stringify({ id: id }),
     cache: "no-store"
   }).then(res => res.json() as Promise<Lecture>)
-  const isNoObject = (value: any) => typeof value !== "object"
+
+  await new Promise(resolve => setTimeout(resolve, 20000))
 
   if (!lecture) return null
   metadata.title = `${lecture?.id} - ${lecture?.name}`
+
+  return LectureDetailsDisplay({ lecture })
+}
+
+
+export function LectureDetailsDisplay({ lecture }: { lecture: Lecture, isPending?: boolean }) {
+  const isNoObject = (value: any) => typeof value !== "object"
 
   return (
     <div>
