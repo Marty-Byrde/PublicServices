@@ -67,6 +67,7 @@ export default async function LectureDetails({ params }) {
     body: JSON.stringify({ id: id }),
     cache: "no-store"
   }).then(res => res.json() as Promise<Lecture>)
+  const isNoObject = (value: any) => typeof value !== "object"
 
   if (!lecture) return null
   metadata.title = `${lecture?.id} - ${lecture?.name}`
@@ -81,9 +82,6 @@ export default async function LectureDetails({ params }) {
     )
   }
 
-  function isNoObject(value: any) {
-    return typeof value !== "object"
-  }
 
   function DisplayLectureDescriptions({ description }: { description: LectureDescription[] }) {
     return (
