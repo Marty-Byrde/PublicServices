@@ -138,13 +138,13 @@ export function LectureDetailsDisplay({ lecture: _lecture, isPending }: { lectur
         <Card hidden={lecture.description?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Description</h1>
 
-          <LectureDescription description={lecture.description}/>
+          <LectureDescription description={lecture.description} isPending={isPending}/>
         </Card>
 
         <Card hidden={lecture.examDescriptions?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Exam-Description</h1>
 
-          <LectureDescription description={lecture.examDescriptions}/>
+          <LectureDescription description={lecture.examDescriptions} isPending={isPending}/>
         </Card>
 
         <Card preventBreakup>
@@ -163,15 +163,16 @@ export function LectureDetailsDisplay({ lecture: _lecture, isPending }: { lectur
 /**
  * Displays a given Array of LectureDescription fields and their content.
  * @param description The description elements to display
+ * @param isPending Whether the description is pending
  * @constructor
  */
-function LectureDescription({ description }: { description: LectureDescription[] }) {
+function LectureDescription({ description, isPending }: { description: LectureDescription[], isPending ?: boolean }) {
   return (
     <div className='flex flex-col gap-4'>
       {description?.map(desc => (
         <div key={desc.field} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200 break-inside-avoid-column overflow-auto'>
-          <div className='md:flex-2 md:w-[160px] md:break-words text-center font-semibold tracking-wider text-lg'>{desc.field}</div>
-          <div className='md:flex-1 whitespace-pre-wrap break-all'>{desc.content}</div>
+          <Text content={desc.field} className='md:flex-2 md:w-[160px] md:break-words text-center font-semibold tracking-wider' isPending={isPending}/>
+          <Text content={desc.content} textSize='text-md' className='md:flex-1 whitespace-pre-wrap break-all' isPending={isPending}/>
         </div>
       ))}
     </div>
