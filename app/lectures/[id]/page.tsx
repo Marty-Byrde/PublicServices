@@ -4,6 +4,7 @@ import BackButton from "@/app/(components)/Navigation/BackButton"
 import { Metadata } from "next"
 import Card from "@/app/(components)/Cards/Card"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
+import { emptyLecture } from "@/app/api/data"
 
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -64,31 +65,7 @@ function Schedule({ schedule, isPending }: { schedule: LectureSchedule, isPendin
 export const metadata: Metadata = {};
 
 
-/**
- * Returns an empty lecture object
- */
-export function emptyLecture(): Lecture {
-  return {
-    id: "",
-    name: "",
-    type: "",
-    sws: 0,
-    ects: 0,
-    maxRegistrations: 0,
-    registrations: 0,
-    registrationDeadline: new Date(),
-    language: "DE",
-    department: "",
-    coursePage: "",
-    moodlePage: "",
 
-    teachers: Array(4).fill({ titles: [], name: "", fullName: "" }),
-    description: Array(3).fill({ field: "", content: "" }),
-    examDescriptions: Array(2).fill({ field: "", content: "" }),
-    schedules: Array(8).fill({ start: new Date(), end: new Date(), type: "", room: "", notes: "" }),
-    curriculars: Array(4).fill({ name: "", id: "" }),
-  }
-}
 
 export default async function LectureDetails({ params }) {
   const { id }: { id: string } = params
