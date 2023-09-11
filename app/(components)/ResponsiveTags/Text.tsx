@@ -14,6 +14,7 @@ export interface ResponsiveElementProps {
 
 interface TextProps extends  ResponsiveElementProps{
   content: string | string[],
+  containerFullWidth?: boolean,
   title?: string,
 
   textSize?: "text-sm" | string,
@@ -24,7 +25,7 @@ interface TextProps extends  ResponsiveElementProps{
 }
 
 export function Text(props: TextProps) {
-  const { content, isPending, color, darkColor, textSize, className, title } = props
+  const { content, isPending, color, darkColor, textSize, className, title, containerFullWidth } = props
   const { skeletonClassName, skWidth, skHeight, skBackground, skDarkBackground, skLines } = props
 
   if (isPending) {
@@ -36,7 +37,7 @@ export function Text(props: TextProps) {
         
         rounded-full ${skeletonClassName}`} />)
     return (
-      <div className='animate-pulse '>
+      <div className={`animate-pulse ${containerFullWidth ? "w-full" : ""}`}>
         {skLines ? Array(skLines).fill(Line) : Line}
       </div>
     )
