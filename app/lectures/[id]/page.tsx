@@ -83,8 +83,8 @@ export function emptyLecture(): Lecture {
     moodlePage: "",
 
     teachers: Array(4).fill({ titles: [], name: "", fullName: "" }),
-    description: Array(4).fill({ field: "", content: "" }),
-    examDescriptions: Array(4).fill({ field: "", content: "" }),
+    description: Array(3).fill({ field: "", content: "" }),
+    examDescriptions: Array(2).fill({ field: "", content: "" }),
     schedules: Array(8).fill({ start: new Date(), end: new Date(), type: "", room: "", notes: "" }),
     curriculars: Array(4).fill({ name: "", id: "" }),
   }
