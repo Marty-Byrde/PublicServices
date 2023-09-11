@@ -1,5 +1,4 @@
-import { Lecture } from "campus-scraper"
-import { LectureDetailsDisplay } from "@/app/lectures/[id]/page"
+import LectureDetailsDisplay from "@/app/lectures/[id]/LectureDetails"
 
 export default function LoadingLectureDetails(){
 
