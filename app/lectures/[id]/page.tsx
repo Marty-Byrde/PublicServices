@@ -2,19 +2,22 @@ import { Lecture, LectureDescription, LectureSchedule } from "campus-scraper"
 import Link from "next/link"
 import BackButton from "@/app/(components)/Navigation/BackButton"
 import { Metadata } from "next"
+import Card from "@/app/(components)/Cards/Card"
+import { Text } from "@/app/(components)/ResponsiveTags/Text"
 
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-function Schedule({ schedule }: { schedule: LectureSchedule }) {
+function Schedule({ schedule, isPending }: { schedule: LectureSchedule, isPending?: boolean }) {
   const beginning = new Date(Date.parse(schedule.start.toString()));
   const ending = new Date(Date.parse(schedule.end.toString()));
 
-  if (!schedule?.type) return null
+  if (!schedule?.type && !isPending) return null
 
   const typeBackgroundColor = () => {
     if (schedule.type === "Weekly") return "bg-green-600/50"
     if (schedule.type === "PreliminaryMeeting") return "bg-pink-600/50"
 
+    if(isPending) return "bg-base-100"
     return "bg-sky-700"
   }
 
@@ -23,8 +26,8 @@ function Schedule({ schedule }: { schedule: LectureSchedule }) {
 
     return (
       <div aria-description='statistic' className={`break-inside-avoid flex flex-col items-center justify-center ${containerClassName}`}>
-        <span className='text-sm text-gray-600 dark:text-gray-300'>{label}</span>
-        <span className={`text-lg shadow-2xl font-semibold text-gray-700 dark:text-gray-200 ${className}`}>{value}</span>
+        <Text content={label} color='text-gray-700' darkColor='dark:text-gray-200' textSize='text-sm' isPending={false}/>
+        <Text content={value} skWidth='w-12' skHeight='h-2.5' skeletonClassName='mt-2' color='text-gray-700' darkColor='dark:text-gray-200' className={`shadow-2xl font-semibold ${className}`} isPending={isPending}/>
       </div>
     )
   }
@@ -33,13 +36,13 @@ function Schedule({ schedule }: { schedule: LectureSchedule }) {
   return (
     <div className='flex flex-col gap-3 p-3 bg-neutral-300 dark:bg-neutral-700/60 rounded-2xl'>
       <div aria-description='card-heading-section' className='border-b-2 border-b-slate-500 dark:border-b-white relative text-center tracking-wider pb-2 font-bold '>
-        <div className={`${typeBackgroundColor()} p-2 py-1 rounded-full absolute -top-7 -left-8`}>
-          <span className='text-md font-semibold'>{schedule.type.toString()}</span>
+        <div className={`${typeBackgroundColor()} ${!isPending ? "p-2 py-1" : "" } rounded-full absolute -top-7 -left-8`}>
+          <Text content={schedule.type.toString()} skWidth='w-20' skHeight='h-8' textSize='text-md' className='font-semibold' isPending={isPending}/>
         </div>
 
-        <div className='text-primary'>
-          {beginning.toLocaleDateString().split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".")}
-        </div>
+        <Text content={beginning.toLocaleDateString().split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".")} color='text-primary' darkColor='text-primary' skeletonClassName='my-2 mx-auto' skHeight='h-3' skWidth='w-24' isPending={isPending}/>
+
+
 
       </div>
 
@@ -60,6 +63,33 @@ function Schedule({ schedule }: { schedule: LectureSchedule }) {
 
 export const metadata: Metadata = {};
 
+
+/**
+ * Returns an empty lecture object
+ */
+export function emptyLecture(): Lecture {
+  return {
+    id: "",
+    name: "",
+    type: "",
+    sws: 0,
+    ects: 0,
+    maxRegistrations: 0,
+    registrations: 0,
+    registrationDeadline: new Date(),
+    language: "DE",
+    department: "",
+    coursePage: "",
+    moodlePage: "",
+
+    teachers: Array(4).fill({ titles: [], name: "", fullName: "" }),
+    description: Array(3).fill({ field: "", content: "" }),
+    examDescriptions: Array(2).fill({ field: "", content: "" }),
+    schedules: Array(8).fill({ start: new Date(), end: new Date(), type: "", room: "", notes: "" }),
+    curriculars: Array(4).fill({ name: "", id: "" }),
+  }
+}
+
 export default async function LectureDetails({ params }) {
   const { id }: { id: string } = params
   const lecture = await fetch("http://localhost/api/lectureDetails", {
@@ -68,89 +98,84 @@ export default async function LectureDetails({ params }) {
     cache: "no-store"
   }).then(res => res.json() as Promise<Lecture>)
 
+
   if (!lecture) return null
   metadata.title = `${lecture?.id} - ${lecture?.name}`
 
-  function SectionCard({ children, hidden, className, keepTogether }: { children: any, hidden?: boolean, className?: string, keepTogether?: boolean }) {
-    if (hidden) return null;
+  return LectureDetailsDisplay({ lecture })
+}
 
-    return (
-      <div className={`bg-stone-200 dark:bg-base-100 border-[1px] border-black p-4 shadow-2xl ${keepTogether ? "break-inside-avoid" : ""} ${className}`}>
-        {children}
-      </div>
-    )
-  }
 
-  function isNoObject(value: any) {
-    return typeof value !== "object"
-  }
+export function LectureDetailsDisplay({ lecture: _lecture, isPending }: { lecture: Lecture, isPending?: boolean }) {
 
-  function DisplayLectureDescriptions({ description }: { description: LectureDescription[] }) {
-    return (
-      <div className='flex flex-col gap-4'>
-        {description?.map(desc => (
-          <div key={desc.field} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200'>
-            <div className='md:flex-2 md:w-[160px] md:break-words text-center font-semibold tracking-wider text-lg'>{desc.field}</div>
-            <div className='md:flex-1 whitespace-pre-wrap break-all'>{desc.content}</div>
-          </div>
-        ))}
-      </div>
-    )
-  }
+  const isNoObject = (value: any) => typeof value !== "object"
+
+  const lecture = _lecture || emptyLecture()
+  const properties = Object.keys(lecture).map(k => k).filter(k => isNoObject(lecture[k]) && +lecture[k] !== -1)
 
   return (
     <div>
       <BackButton className='w-full mb-4'/>
-      <div className='columns-1 lg:columns-2 space-y-4 pb-12' aria-description='page-container'>
-        <SectionCard>
+      <div className='columns-3xl space-y-4 pb-12' aria-description='page-container'>
+        <Card>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Basic Informations</h1>
           <div className='flex gap-6 px-2 text-gray-700 dark:text-gray-200'>
-            <div className='flex flex-col gap-2' aria-description='labels'>
-              {Object.keys(lecture).map(key => {
-                const value = lecture[key]
-                if (!isNoObject(value)) return null;
-                if (key === "maxRegistrations" && value === -1) return null;
-
-                return <span key={key} className='text-md'>{key}</span>
-              })}
+            <div className='flex flex-col gap-2'>
+              {properties.map(key => (<Text content={key} key={key} textSize='text-md' color='text-gray-700' darkColor='dark:text-gray-200'/>))}
             </div>
-            <div className='flex flex-col gap-2' aria-description='values'>
-              {Object.keys(lecture).map(key => {
-                let value = lecture[key]
-                if (!isNoObject(value)) return null;
-                if (key === "maxRegistrations" && value === -1) return null;
 
-                if (key === "registrationDeadline") value = new Date(value).toLocaleDateString().split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".") + " " + new Date(value).toLocaleTimeString()
+            <div className='flex flex-col gap-2'>
+              {
+                properties.map(key => {
+                  if (lecture[key].toString().startsWith("http")) return (<Link target='_blank' className='underline text-secondary dark:text-gray-400' href={lecture[key].toString()}>{key}</Link>)
 
-                if (value.toString().startsWith("http")) return (<Link target='_blank' className='underline text-secondary dark:text-gray-400' href={lecture[key].toString()}>{key}</Link>)
-
-                return <span key={key} className='text-md line-clamp-1' title={lecture[key]}>{value}</span>
-              })}
+                  return <Text content={lecture[key]} title={lecture[key]} className='line-clamp-1' isPending={isPending} skeletonClassName='my-2' key={lecture[key]} textSize='text-md' color='text-gray-700' darkColor='dark:text-gray-200'/>
+                })
+              }
             </div>
           </div>
-        </SectionCard>
+        </Card>
 
-        <SectionCard hidden={lecture.description?.length === 0}>
+        <Card hidden={lecture.description?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Description</h1>
 
-          <DisplayLectureDescriptions description={lecture.description}/>
-        </SectionCard>
+          <LectureDescription description={lecture.description} isPending={isPending}/>
+        </Card>
 
-        <SectionCard hidden={lecture.examDescriptions?.length === 0}>
+        <Card hidden={lecture.examDescriptions?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Exam-Description</h1>
 
-          <DisplayLectureDescriptions description={lecture.examDescriptions}/>
-        </SectionCard>
+          <LectureDescription description={lecture.examDescriptions} isPending={isPending}/>
+        </Card>
 
-        <SectionCard keepTogether>
+        <Card preventBreakup>
           <h1 className='text-xl tracking-wide mb-6 text-black dark:text-white font-bold'>Time & Date</h1>
           <div className='flex flex-wrap gap-10 px-4 mt-4 justify-center items-center'>
-            {lecture.schedules.map(schedule => <Schedule key={schedule.start.toString()} schedule={schedule}/>)}
+            {lecture.schedules.map(schedule => <Schedule isPending={isPending} key={schedule.start.toString()} schedule={schedule}/>)}
           </div>
-        </SectionCard>
+        </Card>
 
 
       </div>
+    </div>
+  )
+}
+
+/**
+ * Displays a given Array of LectureDescription fields and their content.
+ * @param description The description elements to display
+ * @param isPending Whether the description is pending
+ * @constructor
+ */
+function LectureDescription({ description, isPending }: { description: LectureDescription[], isPending ?: boolean }) {
+  return (
+    <div className='flex flex-col gap-4'>
+      {description?.map(desc => (
+        <div key={desc.field + isPending} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200 break-inside-avoid-column overflow-auto'>
+          <Text content={desc.field} className='md:w-[160px] md:break-words text-center font-semibold tracking-wider' skHeight='h-6' skeletonClassName='my-2'  isPending={isPending}/>
+          <Text content={desc.content} textSize='text-md' className='md:flex-1 whitespace-pre-wrap break-all' skLines={6} skWidth='w-full' skeletonClassName='my-2' isPending={isPending} containerFullWidth/>
+        </div>
+      ))}
     </div>
   )
 }
