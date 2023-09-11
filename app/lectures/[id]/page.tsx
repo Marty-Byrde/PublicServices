@@ -3,6 +3,7 @@ import Link from "next/link"
 import BackButton from "@/app/(components)/Navigation/BackButton"
 import { Metadata } from "next"
 import Card from "@/app/(components)/Cards/Card"
+import { Text } from "@/app/(components)/ResponsiveTags/Text"
 
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -104,8 +105,12 @@ export default async function LectureDetails({ params }) {
 }
 
 
-export function LectureDetailsDisplay({ lecture: _lecture }: { lecture: Lecture}) {
+export function LectureDetailsDisplay({ lecture: _lecture, isPending }: { lecture: Lecture, isPending?: boolean }) {
+
   const isNoObject = (value: any) => typeof value !== "object"
+
+  const lecture = _lecture || emptyLecture()
+  const properties = Object.keys(lecture).map(k => k).filter(k => isNoObject(lecture[k]) && +lecture[k] !== -1)
 
   return (
     <div>
@@ -114,27 +119,18 @@ export function LectureDetailsDisplay({ lecture: _lecture }: { lecture: Lecture}
         <Card>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Basic Informations</h1>
           <div className='flex gap-6 px-2 text-gray-700 dark:text-gray-200'>
-            <div className='flex flex-col gap-2' aria-description='labels'>
-              {Object.keys(lecture).map(key => {
-                const value = lecture[key]
-                if (!isNoObject(value)) return null;
-                if (key === "maxRegistrations" && value === -1) return null;
-
-                return <span key={key} className='text-md'>{key}</span>
-              })}
+            <div className='flex flex-col gap-2'>
+              {properties.map(key => (<Text content={key} key={key} textSize='text-md' color='text-gray-700' darkColor='dark:text-gray-200'/>))}
             </div>
-            <div className='flex flex-col gap-2' aria-description='values'>
-              {Object.keys(lecture).map(key => {
-                let value = lecture[key]
-                if (!isNoObject(value)) return null;
-                if (key === "maxRegistrations" && value === -1) return null;
 
-                if (key === "registrationDeadline") value = new Date(value).toLocaleDateString().split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".") + " " + new Date(value).toLocaleTimeString()
+            <div className='flex flex-col gap-2'>
+              {
+                properties.map(key => {
+                  if (lecture[key].toString().startsWith("http")) return (<Link target='_blank' className='underline text-secondary dark:text-gray-400' href={lecture[key].toString()}>{key}</Link>)
 
-                if (value.toString().startsWith("http")) return (<Link target='_blank' className='underline text-secondary dark:text-gray-400' href={lecture[key].toString()}>{key}</Link>)
-
-                return <span key={key} className='text-md line-clamp-1' title={lecture[key]}>{value}</span>
-              })}
+                  return <Text content={lecture[key]} className='line-clamp-1' isPending={isPending} skeletonClassName='my-2' key={lecture[key]} textSize='text-md' color='text-gray-700' darkColor='dark:text-gray-200'/>
+                })
+              }
             </div>
           </div>
         </Card>
