@@ -7,16 +7,17 @@ import { Text } from "@/app/(components)/ResponsiveTags/Text"
 
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-function Schedule({ schedule }: { schedule: LectureSchedule }) {
+function Schedule({ schedule, isPending }: { schedule: LectureSchedule, isPending?: boolean }) {
   const beginning = new Date(Date.parse(schedule.start.toString()));
   const ending = new Date(Date.parse(schedule.end.toString()));
 
-  if (!schedule?.type) return null
+  if (!schedule?.type && !isPending) return null
 
   const typeBackgroundColor = () => {
     if (schedule.type === "Weekly") return "bg-green-600/50"
     if (schedule.type === "PreliminaryMeeting") return "bg-pink-600/50"
 
+    if(isPending) return "bg-base-100"
     return "bg-sky-700"
   }
 
@@ -25,8 +26,8 @@ function Schedule({ schedule }: { schedule: LectureSchedule }) {
 
     return (
       <div aria-description='statistic' className={`break-inside-avoid flex flex-col items-center justify-center ${containerClassName}`}>
-        <span className='text-sm text-gray-600 dark:text-gray-300'>{label}</span>
-        <span className={`text-lg shadow-2xl font-semibold text-gray-700 dark:text-gray-200 ${className}`}>{value}</span>
+        <Text content={label} color='text-gray-700' darkColor='dark:text-gray-200' textSize='text-sm' isPending={false}/>
+        <Text content={value} skWidth='w-12' skHeight='h-2.5' skeletonClassName='mt-2' color='text-gray-700' darkColor='dark:text-gray-200' className={`shadow-2xl font-semibold ${className}`} isPending={isPending}/>
       </div>
     )
   }
@@ -35,13 +36,13 @@ function Schedule({ schedule }: { schedule: LectureSchedule }) {
   return (
     <div className='flex flex-col gap-3 p-3 bg-neutral-300 dark:bg-neutral-700/60 rounded-2xl'>
       <div aria-description='card-heading-section' className='border-b-2 border-b-slate-500 dark:border-b-white relative text-center tracking-wider pb-2 font-bold '>
-        <div className={`${typeBackgroundColor()} p-2 py-1 rounded-full absolute -top-7 -left-8`}>
-          <span className='text-md font-semibold'>{schedule.type.toString()}</span>
+        <div className={`${typeBackgroundColor()} ${!isPending ? "p-2 py-1" : "" } rounded-full absolute -top-7 -left-8`}>
+          <Text content={schedule.type.toString()} skWidth='w-20' skHeight='h-8' textSize='text-md' className='font-semibold' isPending={isPending}/>
         </div>
 
-        <div className='text-primary'>
-          {beginning.toLocaleDateString().split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".")}
-        </div>
+        <Text content={beginning.toLocaleDateString().split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".")} color='text-primary' darkColor='text-primary' skeletonClassName='my-2 mx-auto' skHeight='h-3' skWidth='w-24' isPending={isPending}/>
+
+
 
       </div>
 
@@ -150,7 +151,7 @@ export function LectureDetailsDisplay({ lecture: _lecture, isPending }: { lectur
         <Card preventBreakup>
           <h1 className='text-xl tracking-wide mb-6 text-black dark:text-white font-bold'>Time & Date</h1>
           <div className='flex flex-wrap gap-10 px-4 mt-4 justify-center items-center'>
-            {lecture.schedules.map(schedule => <Schedule key={schedule.start.toString()} schedule={schedule}/>)}
+            {lecture.schedules.map(schedule => <Schedule isPending={isPending} key={schedule.start.toString()} schedule={schedule}/>)}
           </div>
         </Card>
 
