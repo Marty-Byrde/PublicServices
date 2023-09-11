@@ -2,6 +2,7 @@ import { Lecture, LectureDescription, LectureSchedule } from "campus-scraper"
 import Link from "next/link"
 import BackButton from "@/app/(components)/Navigation/BackButton"
 import { Metadata } from "next"
+import Card from "@/app/(components)/Cards/Card"
 
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -68,41 +69,23 @@ export default async function LectureDetails({ params }) {
     cache: "no-store"
   }).then(res => res.json() as Promise<Lecture>)
 
+  await new Promise(resolve => setTimeout(resolve, 20000))
+
   if (!lecture) return null
   metadata.title = `${lecture?.id} - ${lecture?.name}`
 
-  function SectionCard({ children, hidden, className, keepTogether }: { children: any, hidden?: boolean, className?: string, keepTogether?: boolean }) {
-    if (hidden) return null;
+  return LectureDetailsDisplay({ lecture })
+}
 
-    return (
-      <div className={`bg-stone-200 dark:bg-base-100 border-[1px] border-black p-4 shadow-2xl ${keepTogether ? "break-inside-avoid" : ""} ${className}`}>
-        {children}
-      </div>
-    )
-  }
 
-  function isNoObject(value: any) {
-    return typeof value !== "object"
-  }
-
-  function DisplayLectureDescriptions({ description }: { description: LectureDescription[] }) {
-    return (
-      <div className='flex flex-col gap-4'>
-        {description?.map(desc => (
-          <div key={desc.field} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200'>
-            <div className='md:flex-2 md:w-[160px] md:break-words text-center font-semibold tracking-wider text-lg'>{desc.field}</div>
-            <div className='md:flex-1 whitespace-pre-wrap break-all'>{desc.content}</div>
-          </div>
-        ))}
-      </div>
-    )
-  }
+export function LectureDetailsDisplay({ lecture }: { lecture: Lecture, isPending?: boolean }) {
+  const isNoObject = (value: any) => typeof value !== "object"
 
   return (
     <div>
       <BackButton className='w-full mb-4'/>
-      <div className='columns-1 lg:columns-2 space-y-4 pb-12' aria-description='page-container'>
-        <SectionCard>
+      <div className='columns-3xl space-y-4 pb-12' aria-description='page-container'>
+        <Card>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Basic Informations</h1>
           <div className='flex gap-6 px-2 text-gray-700 dark:text-gray-200'>
             <div className='flex flex-col gap-2' aria-description='labels'>
@@ -128,29 +111,47 @@ export default async function LectureDetails({ params }) {
               })}
             </div>
           </div>
-        </SectionCard>
+        </Card>
 
-        <SectionCard hidden={lecture.description?.length === 0}>
+        <Card hidden={lecture.description?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Description</h1>
 
-          <DisplayLectureDescriptions description={lecture.description}/>
-        </SectionCard>
+          <LectureDescription description={lecture.description}/>
+        </Card>
 
-        <SectionCard hidden={lecture.examDescriptions?.length === 0}>
+        <Card hidden={lecture.examDescriptions?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Exam-Description</h1>
 
-          <DisplayLectureDescriptions description={lecture.examDescriptions}/>
-        </SectionCard>
+          <LectureDescription description={lecture.examDescriptions}/>
+        </Card>
 
-        <SectionCard keepTogether>
+        <Card preventBreakup>
           <h1 className='text-xl tracking-wide mb-6 text-black dark:text-white font-bold'>Time & Date</h1>
           <div className='flex flex-wrap gap-10 px-4 mt-4 justify-center items-center'>
             {lecture.schedules.map(schedule => <Schedule key={schedule.start.toString()} schedule={schedule}/>)}
           </div>
-        </SectionCard>
+        </Card>
 
 
       </div>
+    </div>
+  )
+}
+
+/**
+ * Displays a given Array of LectureDescription fields and their content.
+ * @param description The description elements to display
+ * @constructor
+ */
+function LectureDescription({ description }: { description: LectureDescription[] }) {
+  return (
+    <div className='flex flex-col gap-4'>
+      {description?.map(desc => (
+        <div key={desc.field} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200'>
+          <div className='md:flex-2 md:w-[160px] md:break-words text-center font-semibold tracking-wider text-lg'>{desc.field}</div>
+          <div className='md:flex-1 whitespace-pre-wrap break-all'>{desc.content}</div>
+        </div>
+      ))}
     </div>
   )
 }
