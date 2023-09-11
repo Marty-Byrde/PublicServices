@@ -13,7 +13,7 @@ export interface ResponsiveElementProps {
 }
 
 interface TextProps extends  ResponsiveElementProps{
-  content: string,
+  content: string | string[],
   title?: string,
 
   textSize?: "text-sm" | string,
@@ -43,7 +43,7 @@ export function Text(props: TextProps) {
   }
 
   return (
-    <div className={`${textSize || "text-lg"} ${color || "text-black"} ${darkColor || "dark:text-white"} ${className}`} title={title}>
+    <div className={`${textSize || "text-lg"} ${color || "text-black"} ${darkColor || "dark:text-white"} ${className ?? ""}`} title={title}>
       {content}
     </div>
   )
