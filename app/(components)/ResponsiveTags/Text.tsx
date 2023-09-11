@@ -14,6 +14,7 @@ export interface ResponsiveElementProps {
 
 interface TextProps extends  ResponsiveElementProps{
   content: string,
+  title?: string,
 
   textSize?: "text-sm" | string,
   color?: "text-black" | string,
@@ -23,7 +24,7 @@ interface TextProps extends  ResponsiveElementProps{
 }
 
 export function Text(props: TextProps) {
-  const { content, isPending, color, darkColor, textSize, className } = props
+  const { content, isPending, color, darkColor, textSize, className, title } = props
   const { skeletonClassName, skWidth, skHeight, skBackground, skDarkBackground, skLines } = props
 
   if (isPending) {
@@ -42,7 +43,7 @@ export function Text(props: TextProps) {
   }
 
   return (
-    <div className={`${textSize || "text-lg"} ${color || "text-black"} ${darkColor || "dark:text-white"} ${className}`}>
+    <div className={`${textSize || "text-lg"} ${color || "text-black"} ${darkColor || "dark:text-white"} ${className}`} title={title}>
       {content}
     </div>
   )

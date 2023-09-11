@@ -128,7 +128,7 @@ export function LectureDetailsDisplay({ lecture: _lecture, isPending }: { lectur
                 properties.map(key => {
                   if (lecture[key].toString().startsWith("http")) return (<Link target='_blank' className='underline text-secondary dark:text-gray-400' href={lecture[key].toString()}>{key}</Link>)
 
-                  return <Text content={lecture[key]} className='line-clamp-1' isPending={isPending} skeletonClassName='my-2' key={lecture[key]} textSize='text-md' color='text-gray-700' darkColor='dark:text-gray-200'/>
+                  return <Text content={lecture[key]} title={lecture[key]} className='line-clamp-1' isPending={isPending} skeletonClassName='my-2' key={lecture[key]} textSize='text-md' color='text-gray-700' darkColor='dark:text-gray-200'/>
                 })
               }
             </div>
