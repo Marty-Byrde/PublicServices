@@ -61,6 +61,33 @@ function Schedule({ schedule }: { schedule: LectureSchedule }) {
 
 export const metadata: Metadata = {};
 
+
+/**
+ * Returns an empty lecture object
+ */
+export function emptyLecture(): Lecture {
+  return {
+    id: "",
+    name: "",
+    type: "",
+    sws: 0,
+    ects: 0,
+    maxRegistrations: 0,
+    registrations: 0,
+    registrationDeadline: new Date(),
+    language: "DE",
+    department: "",
+    coursePage: "",
+    moodlePage: "",
+
+    teachers: Array(4).fill({ titles: [], name: "", fullName: "" }),
+    description: Array(4).fill({ field: "", content: "" }),
+    examDescriptions: Array(4).fill({ field: "", content: "" }),
+    schedules: Array(8).fill({ start: new Date(), end: new Date(), type: "", room: "", notes: "" }),
+    curriculars: Array(4).fill({ name: "", id: "" }),
+  }
+}
+
 export default async function LectureDetails({ params }) {
   const { id }: { id: string } = params
   const lecture = await fetch("http://localhost/api/lectureDetails", {
@@ -69,7 +96,6 @@ export default async function LectureDetails({ params }) {
     cache: "no-store"
   }).then(res => res.json() as Promise<Lecture>)
 
-  await new Promise(resolve => setTimeout(resolve, 20000))
 
   if (!lecture) return null
   metadata.title = `${lecture?.id} - ${lecture?.name}`
@@ -78,7 +104,7 @@ export default async function LectureDetails({ params }) {
 }
 
 
-export function LectureDetailsDisplay({ lecture }: { lecture: Lecture, isPending?: boolean }) {
+export function LectureDetailsDisplay({ lecture: _lecture }: { lecture: Lecture}) {
   const isNoObject = (value: any) => typeof value !== "object"
 
   return (
