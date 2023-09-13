@@ -8,17 +8,6 @@ export const options: NextAuthOptions = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
       name: "Github-Provider"
-    }),
-    // CredentialsProvider({
-    //   name: "Credentials",
-    //   credentials: {
-    //     username: { label: "Username", type: "text", placeholder: "Username" },
-    //     password: { label: "Password", type: "password" }
-    //   },
-    //   async authorize(credentials) {
-    //     return new Promise((resolve, reject) => resolve({ id:"", username: "", password: ""} as User))
-    //   }
-    // })
-
+    })
   ],
 }
