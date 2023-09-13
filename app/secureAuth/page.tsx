@@ -3,7 +3,9 @@ import { options } from "@/app/api/auth/[...nextauth]/options"
 import { redirect } from "next/navigation"
 
 export default async function SecureAuth() {
+  console.time("SecureAuth")
   const session = await getServerSession(options)
+  console.timeEnd("SecureAuth")
   const { name, email } = session.user
 
   if (!session) redirect("/api/auth/signin?callbackUrl=/selection")
