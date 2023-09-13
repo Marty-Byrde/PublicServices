@@ -8,14 +8,14 @@ export default async function SecureAuth() {
   console.timeEnd("SecureAuth")
   const { name, email } = session.user
 
-  if (!session) redirect("/api/auth/signin?callbackUrl=/selection")
+  // if (!session) redirect("/api/auth/signin?callbackUrl=/selection")
 
 
   return (
     <div className='flex mx-auto gap-2'>
       <div className='text-black dark:text-white text-2xl'>Welcome</div>
-      <div className='text-primary text-2xl'>{name}</div>
-      <div className='text-secondary text-2xl'>({email ?? ""})</div>
+      <div className='text-primary text-2xl'>{name ?? 'your-name'}</div>
+      <div className='text-secondary text-2xl'>({email ?? 'your-email'})</div>
     </div>
   )
 }
