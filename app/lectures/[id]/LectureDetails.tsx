@@ -20,7 +20,7 @@ export default function LectureDetailsDisplay({ lecture: _lecture, isPending }: 
     <div>
       <BackButton className='w-full mb-4'/>
       <div className='columns-3xl space-y-4 pb-12' aria-description='page-container'>
-        <Card>
+        <Card key='lecture-basicinfo'>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Basic Informations</h1>
           <div className='flex gap-6 px-2 text-gray-700 dark:text-gray-200'>
             <div className='flex flex-col gap-2'>
@@ -39,19 +39,19 @@ export default function LectureDetailsDisplay({ lecture: _lecture, isPending }: 
           </div>
         </Card>
 
-        <Card hidden={lecture.description?.length === 0}>
+        <Card key='lecture-description' hidden={lecture.description?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Description</h1>
 
           <LectureDescription description={lecture.description} isPending={isPending}/>
         </Card>
 
-        <Card hidden={lecture.examDescriptions?.length === 0}>
+        <Card key='lecture-examdescription' hidden={lecture.examDescriptions?.length === 0}>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Exam-Description</h1>
 
           <LectureDescription description={lecture.examDescriptions} isPending={isPending}/>
         </Card>
 
-        <Card preventBreakup>
+        <Card key='lecture-schedules' preventBreakup>
           <h1 className='text-xl tracking-wide mb-6 text-black dark:text-white font-bold'>Time & Date</h1>
           <div className='flex flex-wrap gap-10 px-4 mt-4 justify-center items-center'>
             {lecture.schedules.map(schedule => <Schedule isPending={isPending} key={schedule.start.toString()} schedule={schedule}/>)}
@@ -74,7 +74,7 @@ function LectureDescription({ description, isPending }: { description: LectureDe
   return (
     <div className='flex flex-col gap-4'>
       {description?.map(desc => (
-        <div key={desc.field + isPending} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200 break-inside-avoid-column overflow-auto'>
+        <div key={Math.random().toString() + "description-field" + isPending} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200 break-inside-avoid-column overflow-auto'>
           <Text content={desc.field} className='md:w-[160px] md:break-words text-center font-semibold tracking-wider' skHeight='h-6' skeletonClassName='my-2' isPending={isPending}/>
           <Text content={desc.content} textSize='text-md' className='md:flex-1 whitespace-pre-wrap break-all' skLines={6} skWidth='w-full' skeletonClassName='my-2' isPending={isPending} containerFullWidth/>
         </div>
