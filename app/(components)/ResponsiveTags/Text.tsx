@@ -29,16 +29,22 @@ export function Text(props: TextProps) {
   const { skeletonClassName, skWidth, skHeight, skBackground, skDarkBackground, skLines } = props
 
   if (isPending) {
-    const Line = (<div key={uuidV4()} className={`
+    const lines = []
+    const makeLine = () => (<div key={Math.random().toString()+'-text-skeleton'} className={`
         ${skWidth || "w-48"}
         ${skHeight || "h-2"}
         ${skBackground || "bg-gray-200"}
         ${skDarkBackground || "dark:bg-gray-500"}
         
         rounded-full ${skeletonClassName}`} />)
+
+    for (let i = 0; i < skLines; i++) {
+      lines.push(makeLine())
+    }
+
     return (
       <div className={`animate-pulse ${containerFullWidth ? "w-full" : ""}`}>
-        {skLines ? Array(skLines).fill(Line) : Line}
+        {skLines ? lines : makeLine()}
       </div>
     )
   }

@@ -3,6 +3,11 @@ import { DisplayLecture } from "@/app/lectures/ClientPage"
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Loading(){
+  const dummys = []
+  for (let i = 0; i < 30; i++) {
+    dummys.push(<DisplayLecture key={uuidv4() + 'lecture-skeleton'} lecture={null} isPending={true} />)
+  }
+
   return (
     <div>
       <div className='mb-8'>
@@ -10,7 +15,7 @@ export default function Loading(){
       </div>
 
       <div className='flex flex-wrap gap-8 items-center justify-center mt-3'>
-        {Array(30).fill(<DisplayLecture key={uuidv4()} lecture={null} isPending={true} />)}
+        {dummys}
       </div>
     </div>
   )
