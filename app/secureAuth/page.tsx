@@ -6,7 +6,7 @@ export default async function SecureAuth() {
   console.time("SecureAuth")
   const session = await getServerSession(options)
   console.timeEnd("SecureAuth")
-  const { name, email } = session?.user
+  const { name, email } = session?.user || {}
 
   // if (!session) redirect("/api/auth/signin?callbackUrl=/selection")
 
