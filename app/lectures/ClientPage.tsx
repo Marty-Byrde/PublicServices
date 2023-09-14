@@ -18,7 +18,7 @@ export default function ClientPage({ initialLectures }: { initialLectures: Basic
         <SearchInput lectures={initialLectures} setLectures={setLectures}/>
       </div>
 
-      <div className='columns-sm space-y-6'>
+      <div className='columns-sm space-y-6 gap-6'>
         {lectures.map((lecture, index) => <DisplayLecture key={lecture.id} lecture={lecture} isPending={false} />)}
       </div>
     </div>
@@ -48,7 +48,7 @@ export function DisplayLecture({lecture, isPending}: { lecture: BasicLecture, is
   }
 
   return (
-    <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl max-w-sm break-inside-avoid-column">
+    <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl break-inside-avoid-column">
       <Icon/>
       <div className="mt-6">
         <div className='my-2 flex items-center'>
