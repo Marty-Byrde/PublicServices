@@ -24,13 +24,6 @@ const navigationBarProps: NavigationBarProps = {
 export default async function RootLayout({ children, }: { children: React.ReactNode }) {
   const background = 'bg-stone-100/90 dark:bg-base-100'
 
-  return (
-    <html lang='en' data-theme='halloween' className='dark '>
-      <body>
-      {children}
-      </body>
-    </html>
-  )
 
   return (
     <html lang="en" data-theme={useColorModeValue("cmyk", "halloween")} className={`h-full ${background} ${useColorModeValue("", "dark")}`}>
