@@ -51,7 +51,9 @@ export interface Item {
  */
 export default function ClickableCategory(args: ClickableCategoryProps) {
   const props: ClickableCategoryProps = { ...defaultProps, ...args }
-  const { items, config } = props;
+  const { items, config: _config } = props;
+  const config: ClickableCategoryConfig = { ...defaultProps.config, ..._config }
+
   const { action, containerPosition, styles } = config;
 
   return (
