@@ -32,7 +32,7 @@ const defaultProps: ClickableCategoryProps = {
   },
 }
 
-interface Item {
+export interface Item {
   label: string
   image?: {
     src: any,
