@@ -1,8 +1,10 @@
+'use client'
 import { Icon, Link, Placement, Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react"
 import NextImage from "next/image"
 import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import * as React from "react"
 import { twMerge } from 'tailwind-merge'
+import { useState } from "react"
 
 declare type Logical = "start-start" | "start-end" | "end-start" | "end-end" | "start" | "end";
 declare type PlacementWithLogical = Placement | Logical;
@@ -21,6 +23,13 @@ export interface ClickableCategoryConfig {
 
     popoverItemHoverBackground?: 'hover:bg-base-200' | string,
     popoverItemHoverBackgroundDark?: 'dark:hover:bg-gray-900' | string,
+
+    categoryText?: {
+      size?: 'text-lg' | string,
+      color?: 'text-gray-600' | string,
+      darkColor?: 'dark:text-gray-200' | string,
+      className?: string,
+    }
   }
 }
 
@@ -32,7 +41,7 @@ const defaultProps: ClickableCategoryProps = {
   },
 }
 
-interface Item {
+export interface Item {
   label: string
   image?: {
     src: any,
@@ -49,24 +58,28 @@ interface Item {
  * @param args
  */
 export default function ClickableCategory(args: ClickableCategoryProps) {
+  const [isActive, setIsActive] = useState(false)
+
   const props: ClickableCategoryProps = { ...defaultProps, ...args }
-  const { items, config } = props;
+  const { items, config: _config } = props;
+  const config: ClickableCategoryConfig = { ...defaultProps.config, ..._config, styles: { ...defaultProps.config.styles,  ..._config?.styles} }
+
   const { action, containerPosition, styles } = config;
 
   return (
     <div className='flex flex-row gap-8'>
       {items.map((item) => (
         <div key={item.label} className='group/category z-50'>
-          <Popover trigger={action} placement={containerPosition} offset={[0, 10]}>
+          <Popover trigger={action} onClose={() => setIsActive(false)} onOpen={() => setIsActive(true)}  placement={containerPosition} offset={[0, 10]}>
             <PopoverTrigger>
-              <Link className='text-sm font-medium text-gray-600 dark:text-gray-200 hover:no-underline hover:text-gray-800 dark:hover:text-white' href={item.href ?? '#'}>
+              <Link className={twMerge('text-lg font-medium text-gray-600 dark:text-gray-200 hover:no-underline hover:text-gray-800 dark:hover:text-white', `${config?.styles?.categoryText?.size ?? ""} ${config?.styles?.categoryText?.color ?? ""} ${config?.styles?.categoryText?.darkColor ?? ""} ${config?.styles?.categoryText?.className ?? ""}`)} href={item.href ?? '#'}>
                 <div className='flex flex-row items-center gap-2'>
                   {item.image && <NextImage width={item.image.imageWidth ?? 20} height={item.image.imageHeight ?? 20} className='rounded-xl' src={item.image.src} alt='Navitem-Image'/>}
 
                   {item.label}
                   <Icon
                     as={ChevronDownIcon}
-                    className={`group-hover/category:transform group-hover/category:rotate-180 transition-all duration-300 ease-in-out -ml-1`}
+                    className={`group-hover/category:transform ${action === "hover" ? "group-hover/category:rotate-180" : `${isActive ? "rotate-180" : ""}`} transition-all duration-300 ease-in-out -ml-1`}
                     w={22}
                     h={22}
                   />
