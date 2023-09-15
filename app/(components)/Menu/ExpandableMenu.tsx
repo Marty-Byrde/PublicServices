@@ -62,7 +62,7 @@ export default function ClickableCategory(args: ClickableCategoryProps) {
 
   const props: ClickableCategoryProps = { ...defaultProps, ...args }
   const { items, config: _config } = props;
-  const config: ClickableCategoryConfig = { ...defaultProps.config, ..._config }
+  const config: ClickableCategoryConfig = { ...defaultProps.config, ..._config, styles: { ...defaultProps.config.styles,  ..._config?.styles} }
 
   const { action, containerPosition, styles } = config;
 
