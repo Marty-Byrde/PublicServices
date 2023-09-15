@@ -18,7 +18,6 @@ export default function NavigationBar({ title, items, session }: NavigationBarPr
   const args: ClickableCategoryProps = {
     items: items,
     config: {
-      action: 'hover',
       containerPosition: 'bottom-start',
       styles: {
         popoverItemHoverBackgroundDark: 'dark:hover:bg-neutral-600',
@@ -40,8 +39,8 @@ export default function NavigationBar({ title, items, session }: NavigationBarPr
 
         <HamburgerMenu />
 
-        <div aria-label='page-title' className='flex flex-1 justify-center md:justify-start items-center'>
-          <div className='text-black font-medium tracking-wider dark:text-white text-xl text-center md:text-left'>
+        <div aria-label='page-title' className='flex flex-1 justify-center md:justify-start items-end'>
+          <div className='text-black font-medium tracking-widest dark:text-white text-2xl text-center md:text-left'>
             {title}
           </div>
 
