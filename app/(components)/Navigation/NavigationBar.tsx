@@ -5,7 +5,7 @@ import ColorModeSwitcher from "@/app/(components)/ColorModeSwitcher"
 import * as React from "react"
 import NextImage from "next/image"
 import SessionProfile from "@/app/(components)/Navigation/SessionProfile"
-import { ClickableCategoryProps } from "@/app/(components)/Menu/ExpandableMenu"
+import ClickableCategory, { ClickableCategoryProps } from "@/app/(components)/Menu/ExpandableMenu"
 import MobileNavbarProvider from "@/app/(components)/Navigation/Mobile/MobileNavbarProvider"
 import MobileNavigationBar from "@/app/(components)/Navigation/Mobile/MobileNavigation"
 import HamburgerMenu from "@/app/(components)/Navigation/Mobile/HamburgerMenu"
@@ -25,7 +25,14 @@ export interface NavigationBarProps {
 
 export default function NavigationBar({ title, items }: NavigationBarProps): JSX.Element {
   const args: ClickableCategoryProps = {
-    items: items
+    items: items,
+    config: {
+      action: 'hover',
+      containerPosition: 'bottom-start',
+      styles: {
+        popoverItemHoverBackgroundDark: 'dark:hover:bg-neutral-600',
+      }
+    }
   }
 
   return (
@@ -48,7 +55,8 @@ export default function NavigationBar({ title, items }: NavigationBarProps): JSX
           </div>
 
           <div aria-describedby='Displayed on Desktop. ' className='hidden md:flex ml-10'>
-            <DesktopNavigation items={items}/>
+            <ClickableCategory config={args.config} items={args.items}/>
+            {/*<DesktopNavigation items={args.items}/>*/}
           </div>
         </div>
 
