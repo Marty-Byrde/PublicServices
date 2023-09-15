@@ -18,7 +18,7 @@ export default function SessionProfile({ _session }: { _session: Session }) {
 
   const config: ClickableCategoryProps = {
     config: {
-      action: 'click',
+      action: 'hover',
       styles: {
         popoverBackgroundDark: 'dark:bg-neutral-700',
         popoverItemHoverBackgroundDark: 'dark:hover:bg-neutral-600',
