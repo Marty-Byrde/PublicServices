@@ -1,3 +1,4 @@
+'use client'
 import { Icon, Link, Placement, Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react"
 import NextImage from "next/image"
 import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"

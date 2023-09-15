@@ -1,4 +1,3 @@
-'use client'
 import ColorModeSwitcher from "@/app/(components)/ColorModeSwitcher"
 import * as React from "react"
 import SessionProfile from "@/app/(components)/Navigation/SessionProfile"
