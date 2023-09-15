@@ -4,6 +4,8 @@ import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from "@ch
 import ColorModeSwitcher from "@/app/(components)/ColorModeSwitcher"
 import * as React from "react"
 import NextImage from "next/image"
+import SessionProfile from "@/app/(components)/Navigation/SessionProfile"
+import ClickableCategory from "@/app/(components)/Menu/ExpandableMenu"
 
 export interface NavigationBarItem {
   label: string,
@@ -51,7 +53,8 @@ export default function NavigationBar({ title, items }: NavigationBarProps): JSX
           </div>
         </div>
 
-        <div className='justify-self-end mt-1 -mr-3'>
+        <div className='flex items-center justify-self-end mt-1 mr-3'>
+          <SessionProfile _session={null}/>
           <ColorModeSwitcher/>
         </div>
 
@@ -194,4 +197,3 @@ function DesktopSubNavigation({ item }: { item: NavigationBarItem }) {
     </Link>
   )
 }
-;
