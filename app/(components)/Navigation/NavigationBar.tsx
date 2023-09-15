@@ -5,7 +5,7 @@ import ColorModeSwitcher from "@/app/(components)/ColorModeSwitcher"
 import * as React from "react"
 import NextImage from "next/image"
 import SessionProfile from "@/app/(components)/Navigation/SessionProfile"
-import ClickableCategory, { ClickableCategoryProps } from "@/app/(components)/Menu/ExpandableMenu"
+import ClickableCategory, { ClickableCategoryProps, Item } from "@/app/(components)/Menu/ExpandableMenu"
 import MobileNavbarProvider from "@/app/(components)/Navigation/Mobile/MobileNavbarProvider"
 import MobileNavigationBar from "@/app/(components)/Navigation/Mobile/MobileNavigation"
 import HamburgerMenu from "@/app/(components)/Navigation/Mobile/HamburgerMenu"
@@ -20,7 +20,7 @@ export interface NavigationBarItem {
 
 export interface NavigationBarProps {
   title: string,
-  items: Array<NavigationBarItem>
+  items: Array<Item>
 }
 
 export default function NavigationBar({ title, items }: NavigationBarProps): JSX.Element {
