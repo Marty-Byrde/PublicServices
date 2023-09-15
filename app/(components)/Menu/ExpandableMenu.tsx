@@ -22,6 +22,13 @@ export interface ClickableCategoryConfig {
 
     popoverItemHoverBackground?: 'hover:bg-base-200' | string,
     popoverItemHoverBackgroundDark?: 'dark:hover:bg-gray-900' | string,
+
+    categoryText?: {
+      size?: 'text-lg' | string,
+      color?: 'text-gray-600' | string,
+      darkColor?: 'dark:text-gray-200' | string,
+      className?: string,
+    }
   }
 }
 
@@ -62,7 +69,7 @@ export default function ClickableCategory(args: ClickableCategoryProps) {
         <div key={item.label} className='group/category z-50'>
           <Popover trigger={action} placement={containerPosition} offset={[0, 10]}>
             <PopoverTrigger>
-              <Link className='text-sm font-medium text-gray-600 dark:text-gray-200 hover:no-underline hover:text-gray-800 dark:hover:text-white' href={item.href ?? '#'}>
+              <Link className={twMerge('text-lg font-medium text-gray-600 dark:text-gray-200 hover:no-underline hover:text-gray-800 dark:hover:text-white', `${config?.styles?.categoryText?.size ?? ""} ${config?.styles?.categoryText?.color ?? ""} ${config?.styles?.categoryText?.darkColor ?? ""} ${config?.styles?.categoryText?.className ?? ""}`)} href={item.href ?? '#'}>
                 <div className='flex flex-row items-center gap-2'>
                   {item.image && <NextImage width={item.image.imageWidth ?? 20} height={item.image.imageHeight ?? 20} className='rounded-xl' src={item.image.src} alt='Navitem-Image'/>}
 
