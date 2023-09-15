@@ -44,7 +44,7 @@ export default function NavigationBar({ title, items, session }: NavigationBarPr
             {title}
           </div>
 
-          <div aria-describedby='Displayed on Desktop. ' className='hidden md:flex ml-10'>
+          <div aria-describedby='Displayed on Desktop. ' className='hidden md:flex ml-12'>
             <ClickableCategory config={args.config} items={args.items}/>
           </div>
         </div>
