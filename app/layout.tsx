@@ -3,6 +3,8 @@ import React from "react"
 import { useColorModeValue } from "@/app/(components)/ColorModeHandler"
 import NavigationBar, { NavigationBarProps } from "@/app/(components)/Navigation/NavigationBar"
 import AAULogo from "@/public/AAU_Logo.png"
+import AuthProvider from "@/app/(components)/Auth/AuthProvider"
+
 
 const navigationBarProps: NavigationBarProps = {
   title: "Dashboard",
@@ -30,20 +32,22 @@ export default async function RootLayout({ children, }: { children: React.ReactN
 
       <body className='h-full bg-gradient-to-r from-base-100 to-base-100'>
 
-        <NavigationBar {...navigationBarProps} />
+        <AuthProvider>
+          <NavigationBar {...navigationBarProps} />
 
-        <div className={`p-4 pb-6 mb-10 ${background}`}>
-          {children}
-        </div>
-
-
-        <footer className="footer footer-center p-4 bg-gray-300 dark:bg-base-300 text-base-content fixed bottom-0 right-0 left-0">
-          <div>
-            <p className='hidden md:block'>Copyright © 2023 - All right reserved by @Marty-Byrde</p>
-            <p className='block md:hidden'>Copyright © @Marty-Byrde</p>
+          <div className={`p-4 pb-6 mb-10 ${background}`}>
+            {children}
           </div>
-        </footer>
 
+
+          <footer className="footer footer-center p-4 bg-gray-300 dark:bg-base-300 text-base-content fixed bottom-0 right-0 left-0">
+            <div>
+              <p className='hidden md:block'>Copyright © 2023 - All right reserved by @Marty-Byrde</p>
+              <p className='block md:hidden'>Copyright © @Marty-Byrde</p>
+            </div>
+          </footer>
+
+        </AuthProvider>
 
       </body>
     </html>
