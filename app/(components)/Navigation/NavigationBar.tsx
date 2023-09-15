@@ -5,13 +5,16 @@ import ClickableCategory, { ClickableCategoryProps, Item } from "@/app/(componen
 import MobileNavbarProvider from "@/app/(components)/Navigation/Mobile/MobileNavbarProvider"
 import MobileNavigationBar from "@/app/(components)/Navigation/Mobile/MobileNavigation"
 import HamburgerMenu from "@/app/(components)/Navigation/Mobile/HamburgerMenu"
+import { Session } from "next-auth"
+import { session } from "next-auth/core/routes"
 
 export interface NavigationBarProps {
   title: string,
   items: Array<Item>
+  session: Session
 }
 
-export default function NavigationBar({ title, items }: NavigationBarProps): JSX.Element {
+export default function NavigationBar({ title, items, session }: NavigationBarProps): JSX.Element {
   const args: ClickableCategoryProps = {
     items: items,
     config: {
@@ -48,7 +51,7 @@ export default function NavigationBar({ title, items }: NavigationBarProps): JSX
         </div>
 
         <div className='flex items-center justify-self-end mt-1 mr-3'>
-          <SessionProfile _session={null}/>
+          <SessionProfile session={session}/>
           <ColorModeSwitcher/>
         </div>
 
