@@ -1,11 +1,14 @@
 'use client'
 import { Collapse, Icon, Image, Link, Popover, PopoverContent, PopoverTrigger, useDisclosure } from "@chakra-ui/react"
-import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
+import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import ColorModeSwitcher from "@/app/(components)/ColorModeSwitcher"
 import * as React from "react"
 import NextImage from "next/image"
 import SessionProfile from "@/app/(components)/Navigation/SessionProfile"
-import ClickableCategory from "@/app/(components)/Menu/ExpandableMenu"
+import { ClickableCategoryProps } from "@/app/(components)/Menu/ExpandableMenu"
+import MobileNavbarProvider from "@/app/(components)/Navigation/Mobile/MobileNavbarProvider"
+import MobileNavigationBar from "@/app/(components)/Navigation/Mobile/MobileNavigation"
+import HamburgerMenu from "@/app/(components)/Navigation/Mobile/HamburgerMenu"
 
 export interface NavigationBarItem {
   label: string,
@@ -21,27 +24,23 @@ export interface NavigationBarProps {
 }
 
 export default function NavigationBar({ title, items }: NavigationBarProps): JSX.Element {
-  const { isOpen, onToggle } = useDisclosure()
-
+  const args: ClickableCategoryProps = {
+    items: items
+  }
 
   return (
-    <div>
-      <div aria-label='navigation-bar' className={`flex justify-center items-center
+    <MobileNavbarProvider args={args}>
+      <div aria-label='navigation-bar' className='flex justify-center items-center
                       bg-base-300 dark:bg-base-100
                       text-black dark:text-white
                       min-h-[60px]
                       py-4 px-4
                       border-black dark:border-white
-                      ${!isOpen ? "border-b-2": "border-b-2 border-dashed md:border-solid"}
-                      `}>
+                      border-b-2
+                      '>
 
 
-        <div aria-label='hamburger-menu' className='-ml-2 flex md:hidden'>
-          <button onClick={onToggle} className={'btn btn-ghost w-12 h-[24px]'}>
-            {isOpen && <CloseIcon w={12} h={12}/>}
-            {!isOpen && <HamburgerIcon w={24} h={24}/>}
-          </button>
-        </div>
+        <HamburgerMenu />
 
         <div aria-label='page-title' className='flex flex-1 justify-center md:justify-start items-center'>
           <div className='text-black font-medium tracking-wider dark:text-white text-xl text-center md:text-left'>
@@ -60,11 +59,9 @@ export default function NavigationBar({ title, items }: NavigationBarProps): JSX
 
       </div>
 
-      <Collapse in={isOpen} animateOpacity aria-describedby='Children displayed on Mobile.'>
-        <MobileNavigation items={items}/>
-      </Collapse>
+      <MobileNavigationBar />
 
-    </div>
+    </MobileNavbarProvider>
   )
 }
 
