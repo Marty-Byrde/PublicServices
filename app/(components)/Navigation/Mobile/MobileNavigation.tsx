@@ -4,9 +4,9 @@ import { Collapse, Icon, Image, Link, useDisclosure } from "@chakra-ui/react"
 import * as React from "react"
 import { useContext } from "react"
 import { MobileNavbarContext } from "@/app/(components)/Navigation/Mobile/MobileNavbarProvider"
-import { ClickableCategoryProps } from "@/app/(components)/Menu/ExpandableMenu"
+import { ClickableCategoryProps, Item } from "@/app/(components)/Menu/ExpandableMenu"
 import { ChevronDownIcon } from "@chakra-ui/icons"
-import { NavigationBarItem } from "@/app/(components)/Navigation/NavigationBar"
+
 
 export default function MobileNavigationBar(){
   const { isOpen, args }: {isOpen: boolean, args: ClickableCategoryProps} = useContext(MobileNavbarContext)
@@ -24,7 +24,7 @@ export default function MobileNavigationBar(){
 
 
 
-function MobileNavigation({ items }: { items: NavigationBarItem[] }) {
+function MobileNavigation({ items }: { items: Item[] }) {
   return (
     <div className='bg-stone-300 dark:bg-base-100 p-4 md:hidden border-b border-dashed border-black dark:border-white'>
       {items.map((item) => (
@@ -37,7 +37,7 @@ function MobileNavigation({ items }: { items: NavigationBarItem[] }) {
 }
 
 
-function MobileNavigationItem({ item, children }: { item: NavigationBarItem, children: NavigationBarItem[] }) {
+function MobileNavigationItem({ item, children }: { item: Item, children: Item[] }) {
   const { isOpen, onToggle } = useDisclosure();
   const { label, image, href } = item;
 
@@ -69,7 +69,7 @@ function MobileNavigationItem({ item, children }: { item: NavigationBarItem, chi
             children.map((child) => (
               <Link key={child.label} className='px-2 flex flex-row items-center gap-2' href={child.href}>
                 {!child.image && <div className='w-1.5 h-1.5 bg-gray-700 dark:bg-white rounded-3xl mx-1'/>}
-                {child.image && <Image src={child.image} w={16} h={16} className='mt-1' alt='Navigation-Item-Image'/>}
+                {child.image && <Image src={child.image.src} w={16} h={16} className='mt-1' alt='Navigation-Item-Image'/>}
 
                 <div className='text-gray-700 dark:text-white'>
                   {child.label}
