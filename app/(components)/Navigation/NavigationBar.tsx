@@ -49,7 +49,7 @@ export default function NavigationBar({ title, items, session }: NavigationBarPr
           </div>
         </div>
 
-        <div className='flex items-center justify-self-end mt-1 mr-3'>
+        <div className='flex items-center justify-self-end'>
           <SessionProfile session={session}/>
           <ColorModeSwitcher/>
         </div>

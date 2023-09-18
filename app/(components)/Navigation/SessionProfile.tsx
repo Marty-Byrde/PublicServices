@@ -6,7 +6,7 @@ import { Session } from "next-auth"
 
 export default function SessionProfile({ session }: { session: Session }) {
   if (!session) return (
-    <Link href='/api/auth/signin' className='btn btn-active btn-ghost'>
+    <Link href='/api/auth/signin' className='btn btn-active btn-ghost hidden sm:flex'>
       Login
     </Link>
   )
