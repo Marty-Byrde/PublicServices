@@ -3,7 +3,9 @@ import { getServerSession, User } from "next-auth"
 import { MongoClient } from "mongodb"
 
 export interface SessionData extends User {
-  
+  lectureStore?: {
+    semester?: string
+  }
 }
 
 export default async function useSessionData() {
