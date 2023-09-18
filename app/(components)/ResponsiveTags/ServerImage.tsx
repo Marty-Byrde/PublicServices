@@ -1,6 +1,6 @@
 import { ResponsiveElementProps } from "@/app/(components)/ResponsiveTags/Text"
 import Image from "next/image"
-import { StaticImageData } from "next/dist/client/image"
+import { StaticImageData } from "next/image"
 import defaultImage from "@/public/lectureIcons/star.svg"
 
 interface StaticImport {
