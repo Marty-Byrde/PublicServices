@@ -1,9 +1,9 @@
-import SemesterSelection, { SemesterProps } from "@/app/(components)/[semster]/SemesterSelection"
-import { SessionData } from "@/app/(components)/Auth/useSessionData"
+import SemesterSelection, { SemesterProps } from "@/components/[semster]/SemesterSelection"
+import { SessionData } from "@/components/Auth/useSessionData"
 import { BasicLecture } from "campus-scraper"
-import LectureSearch from "@/app/(components)/[semster]/LectureSearch"
-import { LectureListItem } from "@/app/(components)/[semster]/LectureListItem"
-import LectureListProvider from "@/app/(components)/[semster]/LectureListProvider"
+import { LectureListItem } from "@/components/[semster]/LectureListItem"
+import LectureSearch from "@/components/[semster]/LectureSearch"
+import LectureListProvider from "@/components/[semster]/LectureListProvider"
 
 interface LectureListProps {
   lectures: BasicLecture[],
