@@ -9,10 +9,11 @@ interface LectureListProps {
   lectures: BasicLecture[],
   semesters: SemesterProps[],
   sessionData: SessionData,
-  semester: string | "22W"
+  semester: string | "22W",
+  isPending?: boolean,
 }
 
-export default function LectureList({ lectures, semesters, sessionData, semester }: LectureListProps) {
+export default function LectureList({ lectures, semesters, sessionData, semester, isPending }: LectureListProps) {
 
 
   return <LectureListProvider lectures={lectures}>
@@ -23,7 +24,7 @@ export default function LectureList({ lectures, semesters, sessionData, semester
       </div>
     </div>
     <div className='columns-sm space-y-6 gap-6'>
-      {lectures.map((lecture) => <LectureListItem detailsHref={`/lectures/${semester}/${lecture?.coursePage?.split("/")?.at(-1)?.split(';').at(0)}`} key={lecture.id} lecture={lecture} isPending={false}/>)}
+      {lectures.map((lecture) => <LectureListItem detailsHref={`/lectures/${semester}/${lecture?.coursePage?.split("/")?.at(-1)?.split(';').at(0)}`} key={lecture.id} lecture={lecture} isPending={isPending}/>)}
     </div>
   </LectureListProvider>
 }
