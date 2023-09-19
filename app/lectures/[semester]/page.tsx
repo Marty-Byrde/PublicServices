@@ -1,6 +1,6 @@
 import useSessionData from "@/app/(components)/Auth/useSessionData"
 import { GetLecturesResponse } from "@/app/api/lectures/route"
-import LectureList from "@/app/lectures/LectureList"
+import LectureList from "@/app/(components)/[semster]/LectureList"
 
 export default async function SemesterLecturePage({ params }) {
   const { semester }: { semester: string } = params
