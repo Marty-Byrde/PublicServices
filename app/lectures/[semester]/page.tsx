@@ -18,6 +18,6 @@ export default async function SemesterLecturePage({ params }) {
     }).then(res => res.json() as Promise<GetLecturesResponse>)
 
   return (
-    <LectureList lectures={response.lectures} sessionData={data} selected={semester} semesters={response?.semesters}/>
+    <LectureList lectures={response.lectures} sessionData={data} semester={semester} semesters={response?.semesters}/>
   )
 }
