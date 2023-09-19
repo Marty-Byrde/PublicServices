@@ -1,4 +1,4 @@
-import LectureList from "@/app/lectures/LectureList"
+import LectureList from "@/components/[semster]/LectureList"
 import { BasicLecture } from "campus-scraper"
 
 export default async function Loading() {

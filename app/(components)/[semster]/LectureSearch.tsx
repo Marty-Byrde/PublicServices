@@ -1,7 +1,7 @@
 'use client'
 import { SyntheticEvent, useContext, useEffect, useState } from "react"
 import { BasicLecture } from "campus-scraper"
-import { LectureListContext } from "@/app/lectures/LectureListProvider"
+import { LectureListContext } from "@/components/[semster]/LectureListProvider"
 
 interface SearchProps {
   lectures: BasicLecture[],
