@@ -2,7 +2,7 @@
 import Card from "@/app/(components)/Cards/Card"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import { Context, createContext, useContext, useEffect, useState } from "react"
-import { updateSemesterSelection } from "@/app/display/[semester]/SemesterActions"
+import { updateSemesterSelection } from "@/app/lectures/[semester]/SemesterActions"
 import Link from "next/link"
 
 const SemesterSelectionContext: Context<any> = createContext(null)

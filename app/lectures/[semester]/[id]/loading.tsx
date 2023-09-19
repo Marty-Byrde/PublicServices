@@ -1,4 +1,4 @@
-import LectureDetailsDisplay from "@/app/lectures/[id]/LectureDetails"
+import LectureDetailsDisplay from "@/app/lectures/[semester]/[id]/LectureDetails"
 
 export default function LoadingLectureDetails(){
 
