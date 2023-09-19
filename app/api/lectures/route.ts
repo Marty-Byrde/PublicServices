@@ -5,6 +5,10 @@ import { SemesterProps } from "@/components/[semster]/SemesterSelection"
 
 export interface GetLecturesResponse {
   state: boolean,
+  error?: {
+    type: string | 'not-found',
+    message: string
+  },
   lectures: BasicLecture[],
   semesters: SemesterProps[]
 }
@@ -21,13 +25,24 @@ export async function POST(res: Request) {
   const semesterTableRow = semesterTable?.getElementsByClassName("bg3box")[0]?.children
   const semesters: SemesterProps[] = Array.from(semesterTableRow)
     ?.slice(1, semesterTableRow.length - 1)
-    ?.map(semester =>
-    {
+    ?.map(semester => {
       const text = semester?.textContent?.toString()
       const season = text?.trim()?.startsWith("Winter") ? 'W' : 'S'
-      const year = parseFloat(20+text?.trim()?.split(" ")[1])
+      const year = parseFloat(20 + text?.trim()?.split(" ")[1])
       return { year, season }
     })
+  
+  if (!semesters.find(sem => `${sem.year.toString().slice(2)}${sem.season}` === semester)) {
+    return NextResponse.json({
+      state: false,
+      lectures: lectures,
+      semesters: semesters,
+      error: {
+        type: 'not-found',
+        message: 'Invalid Semester!'
+      }
+    }, { status: 500 })
+  }
 
   const outerTable = body.children[5]
   const innerTable = outerTable.getElementsByTagName("table")[0]
