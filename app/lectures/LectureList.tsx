@@ -1,17 +1,18 @@
 import LectureListProvider from "@/app/lectures/LectureListProvider"
-import SemesterSelection, { SemesterProps } from "@/app/display/[semester]/SemesterSelection"
+import SemesterSelection, { SemesterProps } from "@/app/lectures/[semester]/SemesterSelection"
 import { SessionData } from "@/app/(components)/Auth/useSessionData"
 import { BasicLecture } from "campus-scraper"
 import LectureSearch from "@/app/lectures/LectureSearch"
-import { DisplayLecture } from "@/app/lectures/ClientPage"
+import { LectureListItem } from "@/app/(components)/Lectures/LectureListItem"
 
 interface LectureListProps {
   lectures: BasicLecture[],
   semesters: SemesterProps[],
-  sessionData: SessionData
+  sessionData: SessionData,
+  semester: string | "22W"
 }
 
-export default function LectureList({ lectures, semesters, sessionData }: LectureListProps) {
+export default function LectureList({ lectures, semesters, sessionData, semester }: LectureListProps) {
 
 
   return <LectureListProvider lectures={lectures}>
@@ -22,7 +23,7 @@ export default function LectureList({ lectures, semesters, sessionData }: Lectur
       </div>
     </div>
     <div className='columns-sm space-y-6 gap-6'>
-      {lectures.map((lecture, index) => <DisplayLecture key={lecture.id} lecture={lecture} isPending={false} />)}
+      {lectures.map((lecture) => <LectureListItem detailsHref={`/lectures/${semester}/${lecture?.coursePage?.split("/")?.at(-1)?.split(';').at(0)}`} key={lecture.id} lecture={lecture} isPending={false}/>)}
     </div>
   </LectureListProvider>
 }
