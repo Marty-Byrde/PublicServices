@@ -67,7 +67,7 @@ export function LectureListItem({ lecture, isPending, detailsHref }: LectureList
 function LectureTypeIcon({ lecture }: { lecture: BasicLecture }) {
   if (!lecture?.type) return null
   const backgrounds = {
-    attendance: "bg-yellow-600",
+    attendance: "bg-yellow-700",
     noAttendance: "bg-green-700",
     volunatary: "bg-blue-700"
   }
