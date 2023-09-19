@@ -18,7 +18,7 @@ export default function LectureList({ lectures, semesters, sessionData, semester
 
   return <LectureListProvider lectures={lectures}>
     <div className='flex flex-row-reverse gap-4 mb-12 mt-4'>
-      <SemesterSelection initialSelection={sessionData?.lectureStore?.semester} semesters={semesters}/>
+      <SemesterSelection initialSelection={semester} semesters={semesters}/>
       <div className='flex-1'>
         <LectureSearch />
       </div>
