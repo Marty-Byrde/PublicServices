@@ -3,7 +3,9 @@ import { getServerSession, User } from "next-auth"
 import { MongoClient } from "mongodb"
 
 export interface SessionData extends User {
-  
+  lectureStore?: {
+    semester?: string
+  }
 }
 
 export default async function useSessionData() {
@@ -20,8 +22,8 @@ export default async function useSessionData() {
   const findType = async <T>(filter: any): Promise<T[]> => await collection.find(filter, { projection: { _id: 0 } }).toArray() as T[]
 
   const getData = async () => await findType<SessionData>({ ...user }).then(res => res?.at(0))
-  const update = async (obj: SessionData) => {
-    return await collection.updateOne({ ...user }, obj )
+  const update = async (obj: Omit<SessionData, 'name' | 'email' | 'id' | 'image'>) => {
+    return await collection.updateOne({ ...user }, { $set: obj } )
   }
 
   const data = await getData()

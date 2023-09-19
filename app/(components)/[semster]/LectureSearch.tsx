@@ -1,8 +1,9 @@
 'use client'
-import { SyntheticEvent, useEffect, useState } from "react"
-import { BasicLecture, Lecture } from "campus-scraper"
+import { SyntheticEvent, useContext, useEffect, useState } from "react"
+import { BasicLecture } from "campus-scraper"
+import { LectureListContext } from "@/components/[semster]/LectureListProvider"
 
-interface SearchInputProps {
+interface SearchProps {
   lectures: BasicLecture[],
   setLectures: (lectures: BasicLecture[]) => void
 }
@@ -47,8 +48,8 @@ const options: FilterOption[] = [
 ]
 
 
-export default function SearchInput(props: SearchInputProps){
-  const {lectures, setLectures} = props
+export default function LectureSearch(){
+  const { initialLectures, lectures, setLectures }: {initialLectures: BasicLecture[], lectures: BasicLecture[], setLectures: (prev: BasicLecture[]) => void} = useContext(LectureListContext)
 
   const [isOptionOpen, setIsOptionOpen] = useState(false)
   const [filter, setFilter] = useState<number>(0)
@@ -70,7 +71,7 @@ export default function SearchInput(props: SearchInputProps){
 
     setIsOptionOpen(false)
 
-    let preFiltered = lectures;
+    let preFiltered = initialLectures;
 
 
     const selectedFilter = options[filter]
@@ -87,17 +88,9 @@ export default function SearchInput(props: SearchInputProps){
       if(compareStrings(lecture.id, input)) return true;
       if(compareStrings(lecture.id.replace(".", ""), input)) return true;
 
-      // if(lecture.teachers){
-      //   for(let teacher of lecture.teachers){
-      //     if(compareStrings(teacher.fullName, input)) return true;
-      //   }
-      // }
-
       return false;
     })
-    console.log(`Filtered lectures, ${filtered.length} matches! (search: ${input})`)
     setLectures(filtered)
-
   }
 
   return (

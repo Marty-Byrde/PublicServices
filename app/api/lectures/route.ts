@@ -1,18 +1,49 @@
 import { NextResponse } from "next/server"
 import { JSDOM } from "jsdom";
 import { BasicLecture } from "campus-scraper"
+import { SemesterProps } from "@/components/[semster]/SemesterSelection"
 
 export interface GetLecturesResponse {
   state: boolean,
-  lectures: BasicLecture[]
+  error?: {
+    type: string | 'not-found',
+    message: string
+  },
+  lectures: BasicLecture[],
+  semesters: SemesterProps[]
 }
 
-export async function GET(res: Request) {
-  const html = await fetch(process.env.LECTURE_ENDPOINT, { cache: "no-cache" }).then(res => res.text())
+export async function POST(res: Request) {
+  const { semester } = await res.json()
+  const html = await fetch(`${process.env.LECTURE_ENDPOINT}&semester=${semester}`, { cache: "no-cache" }).then(res => res.text())
   const { window: { document } } = new JSDOM(html)
   const lectures: BasicLecture[] = [];
 
   const body = document.body;
+
+  const semesterTable = body.children[3]
+  const semesterTableRow = semesterTable?.getElementsByClassName("bg3box")[0]?.children
+  const semesters: SemesterProps[] = Array.from(semesterTableRow)
+    ?.slice(1, semesterTableRow.length - 1)
+    ?.map(semester => {
+      const text = semester?.textContent?.toString()
+      const season = text?.trim()?.startsWith("Winter") ? 'W' : 'S'
+      const year = parseFloat(20 + text?.trim()?.split(" ")[1])
+      return { year, season }
+    })
+  
+  if (!semesters.find(sem => `${sem.year.toString().slice(2)}${sem.season}` === semester)) {
+    return NextResponse.json({
+      state: false,
+      lectures: lectures,
+      semesters: semesters,
+      error: {
+        type: 'not-found',
+        message: 'Invalid Semester!'
+      }
+    }, { status: 500 })
+  }
+
   const outerTable = body.children[5]
   const innerTable = outerTable.getElementsByTagName("table")[0]
   const tbody = innerTable.getElementsByTagName("tbody")[0]
@@ -45,5 +76,5 @@ export async function GET(res: Request) {
 
   const success = lectures.length === authCount
 
-  return NextResponse.json({ state: success, lectures: lectures }, { status: success ? 200 : 500 })
+  return NextResponse.json({ state: success, lectures: lectures, semesters: semesters }, { status: success ? 200 : 500 })
 }
