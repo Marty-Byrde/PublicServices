@@ -2,7 +2,7 @@ import SemesterSelection, { SemesterProps } from "@/app/(components)/[semster]/S
 import { SessionData } from "@/app/(components)/Auth/useSessionData"
 import { BasicLecture } from "campus-scraper"
 import LectureSearch from "@/app/(components)/[semster]/LectureSearch"
-import { LectureListItem } from "@/app/(components)/Lectures/LectureListItem"
+import { LectureListItem } from "@/app/(components)/[semster]/LectureListItem"
 import LectureListProvider from "@/app/(components)/[semster]/LectureListProvider"
 
 interface LectureListProps {
