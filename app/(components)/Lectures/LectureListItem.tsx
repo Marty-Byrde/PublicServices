@@ -36,7 +36,7 @@ export function LectureListItem({ lecture, isPending, detailsHref }: LectureList
                 <ServerImage src={User}
                              alt='user'
                              width={14}
-                             isPending={isPending}
+                             isPending={false}
 
                              skBackground='bg-inherit'
                              skDarkBackground='bg-inherit'
@@ -44,14 +44,14 @@ export function LectureListItem({ lecture, isPending, detailsHref }: LectureList
                              skWidth='w-3'
                              skHeight='h-3'/>
 
-                <Text content={teacher.split(" ").reverse().join(" ")}
+                <Text content={teacher?.split(" ")?.reverse()?.join(" ")}
                       color='text-gray-600'
                       darkColor='dark:text-gray-400'
                       textSize='text-sm'
                       className='font-semibold line-clamp-1'
 
                       skBackground='bg-gray-400'
-                      skWidth='w-16'
+                      skWidth='w-48'
                       isPending={isPending}
                 />
               </div>
