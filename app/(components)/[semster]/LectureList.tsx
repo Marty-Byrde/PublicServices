@@ -17,11 +17,11 @@ export default function LectureList({ lectures, semesters, sessionData, semester
 
 
   return <LectureListProvider lectures={lectures}>
-    <div className='flex flex-row-reverse gap-4 mb-12 mt-4'>
-      <SemesterSelection initialSelection={semester} semesters={semesters}/>
+    <div className='flex flex-wrap gap-4 mb-12 mt-4 justify-center '>
       <div className='flex-1'>
         <LectureSearch />
       </div>
+      <SemesterSelection initialSelection={semester} semesters={semesters}/>
     </div>
     <div className='columns-sm space-y-6 gap-6'>
       {lectures.map((lecture) => <LectureListItem detailsHref={`/lectures/${semester}/${lecture?.coursePage?.split("/")?.at(-1)?.split(';').at(0)}`} key={lecture.id} lecture={lecture} isPending={isPending}/>)}
