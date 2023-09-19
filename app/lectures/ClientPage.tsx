@@ -7,14 +7,19 @@ import User from "@/public/lectureIcons/user.svg"
 import SearchInput from "@/app/lectures/SearchInput"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import ServerImage from "@/app/(components)/ResponsiveTags/ServerImage"
+import SemesterSelection, { SemesterProps } from "@/app/lectures/[semester]/SemesterSelection"
+import { SessionData } from "@/app/(components)/Auth/useSessionData"
 
 
-export default function ClientPage({ initialLectures }: { initialLectures: BasicLecture[] }) {
+export default function ClientPage({ initialLectures, data, semesters }: { initialLectures: BasicLecture[], data: SessionData, semesters: SemesterProps[] }) {
   const [lectures, setLectures] = useState<BasicLecture[]>(initialLectures)
 
   return (
     <div>
       <div className='mb-8'>
+        <div className='mb-6'>
+          <SemesterSelection initialSelection={data?.lectureStore?.semester} semesters={semesters}/>
+        </div>
         <SearchInput lectures={initialLectures} setLectures={setLectures}/>
       </div>
 
