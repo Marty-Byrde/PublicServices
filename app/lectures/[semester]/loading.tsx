@@ -1,22 +1,16 @@
-import SearchInput from "@/app/lectures/SearchInput"
-import { v4 as uuidv4 } from 'uuid';
-import { LectureListItem } from "@/app/(components)/Lectures/LectureListItem"
+import LectureList from "@/app/lectures/LectureList"
+import { BasicLecture } from "campus-scraper"
 
-export default function Loading(){
-  const dummys = []
-  for (let i = 0; i < 30; i++) {
-    dummys.push(<LectureListItem key={uuidv4() + 'lecture-skeleton'} lecture={null} isPending={true}  detailsHref='#'/>)
-  }
+export default async function Loading() {
+  const dummyBasic = (): BasicLecture => ({
+    id: '',
+    coursePage: '',
+    type: '',
+    sws: 0,
+    name: '',
+    teachers: Array(3).fill(''),
+  })
+  const dummyLectures = Array(30).fill(dummyBasic())
 
-  return (
-    <div>
-      <div className='mb-8'>
-        <SearchInput lectures={null} setLectures={null}/>
-      </div>
-
-      <div className='flex flex-wrap gap-8 items-center justify-center mt-3'>
-        {dummys}
-      </div>
-    </div>
-  )
+  return <LectureList isPending lectures={dummyLectures} sessionData={null} semester={null} semesters={null}/>
 }
