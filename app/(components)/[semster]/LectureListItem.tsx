@@ -67,7 +67,7 @@ export function LectureListItem({ lecture, isPending, detailsHref }: LectureList
 function LectureTypeIcon({ lecture }: { lecture: BasicLecture }) {
   if (!lecture?.type) return null
   const backgrounds = {
-    attendance: "bg-yellow-600",
+    attendance: "bg-yellow-700",
     noAttendance: "bg-green-700",
     volunatary: "bg-blue-700"
   }
@@ -78,7 +78,7 @@ function LectureTypeIcon({ lecture }: { lecture: BasicLecture }) {
   if (lecture.type === "TU") background = backgrounds.volunatary
 
   return (
-    <div className={`text-white flex items-center absolute rounded-full py-2 px-2 shadow-xl ${background} left-4 -top-4`}>
+    <div className={`text-white flex items-center absolute rounded-full py-2 px-2 shadow-xl ${background} left-0 -top-0 -translate-y-1/4`}>
       <span className='text-xl font-bold px-1'>{lecture.type}</span>
     </div>
   )

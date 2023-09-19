@@ -32,7 +32,7 @@ export default function ColorModeSwitcher({width} : {width?: number}) {
   return (
     <label className="swap swap-rotate mx-4">
 
-      <input type="checkbox"/>
+      <input aria-label='color-mode-switcher-checkbox' type="checkbox"/>
 
       <svg className={`swap-on fill-current w-${width} h-${width}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onClick={toggleMode}>
         <path
