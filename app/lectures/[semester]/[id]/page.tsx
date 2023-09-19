@@ -1,6 +1,6 @@
 import { Lecture } from "campus-scraper"
 import { Metadata } from "next"
-import LectureDetailsDisplay from "@/app/lectures/[id]/LectureDetails"
+import LectureDetailsDisplay from "@/app/lectures/[semester]/[id]/LectureDetails"
 
 export const metadata: Metadata = {};
 
