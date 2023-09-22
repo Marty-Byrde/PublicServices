@@ -95,7 +95,7 @@ export default function LectureSearch(){
 
   return (
 
-    <form onSubmit={handleSearch} className='mx-[10%]'>
+    <form onSubmit={handleSearch} className='max-w-7xl mx-auto'>
       <div className="flex relative ">
         <button onClick={(e) => setIsOptionOpen(prev => !prev)}
                 className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center
