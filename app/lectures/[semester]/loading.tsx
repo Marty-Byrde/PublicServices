@@ -1,4 +1,4 @@
-import LectureList from "@/components/[semster]/LectureList"
+import LectureListContainer from "@/components/[semster]/LectureListContainer"
 import { BasicLecture } from "campus-scraper"
 
 export default async function Loading() {
@@ -12,5 +12,5 @@ export default async function Loading() {
   })
   const dummyLectures = Array(30).fill(dummyBasic())
 
-  return <LectureList isPending lectures={dummyLectures} sessionData={null} semester={null} semesters={null}/>
+  return <LectureListContainer isPending lectures={dummyLectures} sessionData={null} semester={null} semesters={null}/>
 }
