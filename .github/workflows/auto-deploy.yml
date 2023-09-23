@@ -10,9 +10,9 @@ jobs:
     name: Auto-Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v1
-      - name: Check HTTP status
+      #- name: Checkout repository
+       # uses: actions/checkout@v1
+      - name: Call Auto-Deploy Enpdoint
         uses: ./
         with:
           url: ${{ secrets.AUTO_DEPLOY_HOST }}
