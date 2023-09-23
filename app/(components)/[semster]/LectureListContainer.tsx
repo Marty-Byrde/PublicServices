@@ -4,6 +4,7 @@ import { BasicLecture } from "campus-scraper"
 import { LectureListItem } from "@/components/[semster]/LectureListItem"
 import LectureSearch from "@/components/[semster]/LectureSearch"
 import LectureListProvider from "@/components/[semster]/LectureListProvider"
+import LectureList from "@/components/[semster]/LectureList"
 
 interface LectureListProps {
   lectures: BasicLecture[],
@@ -13,7 +14,7 @@ interface LectureListProps {
   isPending?: boolean,
 }
 
-export default function LectureList({ lectures, semesters, sessionData, semester, isPending }: LectureListProps) {
+export default function LectureListContainer({ lectures, semesters, sessionData, semester, isPending }: LectureListProps) {
 
 
   return <LectureListProvider lectures={lectures}>
@@ -23,8 +24,6 @@ export default function LectureList({ lectures, semesters, sessionData, semester
       </div>
       <SemesterSelection initialSelection={semester} semesters={semesters}/>
     </div>
-    <div className='columns-sm space-y-6 gap-6'>
-      {lectures.map((lecture) => <LectureListItem detailsHref={`/lectures/${semester}/${lecture?.coursePage?.split("/")?.at(-1)?.split(';').at(0)}`} key={lecture.id} lecture={lecture} isPending={isPending}/>)}
-    </div>
+    <LectureList semester={semester} isPending={isPending}/>
   </LectureListProvider>
 }
