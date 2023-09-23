@@ -6,14 +6,16 @@ on:
     tags: [ '*.*.*' ]
 
 jobs:
-  build:
+  test:
     name: Auto-Deploy
     runs-on: ubuntu-latest
     steps:
-      #- name: Checkout repository
-       # uses: actions/checkout@v1
-      - name: Call Auto-Deploy Enpdoint
+      - name: Get the sources
+        uses: actions/checkout@v3
+      - name: Execute Auto-Deploy Query
+        id: query
         uses: ./
         with:
           url: ${{ secrets.AUTO_DEPLOY_HOST }}
-          code: 200
+      - name: Print the response status
+        run: echo ${{ steps.query.outputs.status }}
