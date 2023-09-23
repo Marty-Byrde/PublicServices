@@ -1,0 +1,19 @@
+name: Auto-Deploy Main Branch to VPS
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ '*.*.*' ]
+
+jobs:
+  build:
+    name: Auto-Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Check HTTP status
+        uses: ./
+        with:
+          url: ${{ secrets.AUTO_DEPLOY_HOST }}
+          code: 200
