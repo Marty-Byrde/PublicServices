@@ -10,16 +10,12 @@ jobs:
     name: Auto-Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Get the sources
-        uses: actions/checkout@v3
+      #- name: Get the sources
+       # uses: actions/checkout@v3
 
       - name: Execute Auto-Deploy Query
-        id: query
         run: |
           # Perform an HTTP request using curl
           curl -X GET  ${{ secrets.AUTO_DEPLOY_HOST }}
         env:
           AUTO_DEPLOY_HOST: ${{ secrets.AUTO_DEPLOY_HOST }}
-
-      - name: Print the response status
-        run: echo ${{ steps.query.outputs.status }}
