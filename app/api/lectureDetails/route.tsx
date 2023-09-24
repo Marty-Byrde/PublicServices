@@ -5,7 +5,7 @@ import { Curriculm, Lecture, LectureDescription, LectureExamDescription, Lecture
 export async function POST(req: Request) {
   const { id }: { id: string } = await req.json()
   const coursePage = `${process.env.LECTURE_COURSE_BASE}/${id}`
-  const html = await fetch(coursePage, {}).then(res => res.text())
+  const html = await fetch(coursePage, {next: {revalidate: 1800}}).then(res => res.text())
   const { window: { document } } = new JSDOM(html)
 
   const basic = parseBaseInformationSection(document)
