@@ -2,6 +2,7 @@
   "name": "public-services",
   "version": "0.1.0",
   "scripts": {
+    "localBuild": "concurrently \"npm run build\" && npm run start",
     "dev": "next dev -p 80",
     "build": "next build",
     "start": "next start -p 80",
