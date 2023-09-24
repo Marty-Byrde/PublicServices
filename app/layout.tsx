@@ -35,6 +35,7 @@ export default async function RootLayout({ children, }: { children: React.ReactN
 
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#212121"/>
         <link rel="apple-touch-icon" href="/PWA_Icon.jpeg"></link>
         <title>Services</title>
       </head>
