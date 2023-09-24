@@ -2,8 +2,25 @@ import { Lecture } from "campus-scraper"
 import { Metadata } from "next"
 import LectureDetailsDisplay from "@/app/lectures/[semester]/[id]/LectureDetails"
 
-export const metadata: Metadata = {};
+interface LectureDetailsProps {
+  params: {
+    id: string
+  }
+}
+export async function generateMetadata({ params: { id } }: LectureDetailsProps): Promise<Metadata> {
+  const lecture = await fetch("http://localhost/api/lectureDetails", {
+    method: "POST",
+    body: JSON.stringify({ id: id }),
+    next: {
+      revalidate: 1800
+    }
+  }).then(res => res.json() as Promise<Lecture>)
 
+  return {
+    title: `${lecture.type ? `[${lecture.type}]` : ''} ${lecture.id} - ${lecture.name}`,
+    description: `Detailed information about ${lecture.name}`
+  }
+}
 export default async function LectureDetails({ params }) {
   const { id }: { id: string } = params
   const lecture = await fetch("http://localhost/api/lectureDetails", {
@@ -14,7 +31,6 @@ export default async function LectureDetails({ params }) {
 
 
   if (!lecture) return null
-  metadata.title = `${lecture?.id} - ${lecture?.name}`
 
   return LectureDetailsDisplay({ lecture })
 }
