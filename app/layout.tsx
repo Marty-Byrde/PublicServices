@@ -6,6 +6,7 @@ import AAULogo from "@/public/AAU_Logo.png"
 import AuthProvider from "@/app/(components)/Auth/AuthProvider"
 import { getServerSession } from "next-auth"
 import { options } from "@/app/api/auth/[...nextauth]/options"
+import Pwa from "@/components/PWA/PWA"
 
 
 const navigationBarProps: NavigationBarProps = {
@@ -59,6 +60,7 @@ export default async function RootLayout({ children, }: { children: React.ReactN
 
         </AuthProvider>
 
+      <Pwa />
       </body>
     </html>
   )
