@@ -1,6 +1,6 @@
 import useSessionData from "@/components/Auth/useSessionData"
 import { GetLecturesResponse } from "@/api/lectures/route"
-import LectureList from "@/components/[semster]/LectureList"
+import LectureListContainer from "@/components/[semster]/LectureListContainer"
 import SemesterSelection from "@/components/[semster]/SemesterSelection"
 import LectureSearch from "@/components/[semster]/LectureSearch"
 import LectureListProvider from "@/components/[semster]/LectureListProvider"
@@ -25,6 +25,6 @@ export default async function SemesterLecturePage({ params }) {
   if(response?.error?.type === "not-found") return notFound()
 
   return (
-    <LectureList lectures={response.lectures} sessionData={data} semester={semester} semesters={response?.semesters}/>
+    <LectureListContainer lectures={response.lectures} sessionData={data} semester={semester} semesters={response?.semesters}/>
   )
 }

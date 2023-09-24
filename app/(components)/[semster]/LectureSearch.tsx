@@ -67,7 +67,7 @@ export default function LectureSearch(){
 
   const handleSearch = (e?: SyntheticEvent) => {
     e?.preventDefault()
-    if(!lectures || !setLectures) return;
+    if(!initialLectures || !setLectures) return;
 
     setIsOptionOpen(false)
 
@@ -76,7 +76,7 @@ export default function LectureSearch(){
 
     const selectedFilter = options[filter]
     if(selectedFilter.type === "lecture-type" && filter !== 0){
-      preFiltered = lectures.filter(lecture => lecture.type.toLowerCase() === options[filter].value.toLowerCase())
+      preFiltered = preFiltered.filter(lecture => lecture.type.toLowerCase() === options[filter].value.toLowerCase())
     }
 
     if(!input || input.trim().length === 0) return setLectures(preFiltered)
