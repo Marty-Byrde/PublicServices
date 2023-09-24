@@ -1,10 +1,11 @@
 'use client'
-import { SyntheticEvent, useEffect, useState } from "react"
-import { Lecture } from "campus-scraper"
+import { SyntheticEvent, useContext, useEffect, useState } from "react"
+import { BasicLecture } from "campus-scraper"
+import { LectureListContext } from "@/components/[semster]/LectureListProvider"
 
-interface SearchInputProps {
-  lectures: Lecture[],
-  setLectures: (lectures: Lecture[]) => void
+interface SearchProps {
+  lectures: BasicLecture[],
+  setLectures: (lectures: BasicLecture[]) => void
 }
 
 
@@ -47,8 +48,8 @@ const options: FilterOption[] = [
 ]
 
 
-export default function SearchInput(props: SearchInputProps){
-  const {lectures, setLectures} = props
+export default function LectureSearch(){
+  const { initialLectures, lectures, setLectures }: {initialLectures: BasicLecture[], lectures: BasicLecture[], setLectures: (prev: BasicLecture[]) => void} = useContext(LectureListContext)
 
   const [isOptionOpen, setIsOptionOpen] = useState(false)
   const [filter, setFilter] = useState<number>(0)
@@ -66,14 +67,16 @@ export default function SearchInput(props: SearchInputProps){
 
   const handleSearch = (e?: SyntheticEvent) => {
     e?.preventDefault()
+    if(!initialLectures || !setLectures) return;
+
     setIsOptionOpen(false)
 
-    let preFiltered = lectures;
+    let preFiltered = initialLectures;
 
 
     const selectedFilter = options[filter]
     if(selectedFilter.type === "lecture-type" && filter !== 0){
-      preFiltered = lectures.filter(lecture => lecture.type.toLowerCase() === options[filter].value.toLowerCase())
+      preFiltered = preFiltered.filter(lecture => lecture.type.toLowerCase() === options[filter].value.toLowerCase())
     }
 
     if(!input || input.trim().length === 0) return setLectures(preFiltered)
@@ -85,24 +88,16 @@ export default function SearchInput(props: SearchInputProps){
       if(compareStrings(lecture.id, input)) return true;
       if(compareStrings(lecture.id.replace(".", ""), input)) return true;
 
-      if(lecture.teachers){
-        for(let teacher of lecture.teachers){
-          if(compareStrings(teacher.fullName, input)) return true;
-        }
-      }
-
       return false;
     })
-    console.log(`Filtered lectures, ${filtered.length} matches! (search: ${input})`)
     setLectures(filtered)
-
   }
 
   return (
 
-    <form onSubmit={handleSearch} className='mx-[10%]'>
+    <form onSubmit={handleSearch} className='max-w-7xl mx-auto'>
       <div className="flex relative ">
-        <button onBlur={() => setIsOptionOpen(false)} onClick={(e) => setIsOptionOpen(prev => !prev)}
+        <button onClick={(e) => setIsOptionOpen(prev => !prev)}
                 className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center
                 text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none
                 focus:ring-gray-100 dark:bg-stone-600 dark:hover:bg-stone-700 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">{options[filter].label}<svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">

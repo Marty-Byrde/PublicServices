@@ -1,0 +1,21 @@
+name: Auto-Deploy Main Branch to VPS
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ '*.*.*' ]
+
+jobs:
+  deploy:
+    name: Auto-Deploy
+    runs-on: ubuntu-latest
+    steps:
+      #- name: Get the sources
+       # uses: actions/checkout@v3
+
+      - name: Execute Auto-Deploy Query
+        run: |
+          # Perform an HTTP request using curl
+          curl -X GET  ${{ secrets.AUTO_DEPLOY_HOST }}
+        env:
+          AUTO_DEPLOY_HOST: ${{ secrets.AUTO_DEPLOY_HOST }}

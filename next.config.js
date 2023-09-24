@@ -2,16 +2,18 @@
 const nextConfig = {
     experimental: {
         appDir: true,
+        serverActions: true
     },
-    async redirects() {
-        return [
+    images: {
+        remotePatterns: [
             {
-                source: "/orders/settings",
-                destination: "/orders",
-                permanent: true,
-            },
-        ];
-    },
+                port: '',
+                hostname: 'avatars.githubusercontent.com',
+                protocol: 'https',
+                pathname: '/u/**',
+            }
+        ]
+    }
 }
 
 module.exports = nextConfig
