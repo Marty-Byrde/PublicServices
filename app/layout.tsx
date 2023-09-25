@@ -12,7 +12,7 @@ import { Metadata } from "next"
 export const metadata: Metadata = {
   title: {
     default: "Public-Services",
-    template: "%s | Public-Services"
+    template: "%s"
   },
   description: "Work Smart not Hard - Public-Services",
   manifest: "/manifest.json",
