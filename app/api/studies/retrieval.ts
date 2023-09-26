@@ -97,7 +97,18 @@ export default async function getStudies(document: Document): Promise<StudyPlan[
   }))
 
   //* Flattened the array from a 2D array to a 1D array
-  return curriculars.reduce((acc: StudyPlan[], cur: StudyPlan[]) => [...acc, ...cur], [])
+  const reduce = curriculars.reduce((acc: StudyPlan[], cur: StudyPlan[]) => [...acc, ...cur], [])
+
+  //* This array includes groups the different StudyPlans by their type so that there is only one Plan with type 'Bachelorstudium' and all the curriculars are in its curriculars array
+  const flatStudyPlans: StudyPlan[] = []
+  reduce.forEach(study => {
+    const existing = flatStudyPlans.find(plan => plan.type === study.type)
+
+    if(!existing) flatStudyPlans.push(study)
+    else existing.curriculars.push(...study.curriculars)
+  })
+
+  return flatStudyPlans
 }
 
 function createArray<T>(value: any) {
