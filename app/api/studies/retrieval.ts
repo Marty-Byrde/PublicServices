@@ -37,7 +37,8 @@ export default async function getStudies(document: Document): Promise<StudyPlan[
   let pages: string[] = []
   facultyChildren.forEach(children => pages.push(...createArray<HTMLElement>(children).map(child => child.getElementsByTagName("a").item(0)?.getAttribute("href"))))
 
-  const curriculars = await Promise.all(pages.map(async (studyPage, index): Promise<StudyPlan[]> => {
+  //* [ [StudyPlans of first Study-Page], [StudyPlans of second Study-Page], ... ]
+  const promiseResults = await Promise.all(pages.map(async (studyPage, index): Promise<StudyPlan[]> => {
     const link = `${process.env.CAMPUS_BASE}${studyPage}`
     return fetch(link)
       .then(response => response.text())
@@ -96,19 +97,17 @@ export default async function getStudies(document: Document): Promise<StudyPlan[
       })
   }))
 
-  //* Flattened the array from a 2D array to a 1D array
-  const reduce = curriculars.reduce((acc: StudyPlan[], cur: StudyPlan[]) => [...acc, ...cur], [])
+  const plans: StudyPlan[] = []
+  promiseResults.forEach((pageResult) => {
+    pageResult.forEach(studyPlan => {
+      const existing = plans.find(plan => plan.type === studyPlan.type)
 
-  //* This array includes groups the different StudyPlans by their type so that there is only one Plan with type 'Bachelorstudium' and all the curriculars are in its curriculars array
-  const flatStudyPlans: StudyPlan[] = []
-  reduce.forEach(study => {
-    const existing = flatStudyPlans.find(plan => plan.type === study.type)
-
-    if(!existing) flatStudyPlans.push(study)
-    else existing.curriculars.push(...study.curriculars)
+      if(!existing) plans.push(studyPlan)
+      else existing.curriculars.push(...studyPlan.curriculars)
+    })
   })
-
-  return flatStudyPlans
+  
+  return plans
 }
 
 function createArray<T>(value: any) {
