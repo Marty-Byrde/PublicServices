@@ -1,10 +1,10 @@
 import { JSDOM } from "jsdom"
 
-interface StudyPlan {
+export interface StudyPlan {
   type: string | 'Bachelorstudium' | 'Masterstudium',
   curriculars: Curricular[]
 }
-interface Curricular {
+export interface Curricular {
   id: string,
   name: string,
   details: {
