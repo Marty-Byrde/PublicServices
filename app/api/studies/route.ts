@@ -1,7 +1,10 @@
 import { JSDOM } from "jsdom"
 import { NextResponse } from "next/server"
-import getStudies from "@/api/studies/retrieval"
+import getStudies, { StudyPlan } from "@/api/studies/retrieval"
 
+export interface GetStudiesResponse {
+  studies: StudyPlan[]
+}
 export async function GET(res: Request) {
   const html = await fetch(`${process.env.STUDIES_ENDPOINT}`, {
     next: { revalidate: 3600 * 24 * 7 * 4.3 * 4 } // 4 months
