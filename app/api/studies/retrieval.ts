@@ -2,7 +2,8 @@ import { JSDOM } from "jsdom"
 
 export interface StudyPlan {
   type: string | 'Bachelorstudium' | 'Masterstudium',
-  curriculars: Curricular[]
+  curriculars: Curricular[],
+  _sortPriority?: number,
 }
 export interface Curricular {
   id: string,
@@ -83,9 +84,32 @@ export default async function getStudies(document: Document): Promise<StudyPlan[
               }
             })
 
+            const unifyType = () => {
+              const text = section.textContent?.trim().toLowerCase()
+              if (text.startsWith('bachelor')) return 'Bachelor'
+              if (text.startsWith('master')) return 'Master'
+              if (text.startsWith('lehramt')) return 'Lehramt'
+              if (text.startsWith('doktorat')) return 'Doktorat'
+              if (text.startsWith('erweiterung')) return 'Erweiterung'
+              if (text.startsWith('besonderer')) return 'Sonstiges'
+
+              return section.textContent?.trim()
+            }
+            const evaluateSortPriority = () => {
+              const type = unifyType()
+              if (type === 'Bachelor') return 1
+              if (type === 'Master') return 2
+              if (type === 'Doktorat') return 3
+              if (type === 'Lehramt') return 4
+              if (type === 'Erweiterung') return 5
+              if (type === 'Sonstiges') return 6
+              return 7
+            }
+
             studies.push({
-              type: section.textContent?.trim(),
-              curriculars
+              type: unifyType(),
+              curriculars,
+              _sortPriority: evaluateSortPriority()
             })
           }
 
