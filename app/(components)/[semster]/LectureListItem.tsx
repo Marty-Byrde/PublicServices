@@ -13,7 +13,8 @@ interface LectureListItemProps {
 
 export function LectureListItem({ lecture, isPending, detailsHref }: LectureListItemProps) {
   return (
-    <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl break-inside-avoid-column">
+    <div className='break-inside-avoid-column pt-3'>
+      <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl break-inside-avoid-column">
       <LectureTypeIcon lecture={lecture}/>
       <div className="mt-6">
         <div className='my-2 flex items-center'>
@@ -59,6 +60,7 @@ export function LectureListItem({ lecture, isPending, detailsHref }: LectureList
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }
