@@ -1,4 +1,5 @@
 import { JSDOM } from "jsdom"
+import * as fs from "fs"
 
 export interface StudyPlan {
   type: string | 'Bachelorstudium' | 'Masterstudium',
@@ -130,8 +131,14 @@ export default async function getStudies(document: Document): Promise<StudyPlan[
       else existing.curriculars.push(...studyPlan.curriculars)
     })
   })
-  
-  return plans
+
+  console.log('Sorting plans...')
+  const sorted = plans.sort((a, b) => a._sortPriority - b._sortPriority)
+
+  sorted.forEach(plan => plan.curriculars = plan.curriculars.sort((a, b) => a.name.localeCompare(b.name) || parseInt(b.details.version) - parseInt(a.details.version)))
+
+  fs.writeFileSync('studies.json', JSON.stringify(sorted, null, 2))
+  return sorted
 }
 
 function createArray<T>(value: any) {
