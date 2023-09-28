@@ -8,7 +8,10 @@ import Link from "next/link"
 const SemesterSelectionContext: Context<any> = createContext(null)
 
 export interface SemesterSelectionProps {
-  initialSelection: string | "23W"
+  routeParams: {
+    semester: string,
+    study: string,
+  }
   semesters: SemesterProps[],
   showSubtiles?: boolean,
 }
@@ -17,7 +20,7 @@ export interface SemesterProps {
   season: 'W' | 'S'
 }
 
-export default function SemesterSelection({ initialSelection, semesters, showSubtiles }: SemesterSelectionProps) {
+export default function SemesterSelection({ semesters, routeParams: {semester: initialSelection, study}, showSubtiles }: SemesterSelectionProps) {
   const [selectedSemester, setSelectedSemester] = useState<string>(initialSelection)
   const [initialRender, setInitialRender] = useState<boolean>(true)
 
@@ -34,14 +37,14 @@ export default function SemesterSelection({ initialSelection, semesters, showSub
     <SemesterSelectionContext.Provider value={{ selectedSemester, setSelectedSemester, showSubtiles }}>
       <div className='flex flex-col gap-2'>
         <div className='flex gap-4 flex-wrap mx-auto'>
-          {semesters?.map(({ year, season }) => <Semester key={`${year}${season}`} year={year} season={season}/>)}
+          {semesters?.map(({ year, season }) => <Semester study={study} key={`${year}${season}`} year={year} season={season}/>)}
         </div>
       </div>
     </SemesterSelectionContext.Provider>
   )
 }
 
-function Semester({ year, season }: { year: number, season: 'W' | 'S' }) {
+function Semester({ year, season, study }: {study: string, year: number, season: 'W' | 'S' }) {
   const { setSelectedSemester, selectedSemester, showSubtiles } = useContext(SemesterSelectionContext)
   const id = `${year.toString().slice(2)}${season}`
 
@@ -51,7 +54,7 @@ function Semester({ year, season }: { year: number, season: 'W' | 'S' }) {
   const classNames = [`${showSubtiles ?? 'p-2'}`, 'rounded-2xl', 'dark:hover:bg-neutral-700', 'dark:active:bg-neutral-600', 'hover:rounded-2xl', `${selectedSemester === id ? 'dark:bg-red-600 dark:hover:bg-red-500' : ""}`]
 
   return (
-    <Link href={`/lectures/${id}`} onClick={handleClick}>
+    <Link href={`/lectures/${study}/${id}`} onClick={handleClick}>
       <Card key={id + (selectedSemester === id)} className={classNames.join(" ")} preventBreakup>
 
         <div className='flex flex-col justify-center gap-2'>
