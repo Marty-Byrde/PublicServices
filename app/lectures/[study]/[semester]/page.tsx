@@ -38,10 +38,9 @@ export default async function SemesterLecturePage({ params }) {
   const { studies } = await fetch("http://localhost/api/studies", {next: {revalidate: 3600 * 24 * 7 * 4.3 * 4}}).then(res => res.json() as Promise<GetStudiesResponse>)
 
   if(!studies.find(plan => plan.curriculars.find(curricular => curricular.id === study))) redirect("/lectures/select")
-  let { update, user, getData } = await useSessionData()
+  let { update, user } = await useSessionData()
 
   if(user) await update({ lectureStore: { study } })
-  const sessionData = await getData()
 
   const { lectures, semesters, error } = await fetch(`http://localhost/api/lectures`,
     {
@@ -62,6 +61,6 @@ export default async function SemesterLecturePage({ params }) {
   if(user) await update({ lectureStore: { semester, study } })
 
   return (
-    <LectureListContainer data={{ lectures, semesters, sessionData }} routeParams={{semester, study}}/>
+    <LectureListContainer data={{ lectures, semesters }} routeParams={{semester, study}}/>
   )
 }
