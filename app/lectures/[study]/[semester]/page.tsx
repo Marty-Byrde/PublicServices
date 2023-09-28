@@ -57,6 +57,10 @@ export default async function SemesterLecturePage({ params }) {
 
   if(error?.type === "not-found") return notFound()
 
+  const validSemester = semesters.map(s => s.year.toString().slice(2) + s.season).find(s => s === semester)
+  if(!validSemester) redirect(`/lectures/${study}/${process.env.DEFAULT_LECTURES_SEMESTER}`)
+  if(user) await update({ lectureStore: { semester, study } })
+
   return (
     <LectureListContainer data={{ lectures, semesters, sessionData }} routeParams={{semester, study}}/>
   )
