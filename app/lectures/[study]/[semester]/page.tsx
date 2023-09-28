@@ -41,9 +41,9 @@ export default async function SemesterLecturePage({ params }) {
   let { update, user, getData } = await useSessionData()
 
   if(user) await update({ lectureStore: { study } })
-  const data = await getData()
+  const sessionData = await getData()
 
-  const response = await fetch(`http://localhost/api/lectures`,
+  const { lectures, semesters, error } = await fetch(`http://localhost/api/lectures`,
     {
       cache: "no-cache",
       method: 'POST',
@@ -55,9 +55,9 @@ export default async function SemesterLecturePage({ params }) {
       }
     }).then(res => res.json() as Promise<GetLecturesResponse>)
 
-  if(response?.error?.type === "not-found") return notFound()
+  if(error?.type === "not-found") return notFound()
 
   return (
-    <LectureListContainer lectures={response.lectures} sessionData={data} semester={semester} semesters={response?.semesters} study={study}/>
+    <LectureListContainer data={{ lectures, semesters, sessionData }} routeParams={{semester, study}}/>
   )
 }
