@@ -4,7 +4,8 @@ import { MongoClient } from "mongodb"
 
 export interface SessionData extends User {
   lectureStore?: {
-    semester?: string
+    semester?: string,
+    study?: string,
   }
 }
 
