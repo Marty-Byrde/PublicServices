@@ -1,8 +1,7 @@
 'use client'
 import Card from "@/components/Cards/Card"
 import { Text } from "@/components/ResponsiveTags/Text"
-import { Context, createContext, useContext, useEffect, useState } from "react"
-import { updateSemesterSelection } from "@/actions/[semester]/SemesterActions"
+import { Context, createContext, useContext, useState } from "react"
 import Link from "next/link"
 
 const SemesterSelectionContext: Context<any> = createContext(null)
@@ -22,16 +21,6 @@ export interface SemesterProps {
 
 export default function SemesterSelection({ semesters, routeParams: {semester: initialSelection, study}, showSubtiles }: SemesterSelectionProps) {
   const [selectedSemester, setSelectedSemester] = useState<string>(initialSelection)
-  const [initialRender, setInitialRender] = useState<boolean>(true)
-
-  useEffect(() => {
-    if (initialRender) {
-      setInitialRender(false)
-      return
-    }
-
-    updateSemesterSelection({ selection: selectedSemester }).then();
-  }, [selectedSemester])
 
   return (
     <SemesterSelectionContext.Provider value={{ selectedSemester, setSelectedSemester, showSubtiles }}>
@@ -45,16 +34,12 @@ export default function SemesterSelection({ semesters, routeParams: {semester: i
 }
 
 function Semester({ semester: { year, season }, study }: {study: string, semester: SemesterProps }) {
-  const { setSelectedSemester, selectedSemester, showSubtiles } = useContext(SemesterSelectionContext)
+  const { selectedSemester, showSubtiles } = useContext(SemesterSelectionContext)
   const id = `${year.toString().slice(2)}${season}`
-
-  const handleClick = () => {
-    setSelectedSemester(`${year.toString().slice(2)}${season}`)
-  }
   const classNames = [`${showSubtiles ?? 'p-2'}`, 'rounded-2xl', 'dark:hover:bg-neutral-700', 'dark:active:bg-neutral-600', 'hover:rounded-2xl', `${selectedSemester === id ? 'dark:bg-red-600 dark:hover:bg-red-500' : ""}`]
 
   return (
-    <Link href={`/lectures/${study}/${id}`} onClick={handleClick}>
+    <Link href={`/lectures/${study}/${id}`}>
       <Card key={id + (selectedSemester === id)} className={classNames.join(" ")} preventBreakup>
 
         <div className='flex flex-col justify-center gap-2'>
