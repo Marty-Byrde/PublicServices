@@ -37,14 +37,14 @@ export default function SemesterSelection({ semesters, routeParams: {semester: i
     <SemesterSelectionContext.Provider value={{ selectedSemester, setSelectedSemester, showSubtiles }}>
       <div className='flex flex-col gap-2'>
         <div className='flex gap-4 flex-wrap mx-auto'>
-          {semesters?.map(({ year, season }) => <Semester study={study} key={`${year}${season}`} year={year} season={season}/>)}
+          {semesters?.map((semester) => <Semester semester={semester} study={study} key={`${semester.year}${semester.season}`}/>)}
         </div>
       </div>
     </SemesterSelectionContext.Provider>
   )
 }
 
-function Semester({ year, season, study }: {study: string, year: number, season: 'W' | 'S' }) {
+function Semester({ semester: { year, season }, study }: {study: string, semester: SemesterProps }) {
   const { setSelectedSemester, selectedSemester, showSubtiles } = useContext(SemesterSelectionContext)
   const id = `${year.toString().slice(2)}${season}`
 
