@@ -14,7 +14,6 @@ interface LectureListProps {
   data: {
     lectures: BasicLecture[],
     semesters: SemesterProps[],
-    sessionData: SessionData,
   },
   isPending?: boolean,
 }
