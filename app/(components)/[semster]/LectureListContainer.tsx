@@ -19,7 +19,8 @@ interface LectureListProps {
   isPending?: boolean,
 }
 
-export default function LectureListContainer({ routeParams: {semester, study }, data: { lectures, semesters, sessionData }, isPending }: LectureListProps) {
+export default function LectureListContainer({ routeParams, data: { lectures, semesters }, isPending }: LectureListProps) {
+  const { semester, study} = routeParams
 
   return <LectureListProvider lectures={lectures}>
     <div className='flex flex-wrap gap-4 mb-12 mt-4 justify-center '>
@@ -28,6 +29,6 @@ export default function LectureListContainer({ routeParams: {semester, study }, 
       </div>
       <SemesterSelection initialSelection={semester} semesters={semesters} study={study}/>
     </div>
-    <LectureList semester={semester} isPending={isPending} sessionData={sessionData}/>
+    <LectureList routeParams={routeParams} semester={semester} isPending={isPending}/>
   </LectureListProvider>
 }
