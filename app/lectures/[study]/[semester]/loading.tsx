@@ -12,5 +12,5 @@ export default async function Loading() {
   })
   const dummyLectures = Array(30).map(() => dummyBasic())
 
-  return <LectureListContainer isPending data={{lectures: dummyLectures, semesters: null, sessionData: null}} routeParams={{semester: null, study: null}}/>
+  return <LectureListContainer isPending data={{lectures: dummyLectures, semesters: null}} routeParams={{semester: null, study: null}}/>
 }
