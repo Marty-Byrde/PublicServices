@@ -29,8 +29,8 @@ export async function generateMetadata({ params: { semester, study } }: Semester
     }).then(res => res.json() as Promise<GetLecturesResponse>)
 
   return {
-    title: `Lectures of [${semester}] (${response.lectures.length})`,
-    description: `Lectures of the semester ${semester}, ${response.lectures.length} lectures found`
+    title: `[${study}] Lectures of ${semester} (${response.lectures.length})`,
+    description: `Lectures of for Department with ID: ${study} in the the semester ${semester}, ${response.lectures.length} lectures found`
   }
 }
 
