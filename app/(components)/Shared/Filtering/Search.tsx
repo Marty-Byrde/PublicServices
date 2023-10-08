@@ -30,7 +30,7 @@ export interface SearchProps {
 }
 
 export default function Search({ kbdKey, autoCompleteHandler, placeholder, customization }: SearchProps) {
-  let [modifierKey, setModifierKey] = useState<'Ctrl' | '⌘'>('Ctrl')
+  let [modifierKey, setModifierKey] = useState<'Ctrl' | '⌘'>()
   let { buttonProps, dialogProps } = useSearchSettings({ handler: autoCompleteHandler })
 
   useEffect(() => {
