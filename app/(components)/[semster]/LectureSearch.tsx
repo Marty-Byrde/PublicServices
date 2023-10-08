@@ -54,6 +54,9 @@ export default function LectureSearch(){
   const [isOptionOpen, setIsOptionOpen] = useState(false)
   const [filter, setFilter] = useState<number>(0)
   const [input, setInput] = useState<string>(null)
+  const [modifierKey, setModifierKey] = useState<'Ctrl' | '⌘'>()
+
+  useEffect(() => setModifierKey(/(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? '⌘' : 'Ctrl'), [])
 
   const FilterOption = ({label}) => {
     return (
