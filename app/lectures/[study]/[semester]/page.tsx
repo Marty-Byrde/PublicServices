@@ -10,17 +10,18 @@ import { GetStudiesResponse } from "@/api/studies/route"
 
 interface SemesterLecturePageProps {
   params: {
-    semester: string
+    semester: string,
+    study: string
   }
 }
 
-export async function generateMetadata({ params: { semester } }: SemesterLecturePageProps): Promise<Metadata> {
+export async function generateMetadata({ params: { semester, study } }: SemesterLecturePageProps): Promise<Metadata> {
   const response = await fetch(`http://localhost/api/lectures`,
     {
       cache: "no-cache",
       method: 'POST',
       body: JSON.stringify({
-        semester
+        semester, study
       }),
       next: {
         tags: ["lecture-fetch"]
@@ -47,7 +48,7 @@ export default async function SemesterLecturePage({ params }) {
       cache: "no-cache",
       method: 'POST',
       body: JSON.stringify({
-        semester
+        semester, study
       }),
       next:{
         tags: ["lecture-fetch"]
