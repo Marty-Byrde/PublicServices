@@ -26,10 +26,11 @@ export interface SearchProps {
       iconClassName?: string,
       placeholderClassName?: string,
     }
-  }
+  },
+  iconOnly?: boolean
 }
 
-export default function Search({ kbdKey, autoCompleteHandler, placeholder, customization }: SearchProps) {
+export default function Search({ kbdKey, autoCompleteHandler, placeholder, customization, iconOnly }: SearchProps) {
   let [modifierKey, setModifierKey] = useState<'Ctrl' | '⌘'>()
   let { buttonProps, dialogProps } = useSearchSettings({ handler: autoCompleteHandler })
 
@@ -40,15 +41,21 @@ export default function Search({ kbdKey, autoCompleteHandler, placeholder, custo
   return (
     <SearchContext.Provider value={{ kbdKey }}>
       <button type="button"{...buttonProps} key={customization?.box?.containerClassName ?? 'searchButton'}
-              className={twMerge('group flex items-center justify-start h-auto w-auto flex-none rounded-lg py-2.5 pl-4 pr-3.5 text-sm ring-1 ring-slate-200 hover:ring-slate-300 dark:bg-slate-800/75 dark:ring-inset dark:ring-white/5 dark:hover:bg-slate-700/40 dark:hover:ring-slate-500', customization?.box?.containerClassName)}>
+              className={twMerge('group flex items-center justify-start h-auto w-auto flex-none rounded-lg py-2.5 pl-4 pr-3.5 text-sm ring-1 ring-slate-200 hover:ring-slate-300 dark:bg-slate-800/75 dark:ring-inset dark:ring-white/5 dark:hover:bg-slate-700/40 dark:hover:ring-slate-500',
+                iconOnly ? 'w-min px-3 py-3 sm:w-auto justify-center sm:justify-start' : '',
+                customization?.box?.containerClassName)}>
+
 
         <SearchIcon key={customization?.box?.iconClassName ?? 'searchIcon'} className={twMerge('h-5 w-5 flex-none fill-slate-400 group-hover:fill-slate-500 dark:fill-slate-500 md:group-hover:fill-slate-400', customization?.box?.iconClassName)}/>
 
-        <span key={customization?.box?.placeholderClassName ?? 'searchPlacehlder'} className={twMerge("ml-2 text-slate-500 dark:text-slate-400", customization?.box?.placeholderClassName)}>
+        <span key={customization?.box?.placeholderClassName ?? 'searchPlacehlder'} className={twMerge(
+          "ml-2 text-slate-500 dark:text-slate-400",
+          iconOnly ? 'hidden sm:block' : '',
+          customization?.box?.placeholderClassName)}>
                     {placeholder ?? 'Search'}
                 </span>
 
-        <SearchKBD key={kbdKey + modifierKey} kbdKey={kbdKey} modifier={modifierKey}/>
+        <SearchKBD className={iconOnly ? 'hidden sm:block' : ''} key={kbdKey + modifierKey} kbdKey={kbdKey} modifier={modifierKey}/>
 
       </button>
       <SearchDialog {...dialogProps} />
