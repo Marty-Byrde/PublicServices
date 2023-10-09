@@ -5,7 +5,7 @@ import Link from "next/link"
 import useSessionData, { SessionData } from "@/components/Auth/useSessionData"
 
 export default async function StudySelection() {
-  const { studies } = await fetch("http://localhost/api/studies", {next: {revalidate: 3600 * 24 * 7 * 4.3 * 4}}).then(res => res.json() as Promise<GetStudiesResponse>)
+  const { studies } = await fetch("http://localhost/api/studies", {cache: "no-cache"}).then(res => res.json() as Promise<GetStudiesResponse>)
   const { user, data } = await useSessionData()
   const subRoute = '/lectures'
   const semester = user ? data?.lectureStore?.semester ?? process.env.DEFAULT_LECTURES_SEMESTER : process.env.DEFAULT_LECTURES_SEMESTER
