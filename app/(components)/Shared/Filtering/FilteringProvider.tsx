@@ -8,10 +8,10 @@ interface FilterProviderProps {
   items: any[],
   children: JSX.Element | JSX.Element[]
 }
-export interface FilterProviderContextProps {
-  filter: any[],
-  setFilter: (filter: any[]) => void,
-  items: any[]
+export interface FilterProviderContextProps<Type> {
+  filter: Type[],
+  setFilter: (filter: Type[]) => void,
+  items: Type[],
 }
 
 export function FilteringProvider({ items, children }: FilterProviderProps) {
