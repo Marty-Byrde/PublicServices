@@ -6,8 +6,24 @@ import AAULogo from "@/public/AAU_Logo.png"
 import AuthProvider from "@/app/(components)/Auth/AuthProvider"
 import { getServerSession } from "next-auth"
 import { options } from "@/app/api/auth/[...nextauth]/options"
+import Pwa from "@/components/PWA/PWA"
+import { Metadata } from "next"
 
-
+export const metadata: Metadata = {
+  title: {
+    default: "Public-Services",
+    template: "%s"
+  },
+  description: "Work Smart not Hard - Public-Services",
+  manifest: "/manifest.json",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://exposedcampus.duckdns.org",
+  }
+}
 const navigationBarProps: NavigationBarProps = {
   title: "Dashboard",
   items: [
@@ -33,6 +49,12 @@ export default async function RootLayout({ children, }: { children: React.ReactN
   return (
     <html lang="en" data-theme={useColorModeValue("cmyk", "halloween")} className={`h-full ${background} ${useColorModeValue("", "dark")}`}>
 
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#212121"/>
+        <link rel="apple-touch-icon" href="/PWA_Icon.jpeg"></link>
+      </head>
+
       <body className='h-full bg-gradient-to-r from-base-100 to-base-100'>
 
         <AuthProvider>
@@ -52,6 +74,7 @@ export default async function RootLayout({ children, }: { children: React.ReactN
 
         </AuthProvider>
 
+      <Pwa />
       </body>
     </html>
   )

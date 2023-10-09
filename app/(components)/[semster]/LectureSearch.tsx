@@ -2,6 +2,7 @@
 import { SyntheticEvent, useContext, useEffect, useState } from "react"
 import { BasicLecture } from "campus-scraper"
 import { LectureListContext } from "@/components/[semster]/LectureListProvider"
+import { FilterProviderContext } from "@/components/Shared/Filtering/FilteringProvider"
 
 interface SearchProps {
   lectures: BasicLecture[],
@@ -49,11 +50,14 @@ const options: FilterOption[] = [
 
 
 export default function LectureSearch(){
-  const { initialLectures, lectures, setLectures }: {initialLectures: BasicLecture[], lectures: BasicLecture[], setLectures: (prev: BasicLecture[]) => void} = useContext(LectureListContext)
+  const { items: initialLectures, filter: lectures, setFilter: setLectures }: {items: BasicLecture[], filter: BasicLecture[], setFilter: (prev: BasicLecture[]) => void} = useContext(FilterProviderContext)
 
   const [isOptionOpen, setIsOptionOpen] = useState(false)
   const [filter, setFilter] = useState<number>(0)
   const [input, setInput] = useState<string>(null)
+  const [modifierKey, setModifierKey] = useState<'Ctrl' | '⌘'>()
+
+  useEffect(() => setModifierKey(/(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? '⌘' : 'Ctrl'), [])
 
   const FilterOption = ({label}) => {
     return (

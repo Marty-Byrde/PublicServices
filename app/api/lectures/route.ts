@@ -14,8 +14,8 @@ export interface GetLecturesResponse {
 }
 
 export async function POST(res: Request) {
-  const { semester } = await res.json()
-  const html = await fetch(`${process.env.LECTURE_ENDPOINT}&semester=${semester}`, { cache: "no-cache" }).then(res => res.text())
+  const { semester, study } = await res.json()
+  const html = await fetch(`${process.env.LECTURE_ENDPOINT}?stpkey=${study}&semester=${semester}`, { next: {revalidate: 3600} }).then(res => res.text())
   const { window: { document } } = new JSDOM(html)
   const lectures: BasicLecture[] = [];
 
