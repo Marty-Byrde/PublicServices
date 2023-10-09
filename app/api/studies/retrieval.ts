@@ -137,7 +137,6 @@ export default async function getStudies(document: Document): Promise<StudyPlan[
 
   sorted.forEach(plan => plan.curriculars = plan.curriculars.sort((a, b) => a.name.localeCompare(b.name) || parseInt(b.details.version) - parseInt(a.details.version)))
 
-  fs.writeFileSync('studies.json', JSON.stringify(sorted, null, 2))
   return sorted
 }
 
