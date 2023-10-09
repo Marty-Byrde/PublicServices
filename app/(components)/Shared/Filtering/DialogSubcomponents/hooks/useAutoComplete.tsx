@@ -15,7 +15,6 @@ export interface AutoComplete_ResultItem {
   title: string,
   description?: string,
   route?: string,
-  baseItem: any
 }
 
 export interface AutoComplete_getSourcesProps {
@@ -26,7 +25,7 @@ export interface AutoComplete_getSourcesProps {
 }
 
 export function useAutocomplete({ handler, close }): useAutocompleteResultProps {
-  const { items, setFilter, filter } = useContext<FilterProviderContextProps>(FilterProviderContext)
+  const { items, setFilter, filter } = useContext<FilterProviderContextProps<any>>(FilterProviderContext)
   let id = useId()
 
   interface autoCompleteState {
