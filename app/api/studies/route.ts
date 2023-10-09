@@ -11,6 +11,12 @@ export async function GET(res: Request) {
   }).then(res => res.text())
   const { window: { document } } = new JSDOM(html)
 
-  const studies = await getStudies(document)
+  let studies = await getStudies(document)
+
+  for(let study of studies){
+    study.curriculars = study.curriculars.filter((crr, index, self) => self.indexOf(self.find(c => c.id === crr.id && c.details.version === crr.details.version && c.details.ausgabe === crr.details.ausgabe)) === index)
+  }
+
+
   return NextResponse.json({ studies }, { status: 200 })
 }
