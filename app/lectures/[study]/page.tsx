@@ -32,10 +32,7 @@ export default async function StudySelection() {
 
   return (
     <div>
-      <h1>Select your study:</h1>
-      <div className='columns-sm gap-6 space-y-3'>
-        {/*{studies.map(plan => plan.curriculars.map((curricular) => (<DisplayStudPlan prefixRoute={subRoute} semester={semester} key={curricular.id} type={plan.type} curricular={curricular}/>)))}*/}
-      </div>
+      <h1 className='text-gray-700 dark:text-gray-200 font-semibold text-center text-3xl tracking-wider mt-3'>Study Selection</h1>
       <StudyTable {...settings}/>
     </div>
   )
