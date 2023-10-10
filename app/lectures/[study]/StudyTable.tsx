@@ -52,7 +52,7 @@ export default function StudyTable({ columns, categories }: TableProps) {
                         <th
                           colSpan={6}
                           scope='colgroup'
-                          className={`bg-gray-50 py-2 pl-4 pr-3 text-left text-sm lg:text-base xl:text-lg 3xl:text-xl font-semibold text-gray-900 dark:text-gray-200 dark:bg-gray-700 sm:pl-3`}
+                          className={`bg-gray-200 py-2 pl-4 pr-3 text-left text-sm lg:text-base xl:text-lg 3xl:text-xl font-semibold text-gray-900 dark:text-gray-200 dark:bg-gray-700 sm:pl-3`}
                         >
                           {category.name}
                         </th>
