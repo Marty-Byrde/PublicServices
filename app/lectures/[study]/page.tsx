@@ -3,24 +3,45 @@ import { Curricular, StudyPlan } from "@/api/studies/retrieval"
 import Card from "@/components/Cards/Card"
 import Link from "next/link"
 import useSessionData, { SessionData } from "@/components/Auth/useSessionData"
+import StudyTable, { TableCategory, TableProps } from "@/app/lectures/[study]/StudyTable"
 
 export default async function StudySelection() {
-  const { studies } = await fetch("http://localhost/api/studies", {cache: "no-cache"}).then(res => res.json() as Promise<GetStudiesResponse>)
+  const { studies } = await fetch(`${process.env.API_BASE}/studies`, {next: {revalidate: 60}}).then(res => res.json() as Promise<GetStudiesResponse>)
   const { user, data } = await useSessionData()
   const subRoute = '/lectures'
   const semester = user ? data?.lectureStore?.semester ?? process.env.DEFAULT_LECTURES_SEMESTER : process.env.DEFAULT_LECTURES_SEMESTER
+
+  const tableStudies: TableCategory[] = studies.map(study => {
+
+    return {
+      name: study.type,
+      items: study.curriculars.map(curricular => {
+        return {
+          values: [curricular.name, curricular.details.version ?? '20XX', curricular.details.ausgabe ? 'v'+curricular.details.ausgabe+'.0' : '?.?', curricular.details.duration ?? '? Semester', curricular.details.skz ?? '???'],
+          href: `${subRoute}/${curricular.id}/${semester}`
+        }
+      })
+    }
+  })
+
+
+  let settings: TableProps = {
+    columns: ['Study-Name', 'Publication', 'Version', 'Suggested Time', 'Skz', ''],
+    categories: tableStudies
+  }
 
   return (
     <div>
       <h1>Select your study:</h1>
       <div className='columns-sm gap-6 space-y-3'>
-        {studies.map(plan => plan.curriculars.map((curricular) => (<DisplayStudPlan prefixRoute={subRoute} semester={semester} key={curricular.id} type={plan.type} curricular={curricular}/>)))}
+        {/*{studies.map(plan => plan.curriculars.map((curricular) => (<DisplayStudPlan prefixRoute={subRoute} semester={semester} key={curricular.id} type={plan.type} curricular={curricular}/>)))}*/}
       </div>
+      <StudyTable {...settings}/>
     </div>
   )
 }
 
-function DisplayStudPlan({ curricular, type, prefixRoute, semester }: {prefixRoute: string, semester: string, curricular: Curricular, type: string }) {
+function DisplayStudPlan({ curricular, type, prefixRoute, semester }: { prefixRoute: string, semester: string, curricular: Curricular, type: string }) {
   const useStudyPlan = () => {
 
     let backgroundColor = 'bg-blue-400';
