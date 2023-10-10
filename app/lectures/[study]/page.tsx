@@ -26,7 +26,7 @@ export default async function StudySelection() {
 
 
   let settings: TableProps = {
-    columns: ['Study-Name', 'Publication', 'Version', 'Suggested Time', 'Skz', ''],
+    columns: ['Study-Name', 'Publication', 'Version', 'Estimation', 'ID', ''],
     categories: tableStudies
   }
 
