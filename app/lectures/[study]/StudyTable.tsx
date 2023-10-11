@@ -62,9 +62,11 @@ export default function StudyTable({ columns, categories }: TableProps) {
                         <tr key={index}
                             className={`${index === 0 ? 'border-gray-300 dark:border-gray-600' : 'border-gray-200 dark:border-gray-500'} border-t dark:hover:bg-gray-700/60 hover:bg-gray-200`}
                         >
-                          {item.values.map((value, _item_index) => (<td key={category.name+index+value} className={`whitespace-pre-wrap py-4 pl-4 pr-3 text-sm lg:text-base xl:text-lg 3xl:text-xl font-medium text-gray-900 dark:text-gray-200 sm:pl-3 ${hideColumnsScreenSize(_item_index)}`}>
-                            {value}
-                          </td>))}
+                          {item.values.map((value, _item_index) => (
+                            <td key={category.name + index + value}
+                                className={`${_item_index > 0 ? 'whitespace-nowrap' : 'whitespace-pre-wrap'} py-4 pl-4 pr-3 text-sm lg:text-base xl:text-lg 3xl:text-xl font-medium text-gray-900 dark:text-gray-200 sm:pl-3 ${hideColumnsScreenSize(_item_index)}`}>
+                              {value}
+                            </td>))}
 
                           <td className='relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm lg:text-base xl:text-lg 3xl:text-xl font-medium sm:pr-3 tracking-widest'>
                             <Link href={item?.href ?? '#'} className='text-indigo-600 dark:text-cyan-400 hover:text-indigo-900 dark:hover:text-cyan-600'>
