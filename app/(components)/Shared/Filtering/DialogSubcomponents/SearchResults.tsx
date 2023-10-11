@@ -18,7 +18,7 @@ export default function SearchResults({ autocomplete, query, collection }: { aut
     <ul {...autocomplete.getListProps()}>
       {collection.items.map((result: AutoComplete_ResultItem) => (
         <SearchResult
-          key={result.title+result?.description+result?.route}
+          key={result.title+result?.description+result?.route+Math.random()}
           result={result}
           autocomplete={autocomplete}
           collection={collection}

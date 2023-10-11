@@ -4,7 +4,7 @@ import { FilterProviderContext, FilterProviderContextProps } from "@/components/
 import { useContext } from "react"
 
 export function TestDisplay(){
-  const { filter } = useContext<FilterProviderContextProps>(FilterProviderContext)
+  const { filter } = useContext<FilterProviderContextProps<any>>(FilterProviderContext)
   return <div>
     <span>Filter set to: </span>
     <div className='flex flex-col gap-2 px-4'>

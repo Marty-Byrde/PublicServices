@@ -87,23 +87,24 @@ export default async function getStudies(document: Document): Promise<StudyPlan[
 
             const unifyType = () => {
               const text = section.textContent?.trim().toLowerCase()
-              if (text.startsWith('bachelor')) return 'Bachelor'
-              if (text.startsWith('master')) return 'Master'
-              if (text.startsWith('lehramt')) return 'Lehramt'
-              if (text.startsWith('doktorat')) return 'Doktorat'
-              if (text.startsWith('erweiterung')) return 'Erweiterung'
-              if (text.startsWith('besonderer')) return 'Sonstiges'
+              if (text.startsWith('bachelor')) return 'Bachelorstudien'
+              if (text.startsWith('master')) return 'Masterstudien'
+              if (text.startsWith('doktorat')) return 'Doktoratstudien'
+              // if (text.startsWith('lehramt')) return 'Lehramt'
+              // if (text.startsWith('erweiterung')) return 'Erweiterung'
+              // if (text.startsWith('besonderer')) return 'Sonstiges'
 
               return section.textContent?.trim()
             }
             const evaluateSortPriority = () => {
-              const type = unifyType()
-              if (type === 'Bachelor') return 1
-              if (type === 'Master') return 2
-              if (type === 'Doktorat') return 3
-              if (type === 'Lehramt') return 4
-              if (type === 'Erweiterung') return 5
-              if (type === 'Sonstiges') return 6
+              const type = section.textContent?.trim().toLowerCase()
+              if (type.startsWith('bachelor')) return 1
+              if (type.startsWith('master')) return 2
+              if (type.startsWith('doktorat')) return 3
+              if (type.startsWith('lehramt')) return 4
+              if (type.startsWith('erweiterung')) return 5
+              if (type.startsWith('besonderer')) return 6
+
               return 7
             }
 
