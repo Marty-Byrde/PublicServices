@@ -24,7 +24,8 @@ export default function StudyTable({ columns, categories }: TableProps) {
     if(index > 3) return 'hidden lg:table-cell'
     if(index > 2) return 'hidden md:table-cell'
     if(index > 1) return 'hidden sm:table-cell'
-    if(index === 1) return 'hidden xs:table-cell'
+    if(index > 0) return 'hidden 2sm:table-cell'
+
     return ''
   }
 
