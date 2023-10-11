@@ -4,6 +4,8 @@ import Card from "@/components/Cards/Card"
 import Link from "next/link"
 import useSessionData, { SessionData } from "@/components/Auth/useSessionData"
 import StudyTable, { TableCategory, TableProps } from "@/app/lectures/[study]/StudyTable"
+import StudySearch from "@/app/lectures/[study]/StudySearch"
+import { FilteringProvider } from "@/components/Shared/Filtering/FilteringProvider"
 
 export default async function StudySelection() {
   const { studies } = await fetch(`${process.env.API_BASE}/studies`, {next: {revalidate: 60}}).then(res => res.json() as Promise<GetStudiesResponse>)
@@ -31,10 +33,18 @@ export default async function StudySelection() {
   }
 
   return (
-    <div>
-      <h1 className='text-gray-700 dark:text-gray-200 font-semibold text-center text-3xl tracking-wider mt-3'>Study Selection</h1>
+    <FilteringProvider items={studies}>
+      <div className='flex items-center justify-between gap-12'>
+        <h1 className='flex-1 whitespace-nowrap text-gray-700 dark:text-gray-200 font-semibold text-center text-3xl tracking-wider mt-3'>Study Selection</h1>
+        <div className='hidden xs:block sm:hidden pt-3 2sm:hidden'><StudySearch studies={studies} iconOnly/></div>
+        <div className='hidden xs:hidden sm:hidden pt-3 2sm:block 2sm:flex-1'><StudySearch studies={studies} customization={{box: {containerClassName: 'w-full'}}}/></div>
+      </div>
+
+
+        <div className='hidden sm:block max-w-5xl mx-auto mt-6'><StudySearch studies={studies} customization={{ box: { containerClassName: 'w-full' } }}/></div>
+
       <StudyTable {...settings}/>
-    </div>
+    </FilteringProvider>
   )
 }
 
