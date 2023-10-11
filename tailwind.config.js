@@ -8,6 +8,7 @@ module.exports = {
         screens: {
             "2xs": '320px',
             "xs": "410px",
+            '2sm': '525px',
             'sm': '640px',
             'md': '768px',
             'lg': '1024px',
