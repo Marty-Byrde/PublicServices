@@ -3,6 +3,9 @@ import GitHubProvider from "next-auth/providers/github"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import clientPromise from "@/app/api/auth/[...nextauth]/mongoDBClientPromise"
+import { FirestoreAdapter } from '@next-auth/firebase-adapter'
+import { cert } from "firebase-admin/app"
+
 
 export const options: NextAuthOptions = {
   providers: [
@@ -12,15 +15,11 @@ export const options: NextAuthOptions = {
       name: "Github-Provider"
     })
   ],
-  adapter: MongoDBAdapter(clientPromise,
-    {
-      databaseName: process.env.MONGODB_AUTH_DB,
-      collections: {
-        Users: "users",
-        Accounts: "accounts",
-        Sessions: "sessions",
-        VerificationTokens: "verification_tokens",
-      }
-    }
-  ),
+  adapter: FirestoreAdapter({
+    credential: cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
+    }),
+  })
 }
