@@ -51,7 +51,7 @@ export default function LectureDetailsDisplay({ lecture: _lecture, isPending }: 
           <LectureDescription description={lecture.examDescriptions} isPending={isPending}/>
         </Card>
 
-        <Card key='lecture-schedules' preventBreakup>
+        <Card key='lecture-schedules' preventBreakup hidden={lecture?.schedules?.length === 0}>
           <h1 className='text-xl tracking-wide mb-6 text-black dark:text-white font-bold'>Time & Date</h1>
           <div className='flex flex-wrap gap-10 px-4 mt-4 justify-center items-center'>
             {lecture.schedules.map(schedule => <Schedule isPending={isPending} key={schedule.start.toString()} schedule={schedule}/>)}
