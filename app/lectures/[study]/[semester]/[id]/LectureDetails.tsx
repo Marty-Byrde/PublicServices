@@ -116,7 +116,7 @@ function Schedule({ schedule, isPending }: { schedule: LectureSchedule, isPendin
           <Text content={schedule.type.toString()} skWidth='w-20' skHeight='h-8' textSize='text-md' className='font-semibold' isPending={isPending}/>
         </div>
 
-        <Text content={beginning.toLocaleDateString().split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".")} color='text-primary' darkColor='text-primary' skeletonClassName='my-2 mx-auto' skHeight='h-3' skWidth='w-24' isPending={isPending}/>
+        <Text content={beginning.toLocaleDateString('de').split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".")} color='text-primary' darkColor='text-primary' skeletonClassName='my-2 mx-auto' skHeight='h-3' skWidth='w-24' isPending={isPending}/>
 
 
       </div>
