@@ -1,9 +1,10 @@
-import { Lecture, LectureDescription, LectureSchedule } from "campus-scraper"
+import { Lecture, LectureSchedule } from "campus-scraper"
 import { emptyLecture } from "@/app/api/data"
 import BackButton from "@/app/(components)/Navigation/BackButton"
 import Card from "@/app/(components)/Cards/Card"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import Link from "next/link"
+import LectureDescription from "@/components/[semster]/[id]/LectureDescription"
 
 const weekday = ["Sontag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 
@@ -64,24 +65,7 @@ export default function LectureDetailsDisplay({ lecture: _lecture, isPending }: 
   )
 }
 
-/**
- * Displays a given Array of LectureDescription fields and their content.
- * @param description The description elements to display
- * @param isPending Whether the description is pending
- * @constructor
- */
-function LectureDescription({ description, isPending }: { description: LectureDescription[], isPending?: boolean }) {
-  return (
-    <div className='flex flex-col gap-4'>
-      {description?.map(desc => (
-        <div key={Math.random().toString() + "description-field" + isPending} className='flex flex-col gap-2 md:flex-row md:gap-4 items-center bg-stone-300/60 dark:bg-neutral-700/30 rounded-2xl p-2 text-gray-700 dark:text-gray-200 break-inside-avoid-column overflow-auto'>
-          <Text content={desc.field} className='md:w-[160px] md:break-words text-center font-semibold tracking-wider' skHeight='h-6' skeletonClassName='my-2' isPending={isPending}/>
-          <Text content={desc.content} textSize='text-md' className='md:flex-1 whitespace-pre-wrap break-all' skLines={6} skWidth='w-full' skeletonClassName='my-2' isPending={isPending} containerFullWidth/>
-        </div>
-      ))}
-    </div>
-  )
-}
+
 
 function Schedule({ schedule, isPending }: { schedule: LectureSchedule, isPending?: boolean }) {
   const beginning = new Date(Date.parse(schedule.start.toString()));
