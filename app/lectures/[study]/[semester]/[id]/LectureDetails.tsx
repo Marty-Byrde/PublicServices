@@ -5,7 +5,7 @@ import Card from "@/app/(components)/Cards/Card"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import Link from "next/link"
 
-const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const weekday = ["Sontag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 
 
 
@@ -51,7 +51,7 @@ export default function LectureDetailsDisplay({ lecture: _lecture, isPending }: 
           <LectureDescription description={lecture.examDescriptions} isPending={isPending}/>
         </Card>
 
-        <Card key='lecture-schedules' preventBreakup>
+        <Card key='lecture-schedules' preventBreakup hidden={lecture?.schedules?.length === 0}>
           <h1 className='text-xl tracking-wide mb-6 text-black dark:text-white font-bold'>Time & Date</h1>
           <div className='flex flex-wrap gap-10 px-4 mt-4 justify-center items-center'>
             {lecture.schedules.map(schedule => <Schedule isPending={isPending} key={schedule.start.toString()} schedule={schedule}/>)}
@@ -116,15 +116,15 @@ function Schedule({ schedule, isPending }: { schedule: LectureSchedule, isPendin
           <Text content={schedule.type.toString()} skWidth='w-20' skHeight='h-8' textSize='text-md' className='font-semibold' isPending={isPending}/>
         </div>
 
-        <Text content={beginning.toLocaleDateString().split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".")} color='text-primary' darkColor='text-primary' skeletonClassName='my-2 mx-auto' skHeight='h-3' skWidth='w-24' isPending={isPending}/>
+        <Text content={beginning.toLocaleDateString('de').split(".").map(segment => segment.length === 1 ? `0${segment}` : segment).join(".")} color='text-primary' darkColor='text-primary' skeletonClassName='my-2 mx-auto' skHeight='h-3' skWidth='w-24' isPending={isPending}/>
 
 
       </div>
 
-      <div className='flex flex-wrap gap-6 px-4 justify-center max-w-[180px]' aria-description='card-body-section'>
-        <StatElement label='Start' value={beginning.toLocaleTimeString().split(":").slice(0, 2).join(":")}/>
-        <StatElement label='End' value={ending.toLocaleTimeString().split(":").slice(0, 2).join(":")}/>
-        <StatElement label='Week-Day' value={weekday[beginning.getDay()].substring(0, 3)}/>
+      <div className='grid grid-cols-2 gap-6 px-4' aria-description='card-body-section'>
+        <StatElement label='Start' value={beginning.toLocaleTimeString('de').split(":").slice(0, 2).join(":")}/>
+        <StatElement label='End' value={ending.toLocaleTimeString('de').split(":").slice(0, 2).join(":")}/>
+        <StatElement label='Week-Day' value={weekday[beginning.getDay()].substring(0, 5) + '.'}/>
         <StatElement label='Room' value={schedule.room}/>
         <StatElement label='Notes' value={schedule.notes} className='text-sm' containerClassName='w-full'/>
       </div>
