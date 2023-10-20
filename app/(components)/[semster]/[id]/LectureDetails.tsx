@@ -17,7 +17,7 @@ export default function LectureDetailsDisplay({ lecture: _lecture, isPending }: 
   return (
     <div>
       <BackButton className='w-full mb-4'/>
-      <div className='columns-3xl space-y-4 pb-12' aria-description='page-container'>
+      <div className='columns-3xl space-y-4 pb-12'>
         <Card key='lecture-basicinfo'>
           <h1 className='text-xl tracking-wide mb-2 text-black dark:text-white font-bold'>Basic Informations</h1>
           <div className='flex gap-6 px-2 text-gray-700 dark:text-gray-200'>
