@@ -1,8 +1,5 @@
-import type { NextAuthOptions, User } from "next-auth"
+import type { NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
-import CredentialsProvider from "next-auth/providers/credentials"
-import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import clientPromise from "@/app/api/auth/[...nextauth]/mongoDBClientPromise"
 import { FirestoreAdapter } from '@next-auth/firebase-adapter'
 import { cert } from "firebase-admin/app"
 
