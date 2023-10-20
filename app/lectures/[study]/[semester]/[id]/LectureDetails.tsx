@@ -5,7 +5,7 @@ import Card from "@/app/(components)/Cards/Card"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import Link from "next/link"
 
-const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const weekday = ["Sontag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 
 
 
@@ -124,7 +124,7 @@ function Schedule({ schedule, isPending }: { schedule: LectureSchedule, isPendin
       <div className='grid grid-cols-2 gap-6 px-4' aria-description='card-body-section'>
         <StatElement label='Start' value={beginning.toLocaleTimeString('de').split(":").slice(0, 2).join(":")}/>
         <StatElement label='End' value={ending.toLocaleTimeString('de').split(":").slice(0, 2).join(":")}/>
-        <StatElement label='Week-Day' value={weekday[beginning.getDay()].substring(0, 3)}/>
+        <StatElement label='Week-Day' value={weekday[beginning.getDay()].substring(0, 5) + '.'}/>
         <StatElement label='Room' value={schedule.room}/>
         <StatElement label='Notes' value={schedule.notes} className='text-sm' containerClassName='w-full'/>
       </div>
