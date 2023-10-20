@@ -121,9 +121,9 @@ function Schedule({ schedule, isPending }: { schedule: LectureSchedule, isPendin
 
       </div>
 
-      <div className='flex flex-wrap gap-6 px-4 justify-center max-w-[180px]' aria-description='card-body-section'>
-        <StatElement label='Start' value={beginning.toLocaleTimeString().split(":").slice(0, 2).join(":")}/>
-        <StatElement label='End' value={ending.toLocaleTimeString().split(":").slice(0, 2).join(":")}/>
+      <div className='grid grid-cols-2 gap-6 px-4' aria-description='card-body-section'>
+        <StatElement label='Start' value={beginning.toLocaleTimeString('de').split(":").slice(0, 2).join(":")}/>
+        <StatElement label='End' value={ending.toLocaleTimeString('de').split(":").slice(0, 2).join(":")}/>
         <StatElement label='Week-Day' value={weekday[beginning.getDay()].substring(0, 3)}/>
         <StatElement label='Room' value={schedule.room}/>
         <StatElement label='Notes' value={schedule.notes} className='text-sm' containerClassName='w-full'/>
