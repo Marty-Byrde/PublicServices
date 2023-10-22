@@ -1,11 +1,12 @@
 import { Suspense } from "react"
-import StudySelection from "@/app/lectures/[study]/StudySelection"
+import Render_StudySelection from "@/components/[study]/Render_StudySelection"
+import StudyLoading from "@/app/lectures/[study]/loader"
 
 export default function StudySelectionPage(){
   return (
-    <Suspense fallback={<div>Loading Study Selection page...</div>}>
+    <Suspense fallback={StudyLoading()}>
       {/*// @ts-ignore*/}
-      <StudySelection/>
+      <Render_StudySelection/>
     </Suspense>
   )
 }
