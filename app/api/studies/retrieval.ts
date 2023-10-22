@@ -133,7 +133,6 @@ export default async function getStudies(document: Document): Promise<StudyPlan[
     })
   })
 
-  console.log('Sorting plans...')
   const sorted = plans.sort((a, b) => a._sortPriority - b._sortPriority)
 
   sorted.forEach(plan => plan.curriculars = plan.curriculars.sort((a, b) => a.name.localeCompare(b.name) || parseInt(b.details.version) - parseInt(a.details.version)))
