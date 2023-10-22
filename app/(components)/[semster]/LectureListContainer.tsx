@@ -24,7 +24,7 @@ export default function LectureListContainer({ routeParams, data: { lectures, se
       <div className='flex-1'>
         <LectureSearch />
       </div>
-      <SemesterSelection semesters={semesters} routeParams={routeParams}/>
+      <SemesterSelection semesters={semesters} routeParams={routeParams} isPending={isPending}/>
     </div>
     <LectureList routeParams={routeParams} semester={semester} isPending={isPending}/>
   </FilteringProvider>
