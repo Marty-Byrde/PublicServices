@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import Link from "next/link"
+import { Text } from "@/components/ResponsiveTags/Text"
 
 
 export interface TableCategory {
@@ -13,13 +14,14 @@ export interface TableCategory {
 
 export interface TableProps {
   columns: string[],
-  categories: TableCategory[]
+  categories: TableCategory[],
+  isPending?: boolean
 }
 
 
 
 
-export default function StudyTable({ columns, categories }: TableProps) {
+export default function StudyTable({ columns, categories, isPending }: TableProps) {
   const hideColumnsScreenSize = (index: number) => {
     if(index > 3) return 'hidden lg:table-cell'
     if(index > 2) return 'hidden md:table-cell'
