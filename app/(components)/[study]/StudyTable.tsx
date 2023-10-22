@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import Link from "next/link"
+import { Text } from "@/components/ResponsiveTags/Text"
 
 
 export interface TableCategory {
@@ -13,13 +14,14 @@ export interface TableCategory {
 
 export interface TableProps {
   columns: string[],
-  categories: TableCategory[]
+  categories: TableCategory[],
+  isPending?: boolean
 }
 
 
 
 
-export default function StudyTable({ columns, categories }: TableProps) {
+export default function StudyTable({ columns, categories, isPending }: TableProps) {
   const hideColumnsScreenSize = (index: number) => {
     if(index > 3) return 'hidden lg:table-cell'
     if(index > 2) return 'hidden md:table-cell'
@@ -64,8 +66,8 @@ export default function StudyTable({ columns, categories }: TableProps) {
                         >
                           {item.values.map((value, _item_index) => (
                             <td key={category.name + index + value}
-                                className={`${_item_index > 0 ? 'whitespace-nowrap' : 'whitespace-pre-wrap'} py-4 pl-4 pr-3 text-sm lg:text-base xl:text-lg 3xl:text-xl font-medium text-gray-900 dark:text-gray-200 sm:pl-3 ${hideColumnsScreenSize(_item_index)}`}>
-                              {value}
+                                className={`${_item_index > 0 ? 'whitespace-nowrap' : 'whitespace-pre-wrap w-full'} ${hideColumnsScreenSize(_item_index)}`}>
+                              <Text content={value} isPending={isPending}  skWidth={_item_index === 0 ? 'w-[60%]' : 'w-12'} skeletonClassName={_item_index === 0 ? 'ml-2' : `${_item_index !== item.values.length -1 ? 'mx-auto' : 'mr-4'} mx-auto px-4`} color='text-gray-900' darkColor='dark:text-gray-200' textSize='text-sm lg:text-base xl:text-lg 3xl:text-cl' className={`font-medium sm:pl-3 pr-3 pl-4 py-4 ${_item_index > 0 ? 'whitespace-nowrap' : 'whitespace-pre-wrap'}`} />
                             </td>))}
 
                           <td className='relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm lg:text-base xl:text-lg 3xl:text-xl font-medium sm:pr-3 tracking-widest'>

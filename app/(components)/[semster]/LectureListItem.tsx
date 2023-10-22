@@ -15,7 +15,7 @@ export function LectureListItem({ lecture, isPending, detailsHref }: LectureList
   return (
     <div className='break-inside-avoid-column pt-3'>
       <div className="relative bg-stone-200 dark:bg-neutral-700/70 py-3 px-6 rounded-3xl shadow-2xl break-inside-avoid-column">
-      <LectureTypeIcon lecture={lecture}/>
+      <LectureTypeIcon lecture={lecture} isPending={isPending}/>
       <div className="mt-6">
         <div className='my-2 flex items-center'>
           <Link href={detailsHref}>
@@ -66,7 +66,7 @@ export function LectureListItem({ lecture, isPending, detailsHref }: LectureList
 }
 
 
-function LectureTypeIcon({ lecture }: { lecture: BasicLecture }) {
+function LectureTypeIcon({ lecture, isPending }: { lecture: BasicLecture, isPending: boolean }) {
   if (!lecture?.type) return null
   const backgrounds = {
     attendance: "bg-yellow-700",
@@ -79,9 +79,15 @@ function LectureTypeIcon({ lecture }: { lecture: BasicLecture }) {
   if (lecture.type === "VO") background = backgrounds.noAttendance
   if (lecture.type === "TU") background = backgrounds.volunatary
 
+  let getRandomBackground = () => {
+    const colors = Object.keys(backgrounds);
+    return backgrounds[colors[ colors.length * Math.random() << 0]];
+  };
+  if(isPending) background = getRandomBackground()
+
   return (
     <div className={`text-white flex items-center absolute rounded-full py-2 px-2 shadow-xl ${background} left-0 -top-0 -translate-y-1/4`}>
-      <span className='text-xl font-bold px-1'>{lecture.type}</span>
+      <Text content={lecture?.type} textSize='text-xl' className='font-bold px-1' isPending={isPending} skHeight='h-6' skWidth='w-12' />
     </div>
   )
 }
