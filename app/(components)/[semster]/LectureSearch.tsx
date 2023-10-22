@@ -1,7 +1,6 @@
 'use client'
 import { SyntheticEvent, useContext, useEffect, useState } from "react"
 import { BasicLecture } from "campus-scraper"
-import { LectureListContext } from "@/components/[semster]/LectureListProvider"
 import { FilterProviderContext } from "@/components/Shared/Filtering/FilteringProvider"
 
 interface SearchProps {
