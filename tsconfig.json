@@ -25,6 +25,7 @@
       "@/public/*": ["./public/*"],
       "@/actions/*": ["./actions/*"],
       "@/api/*": ["./app/api/*"],
+      "@/typings/*": ["./typings/*"],
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
