@@ -1,5 +1,6 @@
 import { Quiz, QuizAnswer, QuizQuestion } from "@/typings/kahoot/kahoot"
 import KahootQuiz from "@/components/kahoot/KahootQuiz"
+import { notFound } from "next/navigation"
 
 interface RenderKahootProps {
   quizzId: string
@@ -7,13 +8,9 @@ interface RenderKahootProps {
 
 export default async function RenderKahoot({ quizzId }: RenderKahootProps) {
   const quiz = await getQuiz(quizzId)
+  if(!quiz) return notFound()
 
-  return (
-    <div>
-      {/*// @ts-ignore*/}
-      <KahootQuiz quiz={quiz} isPending={false}/>
-    </div>
-  )
+  return <KahootQuiz quiz={quiz} isPending={false}/>
 }
 
 interface KahootAPIResponse {

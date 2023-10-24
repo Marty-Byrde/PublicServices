@@ -7,7 +7,7 @@ interface KahootAnswersProps {
   isPending: boolean
 }
 
-export default async function KahootQuiz({ quiz: { questions, quizzId }, isPending }: KahootAnswersProps) {
+export default function KahootQuiz({ quiz: { questions, quizzId }, isPending }: KahootAnswersProps) {
   return (
     <div className='px-4 pb-8'>
       <div className='flex gap-4 justify-center my-4 mb-8 flex-col md:flex-row items-center'>

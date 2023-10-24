@@ -13,6 +13,5 @@ export default function LoadingKahootQuiz(): JSX.Element {
     }))
   })
 
-  // @ts-ignore
   return <KahootQuiz quiz={createDummyQuiz()} isPending />
 }
