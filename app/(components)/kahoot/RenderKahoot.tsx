@@ -35,6 +35,9 @@ async function getQuiz(quizzId: string): Promise<Quiz> {
       revalidate: 30
     }
   }).then(res => res.json())
+
+  if(!response.success) return undefined
+
   const questions: QuizQuestion[] = response.answers.map((originalQuestion: KahootAPIResponse['answers'][0]) => {
     const answers: QuizAnswer[] = originalQuestion.options.map((option: KahootAPIResponse['answers'][0]['options'][0], i): QuizAnswer => ({
       text: option.text,
