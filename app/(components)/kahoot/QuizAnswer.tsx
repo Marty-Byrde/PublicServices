@@ -26,11 +26,8 @@ export default function QuizAnswer({ answer: { text, isCorrect }, isPending, ind
 
   return (
     <div className={containerClassname}>
-      {/*// @ts-ignore*/}
       <Image src={icon} alt='questionmark' className='object-contain' height={24} width={24}/>
-      <div>
-        <Text content={text} isPending={isPending} textSize='text-lg' darkColor='text-gray-300'/>
-      </div>
+      <Text content={text} isPending={isPending} textSize='text-lg' darkColor='text-gray-300'/>
     </div>
   )
 }
