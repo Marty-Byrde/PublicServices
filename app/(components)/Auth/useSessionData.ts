@@ -6,6 +6,9 @@ export interface SessionData extends User {
   lectureStore?: {
     semester?: string,
     study?: string,
+  },
+  kahootStore?: {
+    access?: boolean
   }
 }
 
