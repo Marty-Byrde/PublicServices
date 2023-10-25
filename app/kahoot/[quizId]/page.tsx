@@ -1,6 +1,6 @@
 import RenderKahoot from "@/components/kahoot/RenderKahoot"
 import { Suspense } from "react"
-import LoadingKahootQuiz from "@/app/kahoot/[quizId]/loading"
+import LoadingKahootQuiz from "@/app/kahoot/[quizId]/loadingKahootQuiz"
 
 interface KahootPageProps {
   params: {
@@ -11,7 +11,7 @@ interface KahootPageProps {
 export default async function KahootPage({ params: { quizId } }: KahootPageProps) {
 
   return (
-    <Suspense fallback={LoadingKahootQuiz()}>
+    <Suspense fallback={LoadingKahootQuiz({quizId})}>
       {/*// @ts-ignore*/}
       <RenderKahoot quizzId={quizId}/>
     </Suspense>
