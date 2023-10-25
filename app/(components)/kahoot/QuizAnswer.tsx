@@ -21,13 +21,13 @@ export default function QuizAnswer({ answer: { text, isCorrect }, isPending, ind
   const containerClassname = twMerge(
     'px-4 py-2 rounded-2xl flex gap-4',
     background,
-    isCorrect ? 'ring-4 ring-sky-300 hover:cursor-pointer' : 'hover:cursor-not-allowed opacity-60'
+    isCorrect ? 'ring-4 ring-neutral-700 dark:ring-sky-300 hover:cursor-pointer' : 'hover:cursor-not-allowed opacity-40 dark:opacity-60'
   )
 
   return (
     <div className={containerClassname}>
       <Image src={icon} alt='questionmark' className='object-contain' height={24} width={24}/>
-      <Text content={text} isPending={isPending} textSize='text-lg' darkColor='text-gray-300'/>
+      <Text content={text} isPending={isPending} textSize='text-lg' darkColor='dark:text-gray-300' color='text-gray-100'/>
     </div>
   )
 }
