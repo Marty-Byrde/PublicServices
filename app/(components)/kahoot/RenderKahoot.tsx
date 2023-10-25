@@ -2,7 +2,7 @@ import { Quiz, QuizAnswer, QuizQuestion } from "@/typings/kahoot/kahoot"
 import KahootQuiz from "@/components/kahoot/KahootQuiz"
 import { notFound } from "next/navigation"
 import useSessionData from "@/components/Auth/useSessionData"
-import NotAllowed from "@/components/Shared/Session/NotAllowed"
+import Forbidden from "@/components/Shared/Session/Forbidden"
 
 interface RenderKahootProps {
   quizzId: string
@@ -10,7 +10,7 @@ interface RenderKahootProps {
 
 export default async function RenderKahoot({ quizzId }: RenderKahootProps) {
   const { user, data } = await useSessionData()
-  if(!user || !data?.kahootStore?.access) return NotAllowed()
+  if(!user || !data?.kahootStore?.access) return Forbidden()
 
   const quiz = await getQuiz(quizzId)
   if(!quiz) return notFound()
