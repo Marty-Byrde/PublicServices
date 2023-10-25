@@ -19,25 +19,21 @@ export default function QuizAnswer({ answer: { text, isCorrect }, isPending, ind
   const background = getAnswerBackground({ index, isPending })
 
   const containerClassname = twMerge(
-    'px-4 py-2 rounded-2xl flex gap-4',
+    'px-4 py-2 rounded-2xl flex gap-4 flex-1 w-full',
     background,
     isCorrect ? 'ring-4 ring-neutral-700 dark:ring-sky-300 hover:cursor-pointer' : 'hover:cursor-not-allowed opacity-40 dark:opacity-60'
   )
 
   return (
-    <div className={containerClassname}>
+    <li className={containerClassname}>
       <Image src={icon} alt='questionmark' className='object-contain' height={24} width={24}/>
-      <Text content={text} isPending={isPending} textSize='text-lg' darkColor='dark:text-gray-300' color='text-gray-100'/>
-    </div>
+      <Text className='flex' content={text} isPending={isPending} textSize='text-lg' darkColor='dark:text-gray-300' color='text-gray-100' skeletonClassName='w-full flex-1 my-2' skLines={2} skWidth='w-[95%]' skDarkBackground='dark:bg-gray-300' containerFullWidth />
+    </li>
   )
 }
 
 
 function getAnswerIcon({ isPending, index }: Omit<KahootAnswerProps, 'answer'>) {
-  if (isPending) {
-    return quiz
-  }
-
   if (index === 0) return Icon1;
   if (index === 1) return Icon2;
   if (index === 2) return Icon3;
@@ -47,10 +43,6 @@ function getAnswerIcon({ isPending, index }: Omit<KahootAnswerProps, 'answer'>) 
 }
 
 function getAnswerBackground({ isPending, index }: Omit<KahootAnswerProps, 'answer'>) {
-  if (isPending) {
-    return 'bg-natural-600'
-  }
-
   if (index === 0) return 'bg-[#d01937]'
   if (index === 1) return 'bg-[#1260be]'
   if (index === 2) return 'bg-[#c79200]'
