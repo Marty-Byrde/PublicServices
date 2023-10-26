@@ -26,8 +26,8 @@ export default function StudySearch({ studies, customization, iconOnly, semester
       return filtered.map((curriculum: Curricular) => ({
         title: curriculum.name,
         description: `Year: ${curriculum.details.version};  Estimation: ${curriculum.details.duration ?? '?'};  v${curriculum.details.ausgabe ? curriculum.details.ausgabe + ".0" : "?.?"}`,
-        route: `.../${curriculum.details.skz}`,
-        href: `/lectures/${curriculum.details.skz}/${semester}`
+        route: `.../${curriculum.id}`,
+        href: `/lectures/${curriculum.id}/${semester}`
       }))
     },
     sourceId: 'study-search'
