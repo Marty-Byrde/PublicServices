@@ -3,7 +3,7 @@
 import { Collapse, Icon, Image, Link, useDisclosure } from "@chakra-ui/react"
 import * as React from "react"
 import { useContext } from "react"
-import { MobileNavbarContext } from "@/app/(components)/Navigation/Mobile/MobileNavbarProvider"
+import { MobileNavbarContext } from "@/app/(components)/root/Navigation/Mobile/MobileNavbarProvider"
 import { ClickableCategoryProps, Item } from "@/components/Shared/Menu/ExpandableMenu"
 import { ChevronDownIcon } from "@chakra-ui/icons"
 

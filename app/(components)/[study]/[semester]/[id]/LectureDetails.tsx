@@ -1,6 +1,6 @@
 import { Lecture } from "campus-scraper"
 import { emptyLecture } from "@/app/api/data"
-import BackButton from "@/app/(components)/Navigation/BackButton"
+import BackButton from "@/app/(components)/Shared/Navigation/BackButton"
 import Card from "@/app/(components)/Shared/Cards/Card"
 import { Text } from "@/app/(components)/Shared/Responsive/Text"
 import Link from "next/link"
