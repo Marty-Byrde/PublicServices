@@ -1,7 +1,7 @@
 'use client'
 import { createContext, ReactNode } from "react"
 import { useDisclosure } from "@chakra-ui/react"
-import { ClickableCategoryProps } from "@/app/(components)/Menu/ExpandableMenu"
+import { ClickableCategoryProps } from "@/components/Shared/Menu/ExpandableMenu"
 
 export const MobileNavbarContext = createContext(null)
 

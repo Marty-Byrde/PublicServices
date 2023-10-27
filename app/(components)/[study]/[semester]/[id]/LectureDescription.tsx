@@ -1,5 +1,5 @@
 import { LectureDescription} from "campus-scraper"
-import { Text } from "@/app/(components)/ResponsiveTags/Text"
+import { Text } from "@/components/Shared/Responsive/Text"
 
 /**
  * Displays a given Array of LectureDescription fields and their content.

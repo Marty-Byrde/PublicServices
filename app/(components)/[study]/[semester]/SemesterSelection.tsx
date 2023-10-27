@@ -1,5 +1,5 @@
 'use client'
-import Card from "@/components/Cards/Card"
+import Card from "@/components/Shared/Cards/Card"
 import { Text } from "@/components/Shared/Responsive/Text"
 import { Context, createContext, useContext, useState } from "react"
 import Link from "next/link"
