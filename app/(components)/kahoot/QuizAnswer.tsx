@@ -6,7 +6,7 @@ import Icon3 from "@/public/Icons/Kahoot/Icon3.png"
 import Icon4 from "@/public/Icons/Kahoot/Icon4.png"
 import { twMerge } from "tailwind-merge"
 import Image from "next/image"
-import { Text } from "@/components/ResponsiveTags/Text"
+import { Text } from "@/components/Shared/Responsive/Text"
 
 interface KahootAnswerProps {
   answer: QuizAnswer
