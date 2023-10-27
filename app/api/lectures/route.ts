@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { JSDOM } from "jsdom";
 import { BasicLecture } from "campus-scraper"
-import { SemesterProps } from "@/components/[semester]/SemesterSelection"
+import { SemesterProps } from "@/components/[study]/[semester]/SemesterSelection"
 
 export interface GetLecturesResponse {
   state: boolean,

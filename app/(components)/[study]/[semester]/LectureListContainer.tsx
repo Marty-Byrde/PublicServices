@@ -1,7 +1,7 @@
-import SemesterSelection, { SemesterProps } from "@/components/[semester]/SemesterSelection"
+import SemesterSelection, { SemesterProps } from "@/components/[study]/[semester]/SemesterSelection"
 import { BasicLecture } from "campus-scraper"
-import LectureSearch from "@/components/[semester]/LectureSearch"
-import LectureList from "@/components/[semester]/LectureList"
+import LectureSearch from "@/components/[study]/[semester]/LectureSearch"
+import LectureList from "@/components/[study]/[semester]/LectureList"
 import { FilteringProvider } from "@/components/Shared/Filtering/FilteringProvider"
 
 interface LectureListProps {
