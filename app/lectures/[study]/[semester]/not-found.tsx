@@ -1,4 +1,4 @@
-import SemesterSelection from "@/components/[semster]/SemesterSelection"
+import SemesterSelection from "@/components/[semester]/SemesterSelection"
 import useSessionData from "@/components/Auth/useSessionData"
 import { redirect } from "next/navigation"
 

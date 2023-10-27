@@ -1,6 +1,6 @@
-import LectureListContainer from "@/components/[semster]/LectureListContainer"
+import LectureListContainer from "@/components/[semester]/LectureListContainer"
 import { BasicLecture } from "campus-scraper"
-import { SemesterProps } from "@/components/[semster]/SemesterSelection"
+import { SemesterProps } from "@/components/[semester]/SemesterSelection"
 
 export default function LoadingSemesterSelection() {
   const dummyBasic = (): BasicLecture => ({

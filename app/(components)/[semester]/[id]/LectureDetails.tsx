@@ -4,8 +4,8 @@ import BackButton from "@/app/(components)/Navigation/BackButton"
 import Card from "@/app/(components)/Cards/Card"
 import { Text } from "@/app/(components)/ResponsiveTags/Text"
 import Link from "next/link"
-import LectureDescription from "@/components/[semster]/[id]/LectureDescription"
-import Schedule from "@/components/[semster]/[id]/LectureSchedule"
+import LectureDescription from "@/components/[semester]/[id]/LectureDescription"
+import Schedule from "@/components/[semester]/[id]/LectureSchedule"
 
 export default function LectureDetailsDisplay({ lecture: _lecture, isPending }: { lecture: Lecture, isPending?: boolean }) {
 

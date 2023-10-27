@@ -1,6 +1,6 @@
 import useSessionData from "@/components/Auth/useSessionData"
 import { GetLecturesResponse } from "@/api/lectures/route"
-import LectureListContainer from "@/components/[semster]/LectureListContainer"
+import LectureListContainer from "@/components/[semester]/LectureListContainer"
 import { notFound, redirect } from "next/navigation"
 import { Metadata } from "next"
 import { GetStudiesResponse } from "@/api/studies/route"
