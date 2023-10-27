@@ -1,4 +1,5 @@
 import { v4 as uuidV4 } from "uuid"
+import { twMerge } from "tailwind-merge"
 
 export interface ResponsiveElementProps {
   isPending?: boolean
@@ -50,7 +51,7 @@ export function Text(props: TextProps) {
   }
 
   return (
-    <div className={`${textSize || "text-lg"} ${color || "text-black"} ${darkColor || "dark:text-white"} ${className ?? ""}`} title={title}>
+    <div title={title} className={twMerge('text-lg text-gray-900 dark:text-gray-200', className, textSize, color, darkColor)}>
       {content}
     </div>
   )
