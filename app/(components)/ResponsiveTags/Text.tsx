@@ -13,7 +13,7 @@ export interface ResponsiveElementProps {
   skeletonClassName?: string,
 }
 
-interface TextProps extends  ResponsiveElementProps{
+interface TextProps extends ResponsiveElementProps {
   content: string | string[],
   containerFullWidth?: boolean,
   title?: string,
@@ -31,13 +31,11 @@ export function Text(props: TextProps) {
 
   if (isPending) {
     const lines = []
-    const makeLine = () => (<div key={Math.random().toString()+'-text-skeleton'} className={`
-        ${skWidth || "w-48"}
-        ${skHeight || "h-2"}
-        ${skBackground || "bg-gray-200"}
-        ${skDarkBackground || "dark:bg-gray-500"}
-        
-        rounded-full ${skeletonClassName}`} />)
+    const makeLine = () => (
+      <div key={Math.random().toString() + '-text-skeleton'}
+           className={twMerge('w-48 h-2 bg-gray-200 dark:bg-gray-500 rounded-full', skeletonClassName, skWidth, skHeight, skBackground, skDarkBackground)}
+      />
+    )
 
     for (let i = 0; i < skLines; i++) {
       lines.push(makeLine())
