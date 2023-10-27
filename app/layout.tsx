@@ -1,6 +1,6 @@
 import '@/public/globals.css'
 import React from "react"
-import { useColorModeValue } from "@/app/(components)/ColorModeHandler"
+import { useColorModeValue } from "@/app/(components)/root/ColorModeHandler"
 import NavigationBar, { NavigationBarProps } from "@/app/(components)/root/Navigation/NavigationBar"
 import AAULogo from "@/public/AAU_Logo.png"
 import AuthProvider from "@/app/(components)/root/Auth/AuthProvider"
