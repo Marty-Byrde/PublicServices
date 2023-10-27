@@ -1,7 +1,7 @@
 import { Quiz, QuizAnswer, QuizQuestion } from "@/typings/kahoot/kahoot"
 import KahootQuiz from "@/components/kahoot/KahootQuiz"
 import { notFound } from "next/navigation"
-import useSessionData from "@/components/Auth/useSessionData"
+import useSessionData from "@/hooks/useSessionData"
 import Forbidden from "@/components/Shared/Session/Forbidden"
 
 interface RenderKahootProps {

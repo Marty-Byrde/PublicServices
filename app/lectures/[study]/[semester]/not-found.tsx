@@ -1,5 +1,5 @@
 import SemesterSelection from "@/components/[study]/[semester]/SemesterSelection"
-import useSessionData from "@/components/Auth/useSessionData"
+import useSessionData from "@/hooks/useSessionData"
 import { redirect } from "next/navigation"
 
 export default async function SemesterNotFound() {

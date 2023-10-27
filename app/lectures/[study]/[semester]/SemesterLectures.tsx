@@ -1,4 +1,4 @@
-import useSessionData from "@/components/Auth/useSessionData"
+import useSessionData from "@/hooks/useSessionData"
 import { GetLecturesResponse } from "@/api/lectures/route"
 import LectureListContainer from "@/components/[study]/[semester]/LectureListContainer"
 import { notFound, redirect } from "next/navigation"
