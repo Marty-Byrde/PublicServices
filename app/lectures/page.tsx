@@ -1,4 +1,4 @@
-import useSessionData from "@/components/Auth/useSessionData"
+import useSessionData from "@/hooks/useSessionData"
 import { redirect } from "next/navigation"
 
 

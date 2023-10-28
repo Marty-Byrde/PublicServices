@@ -1,5 +1,5 @@
 import { LectureSchedule } from "campus-scraper"
-import { Text } from "@/components/ResponsiveTags/Text"
+import { Text } from "@/components/Shared/Responsive/Text"
 
 const weekday = ["Sontag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 

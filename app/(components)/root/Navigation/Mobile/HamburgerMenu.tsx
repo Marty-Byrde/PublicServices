@@ -3,7 +3,7 @@
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
 import * as React from "react"
 import { useContext } from "react"
-import { MobileNavbarContext } from "@/app/(components)/Navigation/Mobile/MobileNavbarProvider"
+import { MobileNavbarContext } from "@/app/(components)/root/Navigation/Mobile/MobileNavbarProvider"
 
 
 export default function HamburgerMenu(){

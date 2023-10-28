@@ -1,5 +1,5 @@
 import * as React from "react"
-import ClickableCategory, { ClickableCategoryProps } from "@/app/(components)/Menu/ExpandableMenu"
+import ClickableCategory, { ClickableCategoryProps } from "@/app/(components)/Shared/Menu/ExpandableMenu"
 import Link from "next/link"
 import { Session } from "next-auth"
 

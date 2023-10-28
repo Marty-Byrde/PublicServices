@@ -1,4 +1,5 @@
 import { v4 as uuidV4 } from "uuid"
+import { twMerge } from "tailwind-merge"
 
 export interface ResponsiveElementProps {
   isPending?: boolean
@@ -12,7 +13,7 @@ export interface ResponsiveElementProps {
   skeletonClassName?: string,
 }
 
-interface TextProps extends  ResponsiveElementProps{
+interface TextProps extends ResponsiveElementProps {
   content: string | string[],
   containerFullWidth?: boolean,
   title?: string,
@@ -30,13 +31,11 @@ export function Text(props: TextProps) {
 
   if (isPending) {
     const lines = []
-    const makeLine = () => (<div key={Math.random().toString()+'-text-skeleton'} className={`
-        ${skWidth || "w-48"}
-        ${skHeight || "h-2"}
-        ${skBackground || "bg-gray-200"}
-        ${skDarkBackground || "dark:bg-gray-500"}
-        
-        rounded-full ${skeletonClassName}`} />)
+    const makeLine = () => (
+      <div key={Math.random().toString() + '-text-skeleton'}
+           className={twMerge('w-48 h-2 bg-gray-200 dark:bg-gray-500 rounded-full', skeletonClassName, skWidth, skHeight, skBackground, skDarkBackground)}
+      />
+    )
 
     for (let i = 0; i < skLines; i++) {
       lines.push(makeLine())
@@ -50,7 +49,7 @@ export function Text(props: TextProps) {
   }
 
   return (
-    <div className={`${textSize || "text-lg"} ${color || "text-black"} ${darkColor || "dark:text-white"} ${className ?? ""}`} title={title}>
+    <div title={title} className={twMerge('text-lg text-gray-900 dark:text-gray-200', className, textSize, color, darkColor)}>
       {content}
     </div>
   )

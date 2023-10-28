@@ -1,12 +1,11 @@
-import ColorModeSwitcher from "@/app/(components)/ColorModeSwitcher"
+import ColorModeSwitcher from "@/app/(components)/root/Navigation/ColorModeSwitcher"
 import * as React from "react"
-import SessionProfile from "@/app/(components)/Navigation/SessionProfile"
-import ClickableCategory, { ClickableCategoryProps, Item } from "@/app/(components)/Menu/ExpandableMenu"
-import MobileNavbarProvider from "@/app/(components)/Navigation/Mobile/MobileNavbarProvider"
-import MobileNavigationBar from "@/app/(components)/Navigation/Mobile/MobileNavigation"
-import HamburgerMenu from "@/app/(components)/Navigation/Mobile/HamburgerMenu"
+import SessionProfile from "@/app/(components)/root/Navigation/SessionProfile"
+import ClickableCategory, { ClickableCategoryProps, Item } from "@/components/Shared/Menu/ExpandableMenu"
+import MobileNavbarProvider from "@/app/(components)/root/Navigation/Mobile/MobileNavbarProvider"
+import MobileNavigationBar from "@/app/(components)/root/Navigation/Mobile/MobileNavigation"
+import HamburgerMenu from "@/app/(components)/root/Navigation/Mobile/HamburgerMenu"
 import { Session } from "next-auth"
-import { session } from "next-auth/core/routes"
 
 export interface NavigationBarProps {
   title: string,

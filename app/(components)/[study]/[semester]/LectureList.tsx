@@ -1,8 +1,7 @@
 'use client'
 
-import { LectureListItem } from "@/components/[semster]/LectureListItem"
+import { LectureListItem } from "@/components/[study]/[semester]/LectureListItem"
 import { useContext } from "react"
-import { LectureListContext } from "@/components/[semster]/LectureListProvider"
 import { BasicLecture } from "campus-scraper"
 import { FilterProviderContext, FilterProviderContextProps } from "@/components/Shared/Filtering/FilteringProvider"
 

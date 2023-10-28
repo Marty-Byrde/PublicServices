@@ -1,6 +1,6 @@
 import { Quiz } from "@/typings/kahoot/kahoot"
 import QuizQuestion from "@/components/kahoot/QuizQuestion"
-import { Text } from "@/components/ResponsiveTags/Text"
+import { Text } from "@/components/Shared/Responsive/Text"
 
 interface KahootAnswersProps {
   quiz: Quiz

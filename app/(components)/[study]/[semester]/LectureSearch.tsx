@@ -1,7 +1,6 @@
 'use client'
 import { SyntheticEvent, useContext, useEffect, useState } from "react"
 import { BasicLecture } from "campus-scraper"
-import { LectureListContext } from "@/components/[semster]/LectureListProvider"
 import { FilterProviderContext } from "@/components/Shared/Filtering/FilteringProvider"
 
 interface SearchProps {
@@ -50,6 +49,7 @@ const options: FilterOption[] = [
 
 
 export default function LectureSearch(){
+  //todo Add shortcut accessibility to the search-bar. (e.g. alt + i)
   const { items: initialLectures, filter: lectures, setFilter: setLectures }: {items: BasicLecture[], filter: BasicLecture[], setFilter: (prev: BasicLecture[]) => void} = useContext(FilterProviderContext)
 
   const [isOptionOpen, setIsOptionOpen] = useState(false)

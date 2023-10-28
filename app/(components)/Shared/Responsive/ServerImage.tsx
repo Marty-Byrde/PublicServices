@@ -1,4 +1,4 @@
-import { ResponsiveElementProps } from "@/app/(components)/ResponsiveTags/Text"
+import { ResponsiveElementProps } from "@/components/Shared/Responsive/Text"
 import Image from "next/image"
 import { StaticImageData } from "next/image"
 import defaultImage from "@/public/lectureIcons/star.svg"
