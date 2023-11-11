@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth"
 import { options } from "@/app/api/auth/[...nextauth]/options"
 import Pwa from "@/components/root/PWA/PWA"
 import { Metadata } from "next"
+import ToastBox from "@/components/Shared/Toast/ToastBox"
 
 export const metadata: Metadata = {
   title: {
@@ -75,6 +76,7 @@ export default async function RootLayout({ children, }: { children: React.ReactN
         </AuthProvider>
 
       <Pwa />
+      <ToastBox />
       </body>
     </html>
   )
