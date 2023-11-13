@@ -1,13 +1,15 @@
 import '@/public/globals.css'
 import React from "react"
-import { useColorModeValue } from "@/app/(components)/ColorModeHandler"
-import NavigationBar, { NavigationBarProps } from "@/app/(components)/Navigation/NavigationBar"
+import { useColorModeValue } from "@/app/(components)/root/ColorModeHandler"
+import NavigationBar, { NavigationBarProps } from "@/app/(components)/root/Navigation/NavigationBar"
 import AAULogo from "@/public/AAU_Logo.png"
-import AuthProvider from "@/app/(components)/Auth/AuthProvider"
+import KahootLogo from "@/public/Icons/Kahoot/kahoot_icon.jpg"
+import AuthProvider from "@/app/(components)/root/Auth/AuthProvider"
 import { getServerSession } from "next-auth"
 import { options } from "@/app/api/auth/[...nextauth]/options"
-import Pwa from "@/components/PWA/PWA"
+import Pwa from "@/components/root/PWA/PWA"
 import { Metadata } from "next"
+import ToastBox from "@/components/Shared/Toast/ToastBox"
 
 export const metadata: Metadata = {
   title: {
@@ -37,6 +39,11 @@ const navigationBarProps: NavigationBarProps = {
           href: '/lectures'
         }
       ]
+    },
+    {
+      label: "Kahoot",
+      image: KahootLogo,
+      href: "/kahoot"
     }
   ],
   session: null
@@ -75,6 +82,7 @@ export default async function RootLayout({ children, }: { children: React.ReactN
         </AuthProvider>
 
       <Pwa />
+      <ToastBox />
       </body>
     </html>
   )

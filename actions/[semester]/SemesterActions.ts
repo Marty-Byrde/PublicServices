@@ -1,6 +1,6 @@
 'use server'
 
-import useSessionData from "@/app/(components)/Auth/useSessionData"
+import useSessionData from "@/hooks/useSessionData"
 
 export async function updateSemesterSelection({ selection }: { selection: string }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks

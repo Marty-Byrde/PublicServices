@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import Link from "next/link"
-import { Text } from "@/components/ResponsiveTags/Text"
+import { Text } from "@/components/Shared/Responsive/Text"
 
 
 export interface TableCategory {

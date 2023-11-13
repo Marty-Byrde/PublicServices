@@ -1,5 +1,5 @@
 import { GetStudiesResponse } from "@/api/studies/route"
-import useSessionData from "@/components/Auth/useSessionData"
+import useSessionData from "@/hooks/useSessionData"
 import Generic_StudySelection_Display from "@/components/[study]/Generic_StudySelection_Display"
 
 export default async function Render_StudySelection(){

@@ -1,6 +1,6 @@
 import { Lecture } from "campus-scraper"
 import { Metadata } from "next"
-import LectureDetailsDisplay from "@/components/[semster]/[id]/LectureDetails"
+import LectureDetailsDisplay from "@/components/[study]/[semester]/[id]/LectureDetails"
 
 interface LectureDetailsProps {
   params: {
