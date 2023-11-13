@@ -35,7 +35,7 @@ export default function KahootQuizSearch() {
     <form onSubmit={onSubmit} className='max-w-md w-full'>
       <input defaultValue={searchQuery} type='text'
              onChange={onChange}
-             placeholder='d1851d1a-3376-42ce-bc3a-b344a112f971'
+             placeholder='Enter your value here...'
              className='px-4 py-2 dark:bg-neutral-700 ring-2 dark:ring-neutral-500 rounded-lg max-w-md w-full text-gray-700 dark:text-gray-200'/>
     </form>
   )
