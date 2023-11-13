@@ -16,7 +16,7 @@ export default function checkValidity({ quizId }: { quizId: string }): ValidQuiz
 
   // if(quizId.length !== length) return false;
   if (quizId.split("-").length !== sectionLenghts.length) return { valid: false, reason: "Missing ID Section (-)" };
-  if (quizId.split("-").filter((section: string, index: number) => sectionLenghts[index] !== section.length)) return {
+  if (quizId.split("-").filter((section: string, index: number) => sectionLenghts[index] !== section.length).length > 0) return {
     valid: false,
     reason: `Section is incomplete (${quizId.split('-').findIndex((section, index) => sectionLenghts[index] !== section.length)})`
   };
