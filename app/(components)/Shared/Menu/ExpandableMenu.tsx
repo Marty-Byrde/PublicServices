@@ -77,12 +77,12 @@ export default function ClickableCategory(args: ClickableCategoryProps) {
                   {item.image && <NextImage width={item.image.imageWidth ?? 20} height={item.image.imageHeight ?? 20} className='rounded-xl' src={item.image.src} alt='Navitem-Image'/>}
 
                   {item.label}
-                  <Icon
+                  {item.children && <Icon
                     as={ChevronDownIcon}
                     className={`group-hover/category:transform ${action === "hover" ? "group-hover/category:rotate-180" : `${isActive ? "rotate-180" : ""}`} transition-all duration-300 ease-in-out -ml-1`}
                     w={22}
                     h={22}
-                  />
+                  />}
                 </div>
               </Link>
             </PopoverTrigger>
