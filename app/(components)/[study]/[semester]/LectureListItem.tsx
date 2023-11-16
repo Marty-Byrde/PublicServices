@@ -2,7 +2,6 @@ import { BasicLecture } from "campus-scraper"
 import Link from "next/link"
 import { Text } from "@/components/Shared/Responsive/Text"
 import ServerImage from "@/components/Shared/Responsive/ServerImage"
-import User from "@/public/lectureIcons/user.svg"
 import SpeakerIcon from "@/components/Shared/Icons/SpeakerIcon"
 
 
