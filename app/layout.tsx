@@ -11,6 +11,7 @@ import Pwa from "@/components/root/PWA/PWA"
 import { Metadata } from "next"
 import ToastBox from "@/components/Shared/Toast/ToastBox"
 import KahootIcon from "@/components/Shared/Icons/KahootIcon"
+import UniversityIcon from "@/components/Shared/Icons/UniversityIcon"
 
 export const metadata: Metadata = {
   title: {
@@ -32,7 +33,7 @@ const navigationBarProps: NavigationBarProps = {
   items: [
     {
       label: 'University',
-      image: AAULogo,
+      image: { src: UniversityIcon({className: 'w-5 h-5 fill-amber-700 dark:fill-amber-300'}) },
       children: [
         {
           label: 'Open Lectures',
