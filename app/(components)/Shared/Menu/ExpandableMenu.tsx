@@ -1,5 +1,5 @@
 'use client'
-import { Icon, Link, Placement, Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react"
+import { Icon, Image, Link, Placement, Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react"
 import NextImage from "next/image"
 import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import * as React from "react"
@@ -74,7 +74,9 @@ export default function ClickableCategory(args: ClickableCategoryProps) {
             <PopoverTrigger>
               <Link className={twMerge('text-lg font-medium text-gray-600 dark:text-gray-200 hover:no-underline hover:text-gray-800 dark:hover:text-white', `${config?.styles?.categoryText?.size ?? ""} ${config?.styles?.categoryText?.color ?? ""} ${config?.styles?.categoryText?.darkColor ?? ""} ${config?.styles?.categoryText?.className ?? ""}`)} href={item.href ?? '#'}>
                 <div className='flex flex-row items-center gap-2'>
-                  {item.image && <NextImage width={item.image.imageWidth ?? 20} height={item.image.imageHeight ?? 20} className='rounded-xl' src={item.image.src} alt='Navitem-Image'/>}
+                  {item.image && typeof item.image.src === "string" && <NextImage width={item.image.imageWidth ?? 20} height={item.image.imageHeight ?? 20} className='rounded-xl' src={item.image.src} alt='Navitem-Image'/>}
+                  {item.image && typeof item.image.src === "object" && item.image.src}
+
 
                   {item.label}
                   {item.children && <Icon
