@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Text } from "@/components/Shared/Responsive/Text"
 import ServerImage from "@/components/Shared/Responsive/ServerImage"
 import User from "@/public/lectureIcons/user.svg"
+import SpeakerIcon from "@/components/Shared/Icons/SpeakerIcon"
 
 
 interface LectureListItemProps {
@@ -34,7 +35,7 @@ export function LectureListItem({ lecture, isPending, detailsHref }: LectureList
           <div className={`text-gray-600 dark:text-gray-400 font-semibold flex flex-col gap-x-4 gap-y-2 `}>
             {lecture?.teachers?.map(teacher => (
               <div key={teacher} className='flex flex-row flex-nowrap items-center gap-2'>
-                <ServerImage src={User}
+                <ServerImage src={SpeakerIcon({className: 'w-5 h-5 stroke-sky-700 dark:stroke-sky-600'})}
                              alt='user'
                              width={14}
                              isPending={false}
