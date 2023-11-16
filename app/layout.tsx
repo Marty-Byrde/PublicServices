@@ -10,6 +10,7 @@ import { options } from "@/app/api/auth/[...nextauth]/options"
 import Pwa from "@/components/root/PWA/PWA"
 import { Metadata } from "next"
 import ToastBox from "@/components/Shared/Toast/ToastBox"
+import KahootIcon from "@/components/Shared/Icons/KahootIcon"
 
 export const metadata: Metadata = {
   title: {
@@ -42,7 +43,7 @@ const navigationBarProps: NavigationBarProps = {
     },
     {
       label: "Kahoot",
-      image: KahootLogo,
+      image: { src: KahootIcon() },
       href: "/kahoot"
     }
   ],
