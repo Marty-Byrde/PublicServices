@@ -45,7 +45,9 @@ function MobileNavigationItem({ item, children }: { item: Item, children: Item[]
     <div className='flex flex-col gap-4' onClick={children && onToggle}>
       <a className='flex py-2 gap-2 items-center hover:no-underline' href={href ?? '#'}>
         <div className='flex gap-2 items-center'>
-          {image && <Image src={image.src} w={16} h={16} alt='Navigation-Item-Image'/>}
+          {image && typeof image.src === "string" && <Image src={image.src} w={16} h={16} alt='Navigation-Item-Image'/>}
+
+          {image && typeof image.src === "object" && image.src}
 
           <div className='font-semibold text-gray-600 dark:text-gray-200 '>
             {label}

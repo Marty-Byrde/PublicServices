@@ -2,14 +2,14 @@ import '@/public/globals.css'
 import React from "react"
 import { useColorModeValue } from "@/app/(components)/root/ColorModeHandler"
 import NavigationBar, { NavigationBarProps } from "@/app/(components)/root/Navigation/NavigationBar"
-import AAULogo from "@/public/AAU_Logo.png"
-import KahootLogo from "@/public/Icons/Kahoot/kahoot_icon.jpg"
 import AuthProvider from "@/app/(components)/root/Auth/AuthProvider"
 import { getServerSession } from "next-auth"
 import { options } from "@/app/api/auth/[...nextauth]/options"
 import Pwa from "@/components/root/PWA/PWA"
 import { Metadata } from "next"
 import ToastBox from "@/components/Shared/Toast/ToastBox"
+import KahootIcon from "@/components/Shared/Icons/KahootIcon"
+import UniversityIcon from "@/components/Shared/Icons/UniversityIcon"
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +31,7 @@ const navigationBarProps: NavigationBarProps = {
   items: [
     {
       label: 'University',
-      image: AAULogo,
+      image: { src: UniversityIcon({className: 'w-5 h-5 fill-amber-700 dark:fill-amber-300'}) },
       children: [
         {
           label: 'Open Lectures',
@@ -42,7 +42,7 @@ const navigationBarProps: NavigationBarProps = {
     },
     {
       label: "Kahoot",
-      image: KahootLogo,
+      image: { src: KahootIcon() },
       href: "/kahoot"
     }
   ],
